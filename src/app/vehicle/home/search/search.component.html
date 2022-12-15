@@ -1,0 +1,253 @@
+
+<section class=" text-white font-Inter flex flex-col justify-center py-20 xl:py-0 px-5 md:px-10 bg-center bg-no-repeat bg-cover xl:h-[540px]" [ngStyle]="{'background-image': 'url(' + banner + ')'}">
+    <div class="text-xs text-center">
+        <p class="font-medium">{{'PropertyPage.Banner.SubHeading' | translate}}</p>
+        <h1 class="font-bold text-xl xl:text-2xl">{{'HomePage.Car' | translate}}</h1>
+    </div>
+
+    <div class="bg-white rounded-md lg:w-[65%] xl:w-[50%] mx-auto">
+        <div class="flex items-end mx-5 pt-2">
+            <div class="w-[95%] mx-auto lg:w-[85%] lg:pr-3 relative">
+                <label for="cites" class="text-[#191919] text-[11px] font-Inter uppercase font-semibold">
+                    {{'PropertyPage.Search.Location' | translate}}
+                </label>
+                <input type="search" name="Location" #LocationField 
+                placeholder="{{ 'PlaceYourAddPage.InputLocation' | translate}}"
+                class="border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[rgb(152,152,152)] w-full text-xs pr-4 pl-0 bg-location-icon-bg bg-no-repeat bg-right cursor-pointer"
+                autocomplete="off"  (keyup)="LocationSearchFilter($event)" (click)="toggle($event)" (blur)="hideList($event)" [(ngModel)]="nameDisplaySearch">
+                <div class="absolute top-16 -left-1 zClass rounded-md w-[80%]" *ngIf="dropdownOpen">
+                    <div class="gk-height-search bg-white drop-shadow-md rounded-md flex flex-col" *ngIf="showSuggestion">
+                        <p class="text-[#191919] text-xs font-semibold pl-4 pt-3">
+                            {{'newFilterKey.Results' | translate}}
+                        </p>
+                        <div class="pl-4 my-2 flex {{!last? 'border-b': ''}} " *ngFor="let addressSuggestion of addressSuggestion; let last = last">
+                            <div>
+                                <fa-icon [icon]="faSearch" class="text-[#191919] text-[13px]"></fa-icon>
+                                <!-- <i class="fa-solid fa-search text-[#191919] text-[13px]"></i> -->
+                            </div>
+                            <div class="pl-2 text-start cursor-pointer pb-1" (mousedown)="GetLatLong(addressSuggestion.place_id,addressSuggestion.terms[0])">
+                                <p class="text-[#191919] font-bold text-[13px]">
+                                    {{addressSuggestion.structured_formatting.main_text}}
+                                </p>
+                                <p class="text-[11px] text-[#989898] font-Inter">
+                                    {{addressSuggestion.description}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-[15%] lg:flex justify-end hidden">
+                <button class="bg-gk-red rounded px-8 py-[10px] text-xs" (click)="GoToPropertyFilter()">
+                    {{'newFilterKey.Find' | translate}}
+                </button>
+            </div>
+        </div>
+        <div class="flex flex-col xl:flex-row mx-5 justify-between items-center pt-4" *ngIf="slectedAddress.length > 0">
+            <div class="xl:w-[30%]">
+                <p class="text-xs text-[#989898] font-medium text-center xl:text-left">{{'newFilterKey.Selectedlocations' |
+                    translate}}</p>
+            </div>
+            <div class="xl:w-[60%] flex xl:justify-end justify-center mt-2 xl:mt-0">
+                <div *ngFor="let data of slectedAddress; let i = index" class="">
+                    <div class="bg-[#0989B826] border border-[#0989B8] rounded-full flex items-center px-[6px]">
+                        <div>
+                            <p class="text-[11px] text-[#0989B8] font-medium py-1 pr-2 line-clamp-1">{{data.address}}</p>
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09" (click)="DeleteAddress(i,data.PlaceID)">
+                                <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="moreAddress.length > 0" class="relative ml-1 bg-[#0989B826] border border-[#0989B8] rounded-full flex items-center justify-between px-2">
+                    <p class="text-[11px] text-[#0989B8] font-medium py-1 pr-2 cursor-pointer" (click)="showMoreDD = true">
+                        +{{moreAddress.length}} More
+                    </p>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09" (click)="deleteMoreAllData()">
+                        <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                    </svg>
+                    <div class="absolute translate-x-[-75%] top-[35px] bottom-0 zClass2">
+                        <div class="bg-white shades w-[350px] p-3 rounded-md" *ngIf="showMoreDD">
+                            <div class="flex justify-end pb-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09" (click)="showMoreDD = false">
+                                    <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-wrap gaps">
+                                <div *ngFor="let Moredata of moreAddress; let i = index" class="pt-2">
+                                    <div class="bg-[#0989B826] border border-[#0989B8] rounded-full flex items-center px-[6px]">
+                                        <div>
+                                            <p class="text-[10px] text-[#0989B8] font-medium py-1 pr-2">{{Moredata.address}}</p>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09" (click)="DeleteMoreAddress(i,Moredata.PlaceID)">
+                                                <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap {{Language == 'ar'? 'flex-row-reverse': ''}} justify-between mx-auto xl:mx-4 py-4 w-[90%] lg:w-[95%]">
+            <div class="{{CategoryId != '' && CategoryId != undefined ? 'bg-[#0989B8]/20' : ''}} relative group border-2 border-gray-300 px-4 py-[0.4rem] rounded-md cursor-pointer w-[45%] lg:w-[23%] mt-3 lg:mt-0">
+                <div class="flex items-center justify-between {{Language == 'ar'? 'flex-row-reverse': ''}}">    
+                    <p class="text-[#191919] text-xs font-semibold">{{'newFilterKey.Categories' | translate}}</p>
+                    <fa-icon [icon]="faCaretDown" class=" text-[#191919]"></fa-icon>
+                </div>
+                <div class="absolute translate-x-[-20%] md:translate-x-[-30%] top-[40px] bottom-0 zClass">
+                    <div class="bg-white shadow-lg w-[250px] p-3 rounded-md hidden group-hover:block">
+                        <h1 class="{{Language == 'ar'?'text-right':''}} text-[#191919] font-bold text-xs pl-2 pb-4">
+                            {{'PropertyFilterPage.Categories' | translate}}
+                        </h1>
+                        <div class="flex flex-wrap">
+                            <div *ngFor="let categoryData of categoriesData" class="{{categoryData.isCheck? ActivatedClass : NonActivatedClass}} px-4 py-[10px] flex justify-center items-center rounded-[20px] mt-2 w-auto {{Language == 'ar'? 'mr-2': 'ml-2'}} hover:bg-[#0989B8] hover:text-white cursor-pointer">
+                                <span name="FuelType" class="text-[10px] font-Inter font-semibold" (click)="selectCategoryId(categoryData.id)">
+                                    {{categoryData.name}}
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-[#0989B8] text-[13px] font-Inter text-center pt-3 cursor-pointer" (click)="resetFilter('category')">
+                            {{'newFilterKey.RESET' | translate}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="{{PriceMin != '' || PriceMax != '' ? 'bg-[#0989B8]/20' : ''}} relative group border-2 mt-3 lg:mt-0 border-gray-300 px-4 py-[0.4rem] rounded-md cursor-pointer w-[45%] lg:w-[23%]">
+                <div class="flex items-center justify-between {{Language == 'ar'? 'flex-row-reverse': ''}}">    
+                    <p class="text-[#191919] text-xs font-semibold">{{'PlaceYourAddPage.Price' | translate}}</p>
+                    <fa-icon [icon]="faCaretDown" class=" text-[#191919]"></fa-icon>
+                </div>
+                <div class="absolute translate-x-[-45%] md:translate-x-[-5%] lg:translate-x-[-30%] top-[40px] bottom-0 zClass">
+                    <div class="bg-white shadow-lg w-[250px] p-3 rounded-md hidden group-hover:block">
+                        <h1 class="{{Language == 'ar'?'text-right':''}} text-[#191919] font-bold text-xs px-2 pb-2">
+                            {{'PlaceYourAddPage.Price' | translate}}
+                        </h1>
+                        <div class="px-2 {{Language == 'ar'? 'text-right': ''}}">
+                            <label for=""
+                                class="text-[#191919] font-semibold font-Inter text-xs">{{'PropertyFilterPage.SizeRange'
+                                | translate}}</label>
+                            <div class="flex {{Language == 'ar'?'flex-row-reverse':''}}">
+                                <div class="xl:w-[50%] {{Language == 'ar'?'pl-1':'pr-1'}}">
+                                    <input type="number" min="1" ngModel name="min" id="min" required #priceMin
+                                        placeholder="{{'PropertyFilterPage.Min' | translate}}"
+                                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b w-full border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                                        (keypress)='restrictAlphabets($event)' (change)="ExtraFilters($event)">
+                                </div>
+                                <div class="xl:w-[50%] {{Language == 'ar'?'pr-1':'pl-1'}}">
+                                    <input type="number" min="1" ngModel name="max" id="max" required #priceMax
+                                        placeholder="{{'PropertyFilterPage.Max' | translate}}"
+                                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b w-full border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                                        (keypress)='restrictAlphabets($event)' (change)="ExtraFilters($event)">
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-[#0989B8] text-[13px] font-Inter text-center pt-3 cursor-pointer" (click)="resetFilter('price')">
+                            {{'newFilterKey.RESET' | translate}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="{{Make_sel != '' || Model_sel != '' || bodyTypes_sel != '' ? 'bg-[#0989B8]/20' : ''}} relative group border-2 mt-3 lg:mt-0 border-gray-300 px-4 py-[0.4rem] rounded-md cursor-pointer w-[45%] lg:w-[23%]">
+                <div class="flex items-center justify-between {{Language == 'ar'? 'flex-row-reverse': ''}}">    
+                    <p class="text-[#191919] text-xs font-semibold">{{'newFilterKey.MakeModel' | translate}}</p>
+                    <fa-icon [icon]="faCaretDown" class=" text-[#191919]"></fa-icon>
+                </div>
+                <div class="absolute translate-x-[-10%] lg:translate-x-[-40%] top-[40px] bottom-0 zClass">
+                    
+                    <div class="bg-white shadow-lg w-[260px] p-3 rounded-md hidden group-hover:block"> 
+                        <p class="text-[#191919] text-xs font-Inter font-semibold px-2 pb-2 {{Language == 'ar'? 'text-right': ''}}">
+                            {{'newFilterKey.MakeModel' | translate}}</p>
+                        <div class="flex flex-col px-2 pt-2">
+                            <label for=""
+                                class="font-semibold text-[#191919] {{Language == 'ar'? 'text-right': ''}} font-Inter text-xs">{{'PropertyFilterPage.Make'
+                                | translate}}</label>
+                            <select
+                                class="{{Language == 'ar'? 'text-right pr-3': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0"
+                                id="Make" ngModel name="Make" required #MakeDD
+                                (change)="FetchMakeByModel(MakeField.value);ExtraFilters($event);" #MakeField="ngModel"
+                                ngModel>
+                                <option value="" hidden>{{'PlaceYourAddPage.SelectMake' | translate}}</option>
+                                <option *ngFor="let Make of Make" value="{{Make.id}}" name="Make">{{Make.name}}</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col px-2 pt-3" *ngIf="Model.length>0">
+                            <label for=""
+                                class="font-semibold text-[#191919] {{Language == 'ar'? 'text-right': ''}} font-Inter text-xs">{{'PropertyFilterPage.Model'
+                                | translate}}</label>
+                            <select
+                                class="{{Language == 'ar'? 'text-right pr-3': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0"
+                                ngModel name="Model" id="Model" #ModelField="ngModel" required
+                                (change)="ExtraFilters($event)" #ModelDD>
+                                <option value="" hidden>{{'PlaceYourAddPage.SelectModel' | translate}}</option>
+                                <option *ngFor="let Model of Model" value="{{Model.id}}" name="Model">{{Model.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col px-2 pt-3">
+                            <label for=""
+                                class="font-semibold text-[#191919] font-Inter {{Language == 'ar'? 'text-right': ''}} text-xs">{{'PropertyFilterPage.BodyType'
+                                | translate}}</label>
+                            <select
+                                class="{{Language == 'ar'? 'text-right pr-3': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0"
+                                id="bodyTypes" ngModel name="bodyTypes" required (change)="ExtraFilters($event)" #bodyType>
+                                <option value="" class="">{{ "PropertyFilterPage.SelectBodyType" | translate}}</option>
+                                <option *ngFor="let bodyTypes of bodyTypes" value="{{bodyTypes.id}}">
+                                    {{bodyTypes.name}}</option>
+                            </select>
+                        </div>
+                        <p class="text-[#0989B8] text-[13px] font-Inter text-center pt-3 cursor-pointer" (click)="resetFilter('makeModel')">
+                            {{'newFilterKey.RESET' | translate}}
+                        </p>
+                    </div>
+                </div>
+            </div> 
+            <div class="{{engineMin_sel != '' || engineMax_sel != '' ? 'bg-[#0989B8]/20' : ''}} relative group border-2 mt-3 lg:mt-0 border-gray-300 px-4 py-[0.4rem] rounded-md cursor-pointer w-[45%] lg:w-[23%]">
+                <div class="flex items-center justify-between {{Language == 'ar'? 'flex-row-reverse': ''}}">    
+                    <p class="text-[#191919] text-xs font-semibold">
+                        {{'newFilterKey.Engine' | translate}}
+                    </p>
+                    <fa-icon [icon]="faCaretDown" class=" text-[#191919]"></fa-icon>
+                </div>
+                <div class="absolute translate-x-[-45%] md:translate-x-[-22%] lg:translate-x-[-40%] top-[40px] bottom-0 zClass">
+                    
+                    <div class="bg-white shadow-lg w-[260px] p-3 rounded-md hidden group-hover:block"> 
+                        <div class="flex flex-col px-2 py-2">
+                            <label for=""
+                                class="font-semibold text-[#191919] {{Language == 'ar'? 'text-right': ''}} font-Inter text-xs">{{'PropertyFilterPage.Engine'
+                                | translate}}</label>
+                            <div class="flex {{ Language=='ar'?'flex-row-reverse':''}} pt-1">
+                                <div class="xl:w-[50%] {{ Language=='ar'?'pl-1':'pr-1'}} ">
+                                    <input type="number" min="1" id="engineMin" (change)="ExtraFilters($event)" #engineMin
+                                        placeholder="{{'PropertyFilterPage.Min' | translate}}"
+                                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b w-full border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                                        (keypress)='restrictAlphabets($event)'>
+                                </div>
+                                <div class="xl:w-[50%] {{ Language=='ar'?'pr-1':'pl-1'}}">
+                                    <input type="number" min="1" id="engineMax" (change)="ExtraFilters($event)" #engineMax
+                                        placeholder="{{'PropertyFilterPage.Max' | translate}}"
+                                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b w-full border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                                        (keypress)='restrictAlphabets($event)'>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-[#0989B8] text-[13px] font-Inter text-center pt-3 cursor-pointer" (click)="resetFilter('engine')">
+                            {{'newFilterKey.RESET' | translate}}
+                        </p>
+                    </div>
+                </div>
+            </div> 
+            <div class="lg:hidden pt-4">
+                <button class="bg-gk-red rounded px-8 py-[10px] text-xs" (click)="GoToPropertyFilter()">
+                    {{'newFilterKey.Find' | translate}}
+                </button>
+            </div>
+        </div>     
+    </div>
+</section>

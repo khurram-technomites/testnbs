@@ -1,0 +1,17 @@
+<section class="bg-[#F6F8F9]">
+    <div class="flex items-center justify-center pt-10">
+        <fa-icon [icon]="faCircle" class="text-gk-red"></fa-icon>
+        <div class="bg-gray-400 w-2 h-1">
+        </div>
+        <fa-icon [icon]="faCircle" class="text-gray-400"></fa-icon>
+        <div class="bg-gray-400 w-2 h-1">
+        </div>
+        <fa-icon [icon]="faCircle" class="text-gray-400"></fa-icon>
+    </div>
+    <div class="flex flex-col items-center">
+        <h1 class="font-Inter font-bold text-xl my-4">{{ "PlaceYourAddPage.listing" | translate}}</h1>
+        <p class="font-Inter text-xs ">{{ "PlaceYourAddPage.Selectopt1" | translate}}</p>
+    </div>
+
+    <subnavigation [condition]="'placeYourAdd'"></subnavigation>
+</section>

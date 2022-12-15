@@ -1,0 +1,25 @@
+<!-- skeleton loading start -->
+<section class="w-[80%] mx-auto pt-10 flex" *ngIf="!contentLoaded">
+    <div class="w-[40%] {{!isLast? 'mr-4':''}}" *ngFor='let in of counterForLoading(4) ;let isLast = last'>
+      <app-skeleton-loader [loaderName]="'gridCard'"></app-skeleton-loader>
+    </div>
+  </section>
+  <!-- skeleton loading end -->
+  
+  <section *ngIf="contentLoaded">
+    <div class="font-Inter flex flex-col items-center pt-10 mb-5 md:mb-10 ">
+      <app-text-component [inputText]="componentName == 'homeSection'?'Blog.Blog': 'PropertyPage.FromOurBlog.MainHeading1'" [customClass]="'font-bold text-xl mt-5 2xl:text-4xl'" [condition]="'heading'"></app-text-component>
+      <app-text-component [inputText]="componentName == 'homeSection'?'Blog.BlogTag': 'PropertyPage.FromOurBlog.Explore1'" [customClass]="'2xl:text-base text-xs text-[#989898]'" [condition]="'paragraph'"></app-text-component>
+      <app-text-component *ngIf="componentName == 'homeSection'" routerLink="/blogs" [inputText]="'Blog.ViewAll'" [customClass]="'text-xs uppercase pt-1 text-gk-red font-semibold cursor-pointer 2xl:text-base'" [condition]="'paragraph'"></app-text-component>
+    </div>
+  
+    <div class="px-5 sm:flex sm:flex-wrap md:justify-center">
+      <div class="{{(newsfeeds.length === 1) ? 'w-[80%] md:w-[40%] lg:w-[30%] xl:w-[18%]': (newsfeeds.length === 2) ? 'w-[80%] lg:w-[60%] xl:w-[40%]' : (newsfeeds.length === 3) ? 'w-[80%] xl:w-[60%]' : 'w-[80%] xl:w-[80%]'}} mx-auto" id="gk-blog-owl">
+          <owl-carousel-o [options]="customOptions">
+              <ng-template carouselSlide *ngFor="let newsfeed of newsfeeds">
+                  <app-blog-card [newsfeed]="newsfeed" [customClass]="'font-Inter cursor-pointer border border-gray-300 bg-white/20 hover:shadow-md h-[19rem] bg-no-repeat bg-cover rounded-xl'"></app-blog-card>
+              </ng-template>
+          </owl-carousel-o>
+      </div>
+    </div>
+  </section>

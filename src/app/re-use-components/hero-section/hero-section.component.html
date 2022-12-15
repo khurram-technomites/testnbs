@@ -1,0 +1,18 @@
+<section>
+    <div class="{{customClass}}">
+        <h1 class="{{customClass2}}">{{heroSectionData.heading | translate}}</h1>
+        <div class="flex {{Language == 'ar' ? 'flex-row-reverse': ''}}">
+            <a routerLink="{{heroSectionData.route1}}" class="cursor-pointer">
+                <p>{{heroSectionData.breadCrumbs1 | translate}}</p>
+            </a>
+            <p class="mx-2">/</p>
+            <a routerLink="{{heroSectionData.route2}}" class="cursor-pointer">
+                <p>{{heroSectionData.breadCrumbs2 | translate}}</p>
+            </a>
+            <p class="mx-2" *ngIf="heroSectionData.thirdCondition">/</p>
+            <a *ngIf="heroSectionData.thirdCondition" class="cursor-pointer">
+                <p>{{heroSectionData.breadCrumbs3 | translate}}</p>
+            </a>
+        </div>
+    </div>
+</section>

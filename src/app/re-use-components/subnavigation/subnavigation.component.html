@@ -1,0 +1,28 @@
+<section>
+    <div class="xl:flex xl:justify-center">
+        <a class="my-10 cursor-pointer" (click)="onCLickRoute('Rent')">
+            <div
+                class="bg-property-for-rent bg-no-repeat flex justify-center items-center mx-5 my-10 py-20 bg-bottom border bg-white shadow-lg rounded md:mx-36 lg:mx-72 xl:mx-4 xl:px-14 xl:py-10">
+                <img src="./assets/images/property-for-rent.png" alt=""
+                    onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" class="mr-2 w-24">
+                <h1 class="font-Inter text-xl font-bold">{{"PlaceYourAddPage.PropertyforRent" | translate}} </h1>
+            </div>
+        </a>
+        <a (click)="onCLickRoute('Sale')" class="my-10 cursor-pointer">
+            <div
+                class="bg-property-for-rent bg-no-repeat flex justify-center items-center mx-5 my-10 py-20 bg-bottom border bg-white shadow-lg rounded md:mx-36 lg:mx-72 xl:mx-4 xl:px-14 xl:py-10">
+                <img src="./assets/images/property-for-sale.png" alt=""
+                    onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" class="mr-2 w-24">
+                <h1 class="font-Inter text-xl font-bold">{{"PlaceYourAddPage.PropertyforSale" | translate}}</h1>
+            </div>
+        </a>
+        <a (click)="onCLickRoute('Car')" class="my-10 cursor-pointer">
+            <div
+                class="bg-motor-for-rent bg-no-repeat flex justify-center items-center mx-5 my-10 py-20 bg-bottom border bg-white shadow-lg rounded md:mx-36 lg:mx-72 xl:mx-4 xl:px-14 xl:py-10">
+                <img src="./assets/images/motor-for-rent-icon.png" alt=""
+                    onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" class="mr-2 w-24">
+                <h1 class="font-Inter text-xl font-bold">{{"PlaceYourAddPage.MotorsforSales" | translate}}</h1>
+            </div>
+        </a>
+    </div>
+</section>

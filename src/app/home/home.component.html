@@ -1,0 +1,36 @@
+<div class="max-w-screen-2xl 2xl:mx-auto">
+    <app-home-hero></app-home-hero>
+
+    <div class="bg-white">
+        <subnavigation [condition]="'Home'"></subnavigation>
+    </div>
+
+    <div class="bg-white">
+        <vehicle-featuredlisting [MainHeading]="VehicleMainHeading" [SubHeading]="VehicleSubHeading" [condition]="'w-[80%]  xl:w-[40%]'">
+        </vehicle-featuredlisting>
+    </div>
+    <div class="bg-white pb-16">
+        <app-propertiesthumbnail [MainHeading]="MainHeading" [SubHeading]="SubHeading"></app-propertiesthumbnail>
+    </div>
+    <div class="bg-white ">
+        <div class="w-[80%] mx-auto flex flex-col justify-center bg-[url('./assets/images/asd_compressed1.jpg')] bg-no-repeat xl:bg-cover bg-[length:100%_100%] xl:bg-[bottom_right_-4rem] rounded">
+            <div class="flex flex-col justify-center xl:py-[25px] py-6 pl-6 xl:pl-10">
+                <h4 class="font-Inter text-xl font-bold xl:text-2xl 2xl:text-[34px]">{{'VendorHome.Vendor' | translate}}</h4>
+                <app-text-component [inputText]="'VendorHome.Paragraph'" [customClass]="'font-Inter text-xs 2xl:text-base pr-2 w-[40%] lg:w-[27%] text-[#191919]/80 pt-2'" [condition]="'paragraph'"></app-text-component>
+                <button (click)="LoginSignUp('SignUpVendor')" class="bg-gk-red px-4 text-[#FFFFFF] py-2 w-28 xl:w-24 xl:h-10 mt-4 rounded font-Inter text-xs">
+                    {{'VendorHome.Singup' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+        
+    <app-login [LoginAndSingupPopup]="LoginAndSingupPopup" [form]="form" [activeLogin]="activeLogin"
+    [activeSignup]="activeSignup" (popUpChanged)="popUpChangedHandler($event)" (logedIn)="logedInHandler($event)"
+    *ngIf="LoginAndSingupPopup" [backRouter]="backRouter"></app-login>
+    <div class="bg-white md:pb-16">
+        <app-app-blogs-thumbnail [componentName]="'homeSection'"></app-app-blogs-thumbnail>
+    </div>
+    <app-download-apps></app-download-apps>
+    <app-why-choose-us></app-why-choose-us>
+
+</div>

@@ -1,0 +1,8 @@
+.prefix {
+    position: relative;
+}
+  
+input.has-prefix {
+    padding-left: 32px;
+    margin-left: -29px;
+}

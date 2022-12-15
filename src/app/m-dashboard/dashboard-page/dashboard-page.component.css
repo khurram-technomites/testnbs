@@ -1,0 +1,14 @@
+.hoverDiv:hover
+{
+    background: #0989B8;
+    color: white!important;
+    
+}
+
+.hoverDiv:hover .hoverText, .hoverDiv:hover .hoverIcon
+{
+    color: white!important;
+}
+
+
+

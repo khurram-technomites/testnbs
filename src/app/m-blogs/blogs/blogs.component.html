@@ -1,0 +1,49 @@
+<app-hero-section [heroSectionData]="heroData" [customClass]="'bg-blogs-bg bg-cover font-Inter text-xs text-white py-20 flex flex-col justify-center items-center xl:py-32'" [customClass2]="'text-xl font-FivoSans 2xl:text-4xl'"></app-hero-section>
+
+<div *ngIf="!loadContent" class="flex justify-center my-10 xl:hidden">
+    <svg class="animate-spin h-9 w-9 text-gk-red" fill="none"
+        viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+        </circle>
+        <path class="opacity-75" fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+        </path>
+    </svg>
+</div>
+
+<div class="w-[90%] mx-auto mt-14 hidden xl:flex" *ngIf="!loadContent">
+    <div class="xl:w-[23%] relative ml-5" *ngFor='let in of counterForLoading(4) ;let i = index'>
+        <div>
+            <ngx-skeleton-loader [theme]="{ height: '350px', 'background-color': '#c8cbd3'}"></ngx-skeleton-loader>
+        </div>
+        <div class="absolute left-3 right-0 bottom-36 h-4 w-20">
+            <ngx-skeleton-loader [theme]="{ height: '25px'}"></ngx-skeleton-loader>
+        </div>
+        <div class="absolute left-0 right-0 bottom-24 h-4 w-[90%] mx-auto">
+            <ngx-skeleton-loader [theme]="{ height: '18px'}"></ngx-skeleton-loader>
+        </div>
+        <div class="absolute left-3 right-0 bottom-16 h-4 w-[90%]">
+            <ngx-skeleton-loader [theme]="{ height: '18px'}"></ngx-skeleton-loader>
+        </div>
+        <div class="absolute left-3 right-0 bottom-8 h-4 w-[90%]">
+            <ngx-skeleton-loader [theme]="{ height: '18px'}"></ngx-skeleton-loader>
+        </div>
+    </div>
+</div>
+<section class="xl:mb-16">
+    <div class="font-Inter flex flex-col items-center mt-10 mb-5 md:mb-10">
+    </div>
+    <div class="px-5 sm:flex sm:flex-wrap md:justify-center">
+        <div class="flex flex-wrap justify-center w-[90%] mx-auto" *ngIf="loadContent">
+            <div *ngFor="let newsfeed of newsfeeds" class="font-Inter flex justify-center w-[80%] sm:w-[45%] mb-3 sm:mx-2 md:mb-6 xl:w-[17%]">
+                <app-blog-card [newsfeed]="newsfeed" [customClass]="'h-[19rem] rounded-xl'"></app-blog-card>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="flex justify-center items-center mb-10">
+    <button
+        class="bg-gk-red text-white px-4 rounded py-2 cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed"
+        (click)="LoadMore()" [disabled]="disbalebtn">{{"Blog.LoadMore" | translate}}</button>
+</section>

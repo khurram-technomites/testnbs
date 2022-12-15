@@ -1,0 +1,1168 @@
+<section>
+    <div class="text-center py-10">
+        <h1 class="font-Inter font-bold text-[#191919] text-[23px]">{{"comparison.Compare" | translate}}</h1>
+        <p class="font-Inter font-medium text-[#989898] text-[13px]" *ngIf="firstDataLoad && secondDataLoad">
+            {{FirstcardData.title}} with {{secondCardData.title}}
+        </p>
+    </div>
+    <div class="w-[70%] flex mx-auto col-gap" *ngIf="!firstDataLoad && !secondDataLoad">
+        <div class="w-[45%]" >
+            <ngx-skeleton-loader [theme]="{ height: '350px'}">
+            </ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="{width: '80px', height: '30px', 'background-color': '#c8cbd3'}">
+            </ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="{ height: '20px'}">
+            </ngx-skeleton-loader>
+            <div class="flex">
+                <div>
+                    <ngx-skeleton-loader [theme]="{width: '350px', height: '20px'}">
+                    </ngx-skeleton-loader>
+                    <ngx-skeleton-loader [theme]="{width: '330px', height: '20px'}">
+                    </ngx-skeleton-loader>
+                </div>
+                <div>
+                    <ngx-skeleton-loader appearance="circle"
+                        [theme]="{ width: '40px', height: '40px', 'background-color': '#c8cbd3'}">
+                    </ngx-skeleton-loader>
+                </div>
+            </div>
+            <div class="flex items-end justify-between">
+                <div>
+                    <ngx-skeleton-loader appearance="circle"
+                    [theme]="{ width: '40px', height: '40px', 'background-color': '#c8cbd3'}">
+                    </ngx-skeleton-loader>
+                    <ngx-skeleton-loader appearance="circle"
+                        [theme]="{ width: '40px', height: '40px', 'background-color': '#c8cbd3'}">
+                    </ngx-skeleton-loader>
+                    <ngx-skeleton-loader appearance="circle"
+                        [theme]="{ width: '40px', height: '40px', 'background-color': '#c8cbd3'}">
+                    </ngx-skeleton-loader>
+                </div>
+                <div>
+                    <ngx-skeleton-loader [theme]="{width: '100px', height: '25px'}">
+                    </ngx-skeleton-loader>
+                </div>
+            </div>
+            <ngx-skeleton-loader [theme]="{ height: '20px'}">
+            </ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="{width: '350px', height: '20px'}">
+            </ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="{width: '330px', height: '20px'}">
+            </ngx-skeleton-loader>
+        </div>
+        <div class="relative w-[45%]">
+            <ngx-skeleton-loader [theme]="{ height: '350px'}">
+            </ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="{width: '80px', height: '30px', 'background-color': '#c8cbd3'}">
+            </ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="{ height: '20px'}">
+            </ngx-skeleton-loader>
+            <div class="flex">
+                <div>
+                    <ngx-skeleton-loader [theme]="{width: '350px', height: '20px'}">
+                    </ngx-skeleton-loader>
+                    <ngx-skeleton-loader [theme]="{width: '330px', height: '20px'}">
+                    </ngx-skeleton-loader>
+                </div>
+                <div>
+                    <ngx-skeleton-loader appearance="circle"
+                        [theme]="{ width: '40px', height: '40px', 'background-color': '#c8cbd3'}">
+                    </ngx-skeleton-loader>
+                </div>
+            </div>
+            <div class="flex items-end justify-between">
+                <div>
+                    <ngx-skeleton-loader appearance="circle"
+                    [theme]="{ width: '40px', height: '40px', 'background-color': '#c8cbd3'}">
+                    </ngx-skeleton-loader>
+                    <ngx-skeleton-loader appearance="circle"
+                        [theme]="{ width: '40px', height: '40px', 'background-color': '#c8cbd3'}">
+                    </ngx-skeleton-loader>
+                    <ngx-skeleton-loader appearance="circle"
+                        [theme]="{ width: '40px', height: '40px', 'background-color': '#c8cbd3'}">
+                    </ngx-skeleton-loader>
+                </div>
+                <div>
+                    <ngx-skeleton-loader [theme]="{width: '100px', height: '25px'}">
+                    </ngx-skeleton-loader>
+                </div>
+            </div>
+            <ngx-skeleton-loader [theme]="{ height: '20px'}">
+            </ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="{width: '350px', height: '20px'}">
+            </ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="{width: '330px', height: '20px'}">
+            </ngx-skeleton-loader>
+        </div>
+    </div>
+    <div class="w-[100%] md:w-[90%] xl:w-[70%] flex md:mx-auto gap-3 xl:gap-10"  *ngIf="firstDataLoad && secondDataLoad">
+       
+        <div class="w-[49%] md:w-[48%] xl:w-[45%]">
+            <div class="bg-white px-2 md:px-4 rounded-md pb-5">
+                <div class="pt-5" id="gk-compare">
+                    <owl-carousel-o [options]="customOptions">
+                        <ng-template carouselSlide *ngFor="let imgData of FirstcardData.images">
+                            <div class="">
+                                <img src="{{imgData}}" alt=""
+                                onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" class="rounded-lg xl:h-[400px] h-[300px] object-cover"> 
+                            </div>
+                        </ng-template>
+                    </owl-carousel-o>
+                </div>
+                <div class="flex my-4 {{Language=='ar'?'flex-row-reverse':''}}">
+                    <p *ngIf="FirstcardData.isFeatured" class=" bg-[#0061DF] px-2 py-1 text-white uppercase rounded flex justify-center items-center text-[10px]">
+                        {{"PropertyDetailPage.Featured" | translate}}
+                    </p>
+                    <p *ngIf="type == 'property'" class=" bg-[#0D263B] px-2 py-1 ml-3 text-white uppercase rounded flex justify-center items-center text-[10px]">
+                        {{FirstcardData.status}}
+                    </p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center {{Language=='ar'?'md:flex-row-reverse':''}}">
+                    <div class="md:w-[60%] {{Language=='ar'?'md:text-right':''}}">
+                        <h1 class="font-Inter font-bold text-[#191919] text-[13px] xl:text-xl cursor-pointer" (click)="openDetailPage(FirstcardData.slug)">{{FirstcardData.title}}</h1>
+                        <p class="text-[11px] text-[#191919]/80 font-Inter font-medium line-clamp-1">
+                            {{FirstcardData.address}}
+                        </p>
+                    </div>
+                    <div class="w-[100%] md:w-[40%] flex {{Language=='ar'?'':'justify-end'}}">
+                        <img src="../../assets/images/verify-img.png" alt="" class="w-[110px] h-[31px] mr-1" *ngIf="FirstcardData.isVerified">
+                        <img routerLink="/vendor/list" [queryParams]="{VendorId: FirstcardData.vendorID}" src="{{FirstcardData.vendorThumbnail}}" alt="" class="w-9 h-9 rounded-full object-cover shadow-md bg-white cursor-pointer">
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row my-3 {{Language=='ar'?'md:flex-row-reverse':''}}">
+                    <div class="md:w-[55%] hidden md:flex {{Language=='ar'?'md:justify-end':''}}">
+                        <div class="flex items-center">
+                            <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                                <svg *ngIf="type == 'property'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.25 9.75" class="w-3">
+                                    <path id="Path_1795" data-name="Path 1795" d="M-3.859-3.656A2.237,2.237,0,0,0-1.625-5.891,2.237,2.237,0,0,0-3.859-8.125,2.237,2.237,0,0,0-6.094-5.891,2.237,2.237,0,0,0-3.859-3.656Zm0-3.25A1.017,1.017,0,0,1-2.844-5.891,1.017,1.017,0,0,1-3.859-4.875,1.017,1.017,0,0,1-4.875-5.891,1.017,1.017,0,0,1-3.859-6.906ZM5.281-8.125H-.406a.406.406,0,0,0-.406.406v4.875H-6.906v-6.5a.406.406,0,0,0-.406-.406h-.406a.406.406,0,0,0-.406.406V-.406A.406.406,0,0,0-7.719,0h.406a.406.406,0,0,0,.406-.406V-1.625H6.906V-.406A.406.406,0,0,0,7.313,0h.406a.406.406,0,0,0,.406-.406V-5.281A2.844,2.844,0,0,0,5.281-8.125ZM6.906-2.844H.406V-6.906H5.281A1.627,1.627,0,0,1,6.906-5.281Z" transform="translate(8.125 9.75)" fill="#fff"/>
+                                </svg>
+                                <svg viewBox="0 0 15.961 16.469" class="w-3" *ngIf="type == 'motors'">
+                                    <path id="auto"
+                                        d="M6.525-7.006l1.057-.61a.8.8,0,0,0,.371-.9,8.22,8.22,0,0,0-2.127-3.679.8.8,0,0,0-.962-.127l-1.055.61a7.845,7.845,0,0,0-1.092-.632v-1.22a.841.841,0,0,0-.592-.771,8.287,8.287,0,0,0-4.248,0,.8.8,0,0,0-.592.771v1.22a7.845,7.845,0,0,0-1.092.632l-1.055-.61a.8.8,0,0,0-.962.127A8.22,8.22,0,0,0-7.953-8.514a.8.8,0,0,0,.371.9l1.057.61c-.017.174-.03.456-.03.631s.014.457.03.631l-1.057.61a.8.8,0,0,0-.371.9A8.22,8.22,0,0,0-5.826-.557a.8.8,0,0,0,.962.127l1.055-.61a7.845,7.845,0,0,0,1.092.632V.812a.841.841,0,0,0,.592.771,8.287,8.287,0,0,0,4.248,0A.8.8,0,0,0,2.716.812V-.408A7.845,7.845,0,0,0,3.809-1.04l1.055.61a.8.8,0,0,0,.962-.127A8.22,8.22,0,0,0,7.953-4.236a.8.8,0,0,0-.371-.9l-1.057-.61A6.561,6.561,0,0,0,6.525-7.006ZM4.776-4.913l1.455.84A7.95,7.95,0,0,1,5.107-2.13l-1.455-.84A5.656,5.656,0,0,1,1.123-1.509V.171A8.04,8.04,0,0,1,0,.266a8.04,8.04,0,0,1-1.123-.1v-1.68A5.657,5.657,0,0,1-3.652-2.971l-1.455.84A7.951,7.951,0,0,1-6.231-4.074l1.455-.84a5.715,5.715,0,0,1,0-2.923l-1.455-.84A6.647,6.647,0,0,1-5.107-10.62l1.455.84a5.656,5.656,0,0,1,2.529-1.462v-1.68A8.04,8.04,0,0,1,0-13.016a8.04,8.04,0,0,1,1.123.1v1.68A5.657,5.657,0,0,1,3.652-9.779l1.455-.84A7.949,7.949,0,0,1,6.231-8.676l-1.455.84A5.714,5.714,0,0,1,4.776-4.913ZM0-9.562A3.191,3.191,0,0,0-3.187-6.375,3.191,3.191,0,0,0,0-3.187,3.191,3.191,0,0,0,3.188-6.375,3.191,3.191,0,0,0,0-9.562ZM0-4.781A1.6,1.6,0,0,1-1.594-6.375,1.6,1.6,0,0,1,0-7.969,1.6,1.6,0,0,1,1.594-6.375,1.6,1.6,0,0,1,0-4.781Z"
+                                        transform="translate(7.981 14.609)" fill="#fff" />
+                                </svg>
+                            </div>
+                            <div class="pl-1" >
+                                <app-text-component [inputText]="type == 'motors'? FirstcardData.transmission : (roomsNumber == '0' ? '-' : roomsNumber)" [customClass]="'font-bold text-[#191919] text-[13px]'" [condition]="'paragraph'"></app-text-component>
+                                <p class="font-inter text-[#191919]/70 text-[10px] line-clamp-1 pt-[-5px]" *ngIf="type == 'motors'">
+                                    {{"VehicleDetailPage.Gears" | translate}}
+                                </p>
+                                <p class="font-inter text-[#191919]/70 text-[10px] line-clamp-1 pt-[-5px]" *ngIf="type != 'motors'">
+                                    {{roomsName}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center ml-4">
+                            <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 14" class="w-3" *ngIf="type == 'property'">
+                                    <path id="Path_1793" data-name="Path 1793" d="M7.625-6H-5.5v-4.5a1,1,0,0,1,1-1,1,1,0,0,1,.844.465A2.124,2.124,0,0,0-3.442-8.44a.375.375,0,0,0,.015.513l.354.354a.375.375,0,0,0,.53,0l2.97-2.97a.375.375,0,0,0,0-.53l-.354-.354a.375.375,0,0,0-.513-.015,2.12,2.12,0,0,0-2.006-.48A2.5,2.5,0,0,0-4.5-13,2.5,2.5,0,0,0-7-10.5V-6h-.625A.375.375,0,0,0-8-5.625v.75a.375.375,0,0,0,.375.375H-7V-3A3,3,0,0,0-5.75-.563V.625A.375.375,0,0,0-5.375,1h.75A.375.375,0,0,0-4.25.625V-.01C-4.168,0-4.084,0-4,0H4c.084,0,.168,0,.25-.01V.625A.375.375,0,0,0,4.625,1h.75A.375.375,0,0,0,5.75.625V-.563A3,3,0,0,0,7-3V-4.5h.625A.375.375,0,0,0,8-4.875v-.75A.375.375,0,0,0,7.625-6ZM-2.494-10.494a.875.875,0,0,1,1.167-.063l-1.23,1.23A.875.875,0,0,1-2.494-10.494ZM5.5-3A1.5,1.5,0,0,1,4-1.5H-4A1.5,1.5,0,0,1-5.5-3V-4.5h11Z" transform="translate(8 13)" fill="#fff"/>
+                                </svg>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.75 13.125" class="w-3" *ngIf="type == 'motors'">
+                                    <path id="Path_1793" data-name="Path 1793" d="M6.563-7.5H6.094L2.907-11.484a2.121,2.121,0,0,0-1.464-.7H-4.824a1.875,1.875,0,0,0-1.741,1.179L-7.969-7.5v.066A1.871,1.871,0,0,0-9.375-5.625v3.281a.469.469,0,0,0,.469.469H-7.5A2.812,2.812,0,0,0-4.687.938,2.812,2.812,0,0,0-1.875-1.875h3.75A2.812,2.812,0,0,0,4.688.938,2.812,2.812,0,0,0,7.5-1.875H8.906a.469.469,0,0,0,.469-.469V-4.687A2.812,2.812,0,0,0,6.563-7.5Zm-7.734-3.281H1.443a.466.466,0,0,1,.366.176L4.293-7.5H-1.172Zm-4.088.295a.467.467,0,0,1,.435-.295h2.246V-7.5H-6.454ZM-4.687-.469A1.406,1.406,0,0,1-6.094-1.875,1.406,1.406,0,0,1-4.687-3.281,1.406,1.406,0,0,1-3.281-1.875,1.406,1.406,0,0,1-4.687-.469Zm9.375,0A1.406,1.406,0,0,1,3.281-1.875,1.406,1.406,0,0,1,4.688-3.281,1.406,1.406,0,0,1,6.094-1.875,1.406,1.406,0,0,1,4.688-.469ZM7.969-3.281H7.11A2.8,2.8,0,0,0,4.688-4.687,2.8,2.8,0,0,0,2.265-3.281h-4.53A2.8,2.8,0,0,0-4.687-4.687,2.8,2.8,0,0,0-7.11-3.281h-.859V-5.625A.469.469,0,0,1-7.5-6.094H6.563A1.408,1.408,0,0,1,7.969-4.687Z" transform="translate(9.375 12.188)" fill="#fff"/>
+                                </svg>
+                            </div>
+                            <div class="pl-1">
+                                <app-text-component [inputText]="type == 'motors' ? doorNumber : (bathNumber == '0'? '-' : bathNumber)" [customClass]="'font-bold text-[#191919] text-[13px]'" [condition]="'paragraph'"></app-text-component>
+                                <app-text-component [inputText]="type == 'motors' ? doorName : bathName" [customClass]="'font-inter text-[#191919]/70 text-[10px]'" [condition]="'paragraph'"></app-text-component>
+                            </div>
+                        </div>
+                        <div class="flex items-center ml-4">
+                            <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" class="w-3" *ngIf="type == 'property'">
+                                    <path id="Path_1794" data-name="Path 1794" d="M7.2-11.12-5.745,1.822a1.007,1.007,0,0,1-.72.3A1.028,1.028,0,0,1-7.5,1.095V-11.847a1.028,1.028,0,0,1,1.028-1.028H6.47A1.028,1.028,0,0,1,7.2-11.12Zm-13.291-.349V.182l1.848-1.848L-4.577-2a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331,1.326-1.326-.331-.331a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331L.395-6.306.063-6.637a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331L2.715-8.626l-.331-.331a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331,1.848-1.848ZM-3.75-9.125H-.1L-3.75-5.476Z" transform="translate(7.5 2.125) rotate(180)" fill="#fff"/>
+                                </svg>   
+                                <svg class="w-3" *ngIf="type == 'motors'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.41 36.09"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M46.41,23.2a23.08,23.08,0,0,1-3.15,11.67,2.55,2.55,0,0,1-2.21,1.22H5.36a2.55,2.55,0,0,1-2.21-1.22A23.2,23.2,0,1,1,46.41,23.2Zm-3.87,0a19.34,19.34,0,1,0-36.44,9H40.3A19.29,19.29,0,0,0,42.54,23.2ZM30.2,10.92l-3.66,11a5.11,5.11,0,0,1,1.82,3.9,5,5,0,0,1-.72,2.58H18.76a5.11,5.11,0,0,1,4.11-7.7l3.65-11a1.94,1.94,0,0,1,3.68,1.22Z"/></g></g></svg>     
+                            </div>
+                            <div class="pl-1 flex flex-col">
+                                <p class="font-bold text-[#191919] text-[13px]" *ngIf="type == 'motors'">
+                                    {{FirstcardData.mileage == null  ? '0' : FirstcardData.mileage | number}} km
+                                </p>
+                                <p class="font-bold text-[#191919] text-[13px]" *ngIf="type != 'motors'">
+                                    {{sizeNumber | number}}
+                                </p>
+                                <p class="font-inter text-[#191919]/70 text-[10px]" *ngIf="type == 'motors'">
+                                    {{"VehicleDetailPage.Mileage" | translate}}
+                                </p>
+                                <p class="font-inter text-[#191919]/70 text-[10px]" *ngIf="type != 'motors'">
+                                    {{sizeName}}
+                                </p>
+                                <!-- <app-text-component [inputText]="type == 'motors' ? FirstcardData.engineDisplacement : sizeNumber" [customClass]="'font-bold text-[#191919] text-[13px]'" [condition]="'paragraph'"></app-text-component> -->
+                                <!-- <app-text-component [inputText]="type == 'motors' ? 'Mileage' : sizeName" [customClass]="'font-inter text-[#191919]/70 text-[10px]'" [condition]="'paragraph'"></app-text-component> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:hidden">
+                        <div class="flex justify-between">
+                            <div class="flex items-center">
+                                <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                                    <svg *ngIf="type == 'property'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.25 9.75" class="w-3">
+                                        <path id="Path_1795" data-name="Path 1795" d="M-3.859-3.656A2.237,2.237,0,0,0-1.625-5.891,2.237,2.237,0,0,0-3.859-8.125,2.237,2.237,0,0,0-6.094-5.891,2.237,2.237,0,0,0-3.859-3.656Zm0-3.25A1.017,1.017,0,0,1-2.844-5.891,1.017,1.017,0,0,1-3.859-4.875,1.017,1.017,0,0,1-4.875-5.891,1.017,1.017,0,0,1-3.859-6.906ZM5.281-8.125H-.406a.406.406,0,0,0-.406.406v4.875H-6.906v-6.5a.406.406,0,0,0-.406-.406h-.406a.406.406,0,0,0-.406.406V-.406A.406.406,0,0,0-7.719,0h.406a.406.406,0,0,0,.406-.406V-1.625H6.906V-.406A.406.406,0,0,0,7.313,0h.406a.406.406,0,0,0,.406-.406V-5.281A2.844,2.844,0,0,0,5.281-8.125ZM6.906-2.844H.406V-6.906H5.281A1.627,1.627,0,0,1,6.906-5.281Z" transform="translate(8.125 9.75)" fill="#fff"/>
+                                    </svg>
+                                    <svg viewBox="0 0 15.961 16.469" class="w-3" *ngIf="type == 'motors'">
+                                        <path id="auto"
+                                            d="M6.525-7.006l1.057-.61a.8.8,0,0,0,.371-.9,8.22,8.22,0,0,0-2.127-3.679.8.8,0,0,0-.962-.127l-1.055.61a7.845,7.845,0,0,0-1.092-.632v-1.22a.841.841,0,0,0-.592-.771,8.287,8.287,0,0,0-4.248,0,.8.8,0,0,0-.592.771v1.22a7.845,7.845,0,0,0-1.092.632l-1.055-.61a.8.8,0,0,0-.962.127A8.22,8.22,0,0,0-7.953-8.514a.8.8,0,0,0,.371.9l1.057.61c-.017.174-.03.456-.03.631s.014.457.03.631l-1.057.61a.8.8,0,0,0-.371.9A8.22,8.22,0,0,0-5.826-.557a.8.8,0,0,0,.962.127l1.055-.61a7.845,7.845,0,0,0,1.092.632V.812a.841.841,0,0,0,.592.771,8.287,8.287,0,0,0,4.248,0A.8.8,0,0,0,2.716.812V-.408A7.845,7.845,0,0,0,3.809-1.04l1.055.61a.8.8,0,0,0,.962-.127A8.22,8.22,0,0,0,7.953-4.236a.8.8,0,0,0-.371-.9l-1.057-.61A6.561,6.561,0,0,0,6.525-7.006ZM4.776-4.913l1.455.84A7.95,7.95,0,0,1,5.107-2.13l-1.455-.84A5.656,5.656,0,0,1,1.123-1.509V.171A8.04,8.04,0,0,1,0,.266a8.04,8.04,0,0,1-1.123-.1v-1.68A5.657,5.657,0,0,1-3.652-2.971l-1.455.84A7.951,7.951,0,0,1-6.231-4.074l1.455-.84a5.715,5.715,0,0,1,0-2.923l-1.455-.84A6.647,6.647,0,0,1-5.107-10.62l1.455.84a5.656,5.656,0,0,1,2.529-1.462v-1.68A8.04,8.04,0,0,1,0-13.016a8.04,8.04,0,0,1,1.123.1v1.68A5.657,5.657,0,0,1,3.652-9.779l1.455-.84A7.949,7.949,0,0,1,6.231-8.676l-1.455.84A5.714,5.714,0,0,1,4.776-4.913ZM0-9.562A3.191,3.191,0,0,0-3.187-6.375,3.191,3.191,0,0,0,0-3.187,3.191,3.191,0,0,0,3.188-6.375,3.191,3.191,0,0,0,0-9.562ZM0-4.781A1.6,1.6,0,0,1-1.594-6.375,1.6,1.6,0,0,1,0-7.969,1.6,1.6,0,0,1,1.594-6.375,1.6,1.6,0,0,1,0-4.781Z"
+                                            transform="translate(7.981 14.609)" fill="#fff" />
+                                    </svg>
+                                </div>
+                                <div class="pl-1" >
+                                    <app-text-component [inputText]="type == 'motors'? FirstcardData.transmission : (roomsNumber == '0'? '-' : roomsNumber)" [customClass]="'font-bold text-[#191919] text-[13px]'" [condition]="'paragraph'"></app-text-component>
+                                    <p class="font-inter text-[#191919]/70 text-[10px] line-clamp-1 pt-[-5px]" *ngIf="type == 'motors'">
+                                        {{"VehicleDetailPage.Gears" | translate}}
+                                    </p>
+                                    <p class="font-inter text-[#191919]/70 text-[10px] line-clamp-1 pt-[-5px]" *ngIf="type != 'motors'">
+                                        {{roomsName}}
+                                    </p>
+                                    <!-- <app-text-component [inputText]="type == 'motors'? 'Gears' : roomsName" [customClass]="'font-inter text-[#191919]/70 text-[10px] line-clamp-1 pt-[-5px]'" [condition]="'paragraph'"></app-text-component> -->
+                                </div>
+                            </div>
+                            <div class="flex items-center ml-4">
+                                <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 14" class="w-3" *ngIf="type == 'property'">
+                                        <path id="Path_1793" data-name="Path 1793" d="M7.625-6H-5.5v-4.5a1,1,0,0,1,1-1,1,1,0,0,1,.844.465A2.124,2.124,0,0,0-3.442-8.44a.375.375,0,0,0,.015.513l.354.354a.375.375,0,0,0,.53,0l2.97-2.97a.375.375,0,0,0,0-.53l-.354-.354a.375.375,0,0,0-.513-.015,2.12,2.12,0,0,0-2.006-.48A2.5,2.5,0,0,0-4.5-13,2.5,2.5,0,0,0-7-10.5V-6h-.625A.375.375,0,0,0-8-5.625v.75a.375.375,0,0,0,.375.375H-7V-3A3,3,0,0,0-5.75-.563V.625A.375.375,0,0,0-5.375,1h.75A.375.375,0,0,0-4.25.625V-.01C-4.168,0-4.084,0-4,0H4c.084,0,.168,0,.25-.01V.625A.375.375,0,0,0,4.625,1h.75A.375.375,0,0,0,5.75.625V-.563A3,3,0,0,0,7-3V-4.5h.625A.375.375,0,0,0,8-4.875v-.75A.375.375,0,0,0,7.625-6ZM-2.494-10.494a.875.875,0,0,1,1.167-.063l-1.23,1.23A.875.875,0,0,1-2.494-10.494ZM5.5-3A1.5,1.5,0,0,1,4-1.5H-4A1.5,1.5,0,0,1-5.5-3V-4.5h11Z" transform="translate(8 13)" fill="#fff"/>
+                                    </svg>
+    
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.75 13.125" class="w-3" *ngIf="type == 'motors'">
+                                        <path id="Path_1793" data-name="Path 1793" d="M6.563-7.5H6.094L2.907-11.484a2.121,2.121,0,0,0-1.464-.7H-4.824a1.875,1.875,0,0,0-1.741,1.179L-7.969-7.5v.066A1.871,1.871,0,0,0-9.375-5.625v3.281a.469.469,0,0,0,.469.469H-7.5A2.812,2.812,0,0,0-4.687.938,2.812,2.812,0,0,0-1.875-1.875h3.75A2.812,2.812,0,0,0,4.688.938,2.812,2.812,0,0,0,7.5-1.875H8.906a.469.469,0,0,0,.469-.469V-4.687A2.812,2.812,0,0,0,6.563-7.5Zm-7.734-3.281H1.443a.466.466,0,0,1,.366.176L4.293-7.5H-1.172Zm-4.088.295a.467.467,0,0,1,.435-.295h2.246V-7.5H-6.454ZM-4.687-.469A1.406,1.406,0,0,1-6.094-1.875,1.406,1.406,0,0,1-4.687-3.281,1.406,1.406,0,0,1-3.281-1.875,1.406,1.406,0,0,1-4.687-.469Zm9.375,0A1.406,1.406,0,0,1,3.281-1.875,1.406,1.406,0,0,1,4.688-3.281,1.406,1.406,0,0,1,6.094-1.875,1.406,1.406,0,0,1,4.688-.469ZM7.969-3.281H7.11A2.8,2.8,0,0,0,4.688-4.687,2.8,2.8,0,0,0,2.265-3.281h-4.53A2.8,2.8,0,0,0-4.687-4.687,2.8,2.8,0,0,0-7.11-3.281h-.859V-5.625A.469.469,0,0,1-7.5-6.094H6.563A1.408,1.408,0,0,1,7.969-4.687Z" transform="translate(9.375 12.188)" fill="#fff"/>
+                                    </svg>
+                                </div>
+                                <div class="pl-1">
+                                    <app-text-component [inputText]="type == 'motors' ? doorNumber : (bathNumber == '0'? '-' : bathNumber)" [customClass]="'font-bold text-[#191919] text-[13px]'" [condition]="'paragraph'"></app-text-component>
+                                    <app-text-component [inputText]="type == 'motors' ? doorName : bathName" [customClass]="'font-inter text-[#191919]/70 text-[10px]'" [condition]="'paragraph'"></app-text-component>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center pt-2">
+                            <div class="flex items-center">
+                                <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" class="w-3" *ngIf="type == 'property'">
+                                        <path id="Path_1794" data-name="Path 1794" d="M7.2-11.12-5.745,1.822a1.007,1.007,0,0,1-.72.3A1.028,1.028,0,0,1-7.5,1.095V-11.847a1.028,1.028,0,0,1,1.028-1.028H6.47A1.028,1.028,0,0,1,7.2-11.12Zm-13.291-.349V.182l1.848-1.848L-4.577-2a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331,1.326-1.326-.331-.331a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331L.395-6.306.063-6.637a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331L2.715-8.626l-.331-.331a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331,1.848-1.848ZM-3.75-9.125H-.1L-3.75-5.476Z" transform="translate(7.5 2.125) rotate(180)" fill="#fff"/>
+                                    </svg>   
+                                    <svg class="w-3" *ngIf="type == 'motors'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.41 36.09"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M46.41,23.2a23.08,23.08,0,0,1-3.15,11.67,2.55,2.55,0,0,1-2.21,1.22H5.36a2.55,2.55,0,0,1-2.21-1.22A23.2,23.2,0,1,1,46.41,23.2Zm-3.87,0a19.34,19.34,0,1,0-36.44,9H40.3A19.29,19.29,0,0,0,42.54,23.2ZM30.2,10.92l-3.66,11a5.11,5.11,0,0,1,1.82,3.9,5,5,0,0,1-.72,2.58H18.76a5.11,5.11,0,0,1,4.11-7.7l3.65-11a1.94,1.94,0,0,1,3.68,1.22Z"/></g></g></svg>   
+                                </div>
+                                <div class="pl-1">
+                                    <p class="font-bold text-[#191919] text-[13px]" *ngIf="type == 'motors'">
+                                        {{FirstcardData.mileage == null  ? '-' : FirstcardData.mileage | number}} km
+                                    </p>
+                                    <p class="font-bold text-[#191919] text-[13px]" *ngIf="type != 'motors'">
+                                        {{sizeNumber | number}}
+                                    </p>
+                                    <p class="font-inter text-[#191919]/70 text-[10px]" *ngIf="type == 'motors'">
+                                        {{"VehicleDetailPage.Mileage" | translate}}
+                                    </p>
+                                    <p class="font-inter text-[#191919]/70 text-[10px]" *ngIf="type != 'motors'">
+                                        {{sizeName}}
+                                    </p>
+                                    <!-- <app-text-component [inputText]="type == 'motors' ? FirstcardData.engineDisplacement : sizeNumber" [customClass]="'font-bold text-[#191919] text-[13px]'" [condition]="'paragraph'"></app-text-component> -->
+                                    <!-- <app-text-component [inputText]="type == 'motors' ? 'Mileage' : sizeName" [customClass]="'font-inter text-[#191919]/70 text-[10px]'" [condition]="'paragraph'"></app-text-component> -->
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <h1 class="font-Inter font-bold text-[13px] {{FirstcardData.isSold? 'text-[#191919]/40 line-through' : 'text-[#191919]'}}">
+                                        {{"General.AED" | translate}} {{FirstcardData.price | number}}{{(FirstcardData.status=="Rent" && Language =='ar')? '/سنوي':(FirstcardData.status=="Rent"
+                                        && Language =='en'?'/\yearly':'')}}
+                                    </h1>
+                                </div>
+                                <div class="flex justify-end" *ngIf="FirstcardData.isSold">
+                                    <p class="{{Language =='ar'?'ml-2':'mr-2'}} bg-[#0D263B] w-[80px] h-6 text-[#FFFFFF] uppercase rounded-md flex justify-center items-center text-[6px] font-Inter font-semibold">
+                                        {{FirstcardData.soldDate}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-[45%] text-right hidden md:block">
+                        <div>
+                            <h1 class="font-Inter font-bold text-[15px] {{Language=='ar'?'md:text-left':''}} {{FirstcardData.isSold? 'text-[#191919]/40 line-through' : 'text-[#191919]'}}">{{"General.AED" | translate}} {{FirstcardData.price |
+                            number}}{{(FirstcardData.status=="Rent" && Language =='ar')? '/سنوي':(FirstcardData.status=="Rent"
+                            && Language =='en'?'/\yearly':'')}}</h1>
+                        </div>
+                        <div class="flex {{Language=='ar'?'':'justify-end'}} " *ngIf="FirstcardData.isSold">
+                            <p class="{{Language =='ar'?'ml-2':'mr-2'}} bg-[#0D263B] w-[110px] h-7 text-[#FFFFFF] uppercase rounded-md flex justify-center items-center xl:text-[7px] xl:w-[110px] xl:h-[1.5rem] font-Inter font-semibold">
+                                {{FirstcardData.soldDate}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="{{Language == 'ar' ? 'text-right' : ''}}">
+                    <h1 class="text-[#191919] font-Inter font-semibold">{{"PropertyDetailPage.Desc" | translate}}</h1>
+                    <p class="text-[#989898] font-Inter text-xs pt-1 text-justify pr-1 h-[300px] overflow-y-scroll" id="gk-featuredId" [innerHTML]="FirstcardData.description">
+                    </p>
+                </div>
+                <div class="pt-5 {{Language == 'ar' ? 'text-right' : ''}}" *ngIf="type == 'property'">
+                    <h1 class="font-Inter font-semibold text-sm">{{"PropertyDetailPage.PropDetails" | translate}}</h1>
+                    <div class="flex flex-wrap {{Language == 'ar'? 'text-right' : ''}}">
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.PostedOn" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.adPostedDate}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.UpdateOn" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.lastUpdationDate}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.dinings" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.dinings}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                {{"PropertyDetailPage.laundries" | translate}}:
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.laundries}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.Furnished" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.isFurnished}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.YearBuilt" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.buildYear}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{ FirstcardData.status=='Sale'?
+                                ('PlaceYourAddPage.Price' | translate):('PropertyDetailPage.PriceRent' | translate)
+                                }}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.price}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.Bedrooms" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.rooms}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.Bathrooms" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.baths}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.PropType" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.category}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.PropStatus" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.status}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.PropSize" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.size}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.Garage" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.garages}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-5" *ngIf="type == 'motors'">
+                    <h1 class="font-Inter font-semibold text-sm {{Language == 'ar' ? 'text-right' : ''}}">{{"VehicleDetailPage.MainHeading" | translate}}</h1>
+                    <div class="flex flex-wrap {{Language == 'ar'? 'text-right' : ''}}">
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.PostedDate" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.adPostedDate}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.UpdatedDate" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.lastUpdationDate}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Make" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.make}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Model" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.model}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.BodyType" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.bodyType}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.RegionalSpecification" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">
+                                {{FirstcardData.regionalSpecification}}
+                            </p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Year" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.year}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.MileageFuelEconomy" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.mileage}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Price" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.price}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2  {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.FuelType" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.fuelType}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.transmission" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.transmission}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Capacitys" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.capacity}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.SteeringSide" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.steeringSide}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.Condition" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.condition}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.MechanicalCondition" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.mechanicalCondition}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Cylinders" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{FirstcardData.cylinder}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Warranty" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">
+                                {{FirstcardData.warranty == true ? 'Yes': 'No'}}
+                            </p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.ServiceHistory" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">
+                                {{FirstcardData.serviceHistory == true ? 'Yes': 'No'}}:
+                            </p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.EngineDisplacement" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">
+                                {{FirstcardData.engineDisplacement}}
+                            </p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.horsePower" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">
+                                {{FirstcardData.horsePower}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-5 {{Language == 'ar' ? 'text-right' : ''}}">
+                    <h1 class="text-[#191919] font-Inter font-bold text-sm">{{"PropertyDetailPage.Location" | translate}}</h1>
+                    <div  class="flex pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                        <p class="text-[#191919] font-Inter font-semibold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2 pr-4'}}">
+                            <span
+                        *ngIf="Language == 'ar'">:</span>{{"PropertyDetailPage.PropAddress" | translate}}<span
+                        *ngIf="Language != 'ar'">:</span>
+                        </p>
+                        <p class="text-[#989898] font-Inter text-[11px]">
+                            {{FirstcardData.address}}
+                        </p>
+                    </div>
+
+                    <div class="pt-3">
+                        <div id="map" class="h-48">
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-5">
+                    <h1 class="font-Inter font-semibold text-[#191919] text-sm {{Language == 'ar' ? 'text-right' : ''}}">{{"PropertyDetailPage.Features" | translate}}</h1>
+                    <div class="flex flex-wrap">
+                        <div class="flex items-center justify-center flex-col my-2 w-[50%] sm:w-[20%]"
+                            *ngFor="let PropertyFeature of FirstcardData.features">
+                            <div class="bg-gradient-to-b from-[#14A8DE] to-[#167394] w-9 h-9 rounded-full flex justify-center items-center"
+                                id="leaderboardimage">
+                                <img src="{{PropertyFeature.icon}}" alt=""
+                                    onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'">
+                            </div>
+                            <p class="text-[#989898] text-[10px] pt-1 text-center">{{PropertyFeature.name}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-5" *ngIf="type == 'property' && FirstcardData.floorPlans.length > 0">
+                    <h1 class="font-Inter font-bold text-sm text-[#191919] {{Language == 'ar' ? 'text-right' : ''}}">{{"PropertyDetailPage.FloorPlan" | translate}}</h1>
+                    <div class="border border-[#DBDBDB] rounded-md px-2 py-4 mt-2" *ngFor="let FloorPlane of FirstcardData.floorPlans">
+                        <img src="{{FloorPlane}}" alt=""
+                            onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" class="">
+                    </div>
+                </div>
+                
+                <div class="relative" *ngIf="FirstcardData.video != null">
+                    <h1 class="text-[#191919] font-Inter font-semibold text-sm pb-3 {{Language=='ar'?'text-right':''}}">{{"VehicleDetailPage.video"
+                        | translate}}</h1>
+                    <video #myVideo id="myVideo" class="w-full rounded-md" preload="auto" controls
+                        poster="./assets/images/video-thumbnail.png">
+                        <source src="{{FirstcardData.video}}" type="video/mp4">
+                    </video>
+
+                    <button *ngIf="!controlsbtn"
+                        class="bg-white w-10 h-10 rounded-full flex justify-center items-center absolute top-1/2 left-1/2 -mt-5 -ml-5"
+                        (click)="PlayPause(myVideo)">
+                        <fa-icon [icon]="faPlay" class="text-gk-red" *ngIf="!PlayBtnShow"></fa-icon>
+                        <fa-icon [icon]="faPause" class="text-gk-red" *ngIf="PlayBtnShow"></fa-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-[49%] md:w-[48%] xl:w-[45%]">
+            <div class="bg-white px-2 md:px-4 rounded-md pb-5">
+                <div class="pt-5" id="gk-compare">
+                    <owl-carousel-o [options]="customOptions">
+                        <ng-template carouselSlide *ngFor="let imgData of secondCardData.images">
+                            <div class="">
+                                <img src="{{imgData}}" alt=""
+                                onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" class="rounded-lg xl:h-[400px] h-[300px] object-cover"> 
+                            </div>
+                        </ng-template>
+                    </owl-carousel-o>
+                </div>
+                <div class="flex my-4 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                    <p *ngIf="secondCardData.isFeatured" class=" bg-[#0061DF] px-2 py-1 text-white uppercase rounded flex justify-center items-center text-[10px]">
+                        {{"PropertyDetailPage.Featured" | translate}}
+                    </p>
+                    <p *ngIf="type == 'property'" class=" bg-[#0D263B] px-2 py-1 ml-3 text-white uppercase rounded flex justify-center items-center text-[10px]">
+                        {{secondCardData.status}}
+                    </p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center {{Language == 'ar' ? 'md:flex-row-reverse' : ''}}">
+                    <div class="md:w-[60%]">
+                        <h1 class="font-Inter font-bold text-[#191919] text-[13px] xl:text-xl cursor-pointer" (click)="openDetailPage(secondCardData.slug)">{{secondCardData.title}}</h1>
+                        <p class="text-[11px] text-[#191919]/80 font-Inter font-medium line-clamp-1">
+                            {{secondCardData.address}}
+                        </p>
+                    </div>
+                    <div class="w-[100%] md:w-[40%] flex {{Language == 'ar' ? '' : 'justify-end'}}">
+                        <img src="../../assets/images/verify-img.png" alt="" class="w-[110px] h-[31px] mr-1" *ngIf="secondCardData.isVerified">
+                        <img routerLink="/vendor/list" [queryParams]="{VendorId: secondCardData.vendorID}" src="{{secondCardData.vendorThumbnail}}" alt="" class="w-9 h-9 rounded-full object-cover shadow-md bg-white cursor-pointer">
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row my-3 {{Language == 'ar' ? 'md:flex-row-reverse' : ''}}">
+                    <div class="w-[55%] md:flex hidden {{Language == 'ar' ? 'md:justify-end' : ''}}">
+                        <div class="flex items-center">
+                            <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                                <svg *ngIf="type == 'property'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.25 9.75" class="w-3">
+                                    <path id="Path_1795" data-name="Path 1795" d="M-3.859-3.656A2.237,2.237,0,0,0-1.625-5.891,2.237,2.237,0,0,0-3.859-8.125,2.237,2.237,0,0,0-6.094-5.891,2.237,2.237,0,0,0-3.859-3.656Zm0-3.25A1.017,1.017,0,0,1-2.844-5.891,1.017,1.017,0,0,1-3.859-4.875,1.017,1.017,0,0,1-4.875-5.891,1.017,1.017,0,0,1-3.859-6.906ZM5.281-8.125H-.406a.406.406,0,0,0-.406.406v4.875H-6.906v-6.5a.406.406,0,0,0-.406-.406h-.406a.406.406,0,0,0-.406.406V-.406A.406.406,0,0,0-7.719,0h.406a.406.406,0,0,0,.406-.406V-1.625H6.906V-.406A.406.406,0,0,0,7.313,0h.406a.406.406,0,0,0,.406-.406V-5.281A2.844,2.844,0,0,0,5.281-8.125ZM6.906-2.844H.406V-6.906H5.281A1.627,1.627,0,0,1,6.906-5.281Z" transform="translate(8.125 9.75)" fill="#fff"/>
+                                </svg>
+                                <svg viewBox="0 0 15.961 16.469" class="w-3" *ngIf="type == 'motors'">
+                                    <path id="auto"
+                                        d="M6.525-7.006l1.057-.61a.8.8,0,0,0,.371-.9,8.22,8.22,0,0,0-2.127-3.679.8.8,0,0,0-.962-.127l-1.055.61a7.845,7.845,0,0,0-1.092-.632v-1.22a.841.841,0,0,0-.592-.771,8.287,8.287,0,0,0-4.248,0,.8.8,0,0,0-.592.771v1.22a7.845,7.845,0,0,0-1.092.632l-1.055-.61a.8.8,0,0,0-.962.127A8.22,8.22,0,0,0-7.953-8.514a.8.8,0,0,0,.371.9l1.057.61c-.017.174-.03.456-.03.631s.014.457.03.631l-1.057.61a.8.8,0,0,0-.371.9A8.22,8.22,0,0,0-5.826-.557a.8.8,0,0,0,.962.127l1.055-.61a7.845,7.845,0,0,0,1.092.632V.812a.841.841,0,0,0,.592.771,8.287,8.287,0,0,0,4.248,0A.8.8,0,0,0,2.716.812V-.408A7.845,7.845,0,0,0,3.809-1.04l1.055.61a.8.8,0,0,0,.962-.127A8.22,8.22,0,0,0,7.953-4.236a.8.8,0,0,0-.371-.9l-1.057-.61A6.561,6.561,0,0,0,6.525-7.006ZM4.776-4.913l1.455.84A7.95,7.95,0,0,1,5.107-2.13l-1.455-.84A5.656,5.656,0,0,1,1.123-1.509V.171A8.04,8.04,0,0,1,0,.266a8.04,8.04,0,0,1-1.123-.1v-1.68A5.657,5.657,0,0,1-3.652-2.971l-1.455.84A7.951,7.951,0,0,1-6.231-4.074l1.455-.84a5.715,5.715,0,0,1,0-2.923l-1.455-.84A6.647,6.647,0,0,1-5.107-10.62l1.455.84a5.656,5.656,0,0,1,2.529-1.462v-1.68A8.04,8.04,0,0,1,0-13.016a8.04,8.04,0,0,1,1.123.1v1.68A5.657,5.657,0,0,1,3.652-9.779l1.455-.84A7.949,7.949,0,0,1,6.231-8.676l-1.455.84A5.714,5.714,0,0,1,4.776-4.913ZM0-9.562A3.191,3.191,0,0,0-3.187-6.375,3.191,3.191,0,0,0,0-3.187,3.191,3.191,0,0,0,3.188-6.375,3.191,3.191,0,0,0,0-9.562ZM0-4.781A1.6,1.6,0,0,1-1.594-6.375,1.6,1.6,0,0,1,0-7.969,1.6,1.6,0,0,1,1.594-6.375,1.6,1.6,0,0,1,0-4.781Z"
+                                        transform="translate(7.981 14.609)" fill="#fff" />
+                                </svg>
+                            </div>
+                            <div class="pl-1" >
+                                <app-text-component [inputText]="type == 'motors' ? secondCardData.transmission : (roomsNumber2 == '0'? '-' : roomsNumber2)" [customClass]="'font-bold text-[#191919] text-[13px]'" [condition]="'paragraph'"></app-text-component>
+                                <p class="font-inter text-[#191919]/70 text-[10px] line-clamp-1 pt-[-5px]" *ngIf="type == 'motors'">
+                                    {{"VehicleDetailPage.Gears" | translate}}
+                                </p>
+                                <p class="font-inter text-[#191919]/70 text-[10px] line-clamp-1 pt-[-5px]" *ngIf="type != 'motors'">
+                                    {{roomsName2}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center ml-4">
+                            <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 14" class="w-3" *ngIf="type == 'property'">
+                                    <path id="Path_1793" data-name="Path 1793" d="M7.625-6H-5.5v-4.5a1,1,0,0,1,1-1,1,1,0,0,1,.844.465A2.124,2.124,0,0,0-3.442-8.44a.375.375,0,0,0,.015.513l.354.354a.375.375,0,0,0,.53,0l2.97-2.97a.375.375,0,0,0,0-.53l-.354-.354a.375.375,0,0,0-.513-.015,2.12,2.12,0,0,0-2.006-.48A2.5,2.5,0,0,0-4.5-13,2.5,2.5,0,0,0-7-10.5V-6h-.625A.375.375,0,0,0-8-5.625v.75a.375.375,0,0,0,.375.375H-7V-3A3,3,0,0,0-5.75-.563V.625A.375.375,0,0,0-5.375,1h.75A.375.375,0,0,0-4.25.625V-.01C-4.168,0-4.084,0-4,0H4c.084,0,.168,0,.25-.01V.625A.375.375,0,0,0,4.625,1h.75A.375.375,0,0,0,5.75.625V-.563A3,3,0,0,0,7-3V-4.5h.625A.375.375,0,0,0,8-4.875v-.75A.375.375,0,0,0,7.625-6ZM-2.494-10.494a.875.875,0,0,1,1.167-.063l-1.23,1.23A.875.875,0,0,1-2.494-10.494ZM5.5-3A1.5,1.5,0,0,1,4-1.5H-4A1.5,1.5,0,0,1-5.5-3V-4.5h11Z" transform="translate(8 13)" fill="#fff"/>
+                                </svg>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.75 13.125" class="w-3" *ngIf="type == 'motors'">
+                                    <path id="Path_1793" data-name="Path 1793" d="M6.563-7.5H6.094L2.907-11.484a2.121,2.121,0,0,0-1.464-.7H-4.824a1.875,1.875,0,0,0-1.741,1.179L-7.969-7.5v.066A1.871,1.871,0,0,0-9.375-5.625v3.281a.469.469,0,0,0,.469.469H-7.5A2.812,2.812,0,0,0-4.687.938,2.812,2.812,0,0,0-1.875-1.875h3.75A2.812,2.812,0,0,0,4.688.938,2.812,2.812,0,0,0,7.5-1.875H8.906a.469.469,0,0,0,.469-.469V-4.687A2.812,2.812,0,0,0,6.563-7.5Zm-7.734-3.281H1.443a.466.466,0,0,1,.366.176L4.293-7.5H-1.172Zm-4.088.295a.467.467,0,0,1,.435-.295h2.246V-7.5H-6.454ZM-4.687-.469A1.406,1.406,0,0,1-6.094-1.875,1.406,1.406,0,0,1-4.687-3.281,1.406,1.406,0,0,1-3.281-1.875,1.406,1.406,0,0,1-4.687-.469Zm9.375,0A1.406,1.406,0,0,1,3.281-1.875,1.406,1.406,0,0,1,4.688-3.281,1.406,1.406,0,0,1,6.094-1.875,1.406,1.406,0,0,1,4.688-.469ZM7.969-3.281H7.11A2.8,2.8,0,0,0,4.688-4.687,2.8,2.8,0,0,0,2.265-3.281h-4.53A2.8,2.8,0,0,0-4.687-4.687,2.8,2.8,0,0,0-7.11-3.281h-.859V-5.625A.469.469,0,0,1-7.5-6.094H6.563A1.408,1.408,0,0,1,7.969-4.687Z" transform="translate(9.375 12.188)" fill="#fff"/>
+                                </svg>
+                            </div>
+                            <div class="pl-1">
+                                <app-text-component [inputText]="type == 'motors' ? doorNumber2 : (bathNumber2 == '0'? '-' : bathNumber2)" [customClass]="'font-bold text-[#191919] text-[13px]'" [condition]="'paragraph'"></app-text-component>
+                                <app-text-component [inputText]="type == 'motors' ? doorName2 : bathName2" [customClass]="'font-inter text-[#191919]/70 text-[10px]'" [condition]="'paragraph'"></app-text-component>
+                            </div>
+                        </div>
+                        <div class="flex items-center ml-4">
+                            <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" class="w-3" *ngIf="type == 'property'">
+                                    <path id="Path_1794" data-name="Path 1794" d="M7.2-11.12-5.745,1.822a1.007,1.007,0,0,1-.72.3A1.028,1.028,0,0,1-7.5,1.095V-11.847a1.028,1.028,0,0,1,1.028-1.028H6.47A1.028,1.028,0,0,1,7.2-11.12Zm-13.291-.349V.182l1.848-1.848L-4.577-2a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331,1.326-1.326-.331-.331a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331L.395-6.306.063-6.637a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331L2.715-8.626l-.331-.331a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331,1.848-1.848ZM-3.75-9.125H-.1L-3.75-5.476Z" transform="translate(7.5 2.125) rotate(180)" fill="#fff"/>
+                                </svg>   
+                                <svg *ngIf="type == 'motors'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.41 36.09" class="w-3"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M46.41,23.2a23.08,23.08,0,0,1-3.15,11.67,2.55,2.55,0,0,1-2.21,1.22H5.36a2.55,2.55,0,0,1-2.21-1.22A23.2,23.2,0,1,1,46.41,23.2Zm-3.87,0a19.34,19.34,0,1,0-36.44,9H40.3A19.29,19.29,0,0,0,42.54,23.2ZM30.2,10.92l-3.66,11a5.11,5.11,0,0,1,1.82,3.9,5,5,0,0,1-.72,2.58H18.76a5.11,5.11,0,0,1,4.11-7.7l3.65-11a1.94,1.94,0,0,1,3.68,1.22Z"/></g></g></svg>
+                            </div>
+                            <div class="pl-1">
+                                <p class="font-bold text-[#191919] text-[13px]" *ngIf="type == 'motors'">
+                                    {{secondCardData.mileage == null  ? '0' : secondCardData.mileage | number}} km
+                                </p>
+                                <p class="font-bold text-[#191919] text-[13px]" *ngIf="type != 'motors'">
+                                    {{sizeNumber2 | number}}
+                                </p>
+                                <p class="font-inter text-[#191919]/70 text-[10px]" *ngIf="type == 'motors'">
+                                    {{"VehicleDetailPage.Mileage" | translate}}
+                                </p>
+                                <p class="font-inter text-[#191919]/70 text-[10px]" *ngIf="type != 'motors'">
+                                    {{sizeName2}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:hidden">
+                        <div class="flex justify-between">
+                            <div class="flex items-center">
+                                <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                                    <svg *ngIf="type == 'property'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.25 9.75" class="w-3">
+                                        <path id="Path_1795" data-name="Path 1795" d="M-3.859-3.656A2.237,2.237,0,0,0-1.625-5.891,2.237,2.237,0,0,0-3.859-8.125,2.237,2.237,0,0,0-6.094-5.891,2.237,2.237,0,0,0-3.859-3.656Zm0-3.25A1.017,1.017,0,0,1-2.844-5.891,1.017,1.017,0,0,1-3.859-4.875,1.017,1.017,0,0,1-4.875-5.891,1.017,1.017,0,0,1-3.859-6.906ZM5.281-8.125H-.406a.406.406,0,0,0-.406.406v4.875H-6.906v-6.5a.406.406,0,0,0-.406-.406h-.406a.406.406,0,0,0-.406.406V-.406A.406.406,0,0,0-7.719,0h.406a.406.406,0,0,0,.406-.406V-1.625H6.906V-.406A.406.406,0,0,0,7.313,0h.406a.406.406,0,0,0,.406-.406V-5.281A2.844,2.844,0,0,0,5.281-8.125ZM6.906-2.844H.406V-6.906H5.281A1.627,1.627,0,0,1,6.906-5.281Z" transform="translate(8.125 9.75)" fill="#fff"/>
+                                    </svg>
+                                    <svg viewBox="0 0 15.961 16.469" class="w-3" *ngIf="type == 'motors'">
+                                        <path id="auto"
+                                            d="M6.525-7.006l1.057-.61a.8.8,0,0,0,.371-.9,8.22,8.22,0,0,0-2.127-3.679.8.8,0,0,0-.962-.127l-1.055.61a7.845,7.845,0,0,0-1.092-.632v-1.22a.841.841,0,0,0-.592-.771,8.287,8.287,0,0,0-4.248,0,.8.8,0,0,0-.592.771v1.22a7.845,7.845,0,0,0-1.092.632l-1.055-.61a.8.8,0,0,0-.962.127A8.22,8.22,0,0,0-7.953-8.514a.8.8,0,0,0,.371.9l1.057.61c-.017.174-.03.456-.03.631s.014.457.03.631l-1.057.61a.8.8,0,0,0-.371.9A8.22,8.22,0,0,0-5.826-.557a.8.8,0,0,0,.962.127l1.055-.61a7.845,7.845,0,0,0,1.092.632V.812a.841.841,0,0,0,.592.771,8.287,8.287,0,0,0,4.248,0A.8.8,0,0,0,2.716.812V-.408A7.845,7.845,0,0,0,3.809-1.04l1.055.61a.8.8,0,0,0,.962-.127A8.22,8.22,0,0,0,7.953-4.236a.8.8,0,0,0-.371-.9l-1.057-.61A6.561,6.561,0,0,0,6.525-7.006ZM4.776-4.913l1.455.84A7.95,7.95,0,0,1,5.107-2.13l-1.455-.84A5.656,5.656,0,0,1,1.123-1.509V.171A8.04,8.04,0,0,1,0,.266a8.04,8.04,0,0,1-1.123-.1v-1.68A5.657,5.657,0,0,1-3.652-2.971l-1.455.84A7.951,7.951,0,0,1-6.231-4.074l1.455-.84a5.715,5.715,0,0,1,0-2.923l-1.455-.84A6.647,6.647,0,0,1-5.107-10.62l1.455.84a5.656,5.656,0,0,1,2.529-1.462v-1.68A8.04,8.04,0,0,1,0-13.016a8.04,8.04,0,0,1,1.123.1v1.68A5.657,5.657,0,0,1,3.652-9.779l1.455-.84A7.949,7.949,0,0,1,6.231-8.676l-1.455.84A5.714,5.714,0,0,1,4.776-4.913ZM0-9.562A3.191,3.191,0,0,0-3.187-6.375,3.191,3.191,0,0,0,0-3.187,3.191,3.191,0,0,0,3.188-6.375,3.191,3.191,0,0,0,0-9.562ZM0-4.781A1.6,1.6,0,0,1-1.594-6.375,1.6,1.6,0,0,1,0-7.969,1.6,1.6,0,0,1,1.594-6.375,1.6,1.6,0,0,1,0-4.781Z"
+                                            transform="translate(7.981 14.609)" fill="#fff" />
+                                    </svg>
+                                </div>
+                                <div class="pl-1" >
+                                    <app-text-component [inputText]="type == 'motors'? secondCardData.transmission : (roomsNumber2 == '0'? '-' : roomsNumber2)" [customClass]="'font-bold text-[#191919] text-[13px]'" [condition]="'paragraph'"></app-text-component>
+                                    <p class="font-inter text-[#191919]/70 text-[10px] line-clamp-1 pt-[-5px]" *ngIf="type == 'motors'">
+                                        {{"VehicleDetailPage.Gears" | translate}}
+                                    </p>
+                                    <p class="font-inter text-[#191919]/70 text-[10px] line-clamp-1 pt-[-5px]" *ngIf="type != 'motors'">
+                                        {{roomsName2}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-center ml-4">
+                                <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 14" class="w-3" *ngIf="type == 'property'">
+                                        <path id="Path_1793" data-name="Path 1793" d="M7.625-6H-5.5v-4.5a1,1,0,0,1,1-1,1,1,0,0,1,.844.465A2.124,2.124,0,0,0-3.442-8.44a.375.375,0,0,0,.015.513l.354.354a.375.375,0,0,0,.53,0l2.97-2.97a.375.375,0,0,0,0-.53l-.354-.354a.375.375,0,0,0-.513-.015,2.12,2.12,0,0,0-2.006-.48A2.5,2.5,0,0,0-4.5-13,2.5,2.5,0,0,0-7-10.5V-6h-.625A.375.375,0,0,0-8-5.625v.75a.375.375,0,0,0,.375.375H-7V-3A3,3,0,0,0-5.75-.563V.625A.375.375,0,0,0-5.375,1h.75A.375.375,0,0,0-4.25.625V-.01C-4.168,0-4.084,0-4,0H4c.084,0,.168,0,.25-.01V.625A.375.375,0,0,0,4.625,1h.75A.375.375,0,0,0,5.75.625V-.563A3,3,0,0,0,7-3V-4.5h.625A.375.375,0,0,0,8-4.875v-.75A.375.375,0,0,0,7.625-6ZM-2.494-10.494a.875.875,0,0,1,1.167-.063l-1.23,1.23A.875.875,0,0,1-2.494-10.494ZM5.5-3A1.5,1.5,0,0,1,4-1.5H-4A1.5,1.5,0,0,1-5.5-3V-4.5h11Z" transform="translate(8 13)" fill="#fff"/>
+                                    </svg>
+    
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.75 13.125" class="w-3" *ngIf="type == 'motors'">
+                                        <path id="Path_1793" data-name="Path 1793" d="M6.563-7.5H6.094L2.907-11.484a2.121,2.121,0,0,0-1.464-.7H-4.824a1.875,1.875,0,0,0-1.741,1.179L-7.969-7.5v.066A1.871,1.871,0,0,0-9.375-5.625v3.281a.469.469,0,0,0,.469.469H-7.5A2.812,2.812,0,0,0-4.687.938,2.812,2.812,0,0,0-1.875-1.875h3.75A2.812,2.812,0,0,0,4.688.938,2.812,2.812,0,0,0,7.5-1.875H8.906a.469.469,0,0,0,.469-.469V-4.687A2.812,2.812,0,0,0,6.563-7.5Zm-7.734-3.281H1.443a.466.466,0,0,1,.366.176L4.293-7.5H-1.172Zm-4.088.295a.467.467,0,0,1,.435-.295h2.246V-7.5H-6.454ZM-4.687-.469A1.406,1.406,0,0,1-6.094-1.875,1.406,1.406,0,0,1-4.687-3.281,1.406,1.406,0,0,1-3.281-1.875,1.406,1.406,0,0,1-4.687-.469Zm9.375,0A1.406,1.406,0,0,1,3.281-1.875,1.406,1.406,0,0,1,4.688-3.281,1.406,1.406,0,0,1,6.094-1.875,1.406,1.406,0,0,1,4.688-.469ZM7.969-3.281H7.11A2.8,2.8,0,0,0,4.688-4.687,2.8,2.8,0,0,0,2.265-3.281h-4.53A2.8,2.8,0,0,0-4.687-4.687,2.8,2.8,0,0,0-7.11-3.281h-.859V-5.625A.469.469,0,0,1-7.5-6.094H6.563A1.408,1.408,0,0,1,7.969-4.687Z" transform="translate(9.375 12.188)" fill="#fff"/>
+                                    </svg>
+                                </div>
+                                <div class="pl-1">
+                                    <app-text-component [inputText]="type == 'motors' ? doorNumber2 : (bathNumber2 == '0'? '-' : bathNumber2)" [customClass]="'font-bold text-[#191919] text-[13px]'" [condition]="'paragraph'"></app-text-component>
+                                    <app-text-component [inputText]="type == 'motors' ? doorName2 : bathName2" [customClass]="'font-inter text-[#191919]/70 text-[10px]'" [condition]="'paragraph'"></app-text-component>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center pt-2">
+                            <div class="flex items-center">
+                                <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" class="w-3" *ngIf="type == 'property'">
+                                        <path id="Path_1794" data-name="Path 1794" d="M7.2-11.12-5.745,1.822a1.007,1.007,0,0,1-.72.3A1.028,1.028,0,0,1-7.5,1.095V-11.847a1.028,1.028,0,0,1,1.028-1.028H6.47A1.028,1.028,0,0,1,7.2-11.12Zm-13.291-.349V.182l1.848-1.848L-4.577-2a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331,1.326-1.326-.331-.331a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331L.395-6.306.063-6.637a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331L2.715-8.626l-.331-.331a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331,1.848-1.848ZM-3.75-9.125H-.1L-3.75-5.476Z" transform="translate(7.5 2.125) rotate(180)" fill="#fff"/>
+                                    </svg>   
+                                    <svg *ngIf="type == 'motors'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.41 36.09" class="w-3"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M46.41,23.2a23.08,23.08,0,0,1-3.15,11.67,2.55,2.55,0,0,1-2.21,1.22H5.36a2.55,2.55,0,0,1-2.21-1.22A23.2,23.2,0,1,1,46.41,23.2Zm-3.87,0a19.34,19.34,0,1,0-36.44,9H40.3A19.29,19.29,0,0,0,42.54,23.2ZM30.2,10.92l-3.66,11a5.11,5.11,0,0,1,1.82,3.9,5,5,0,0,1-.72,2.58H18.76a5.11,5.11,0,0,1,4.11-7.7l3.65-11a1.94,1.94,0,0,1,3.68,1.22Z"/></g></g></svg>   
+                                </div>
+                                <div class="pl-1">
+                                    <p class="font-bold text-[#191919] text-[13px]" *ngIf="type == 'motors'">
+                                        {{secondCardData.mileage == null  ? '0' : secondCardData.mileage | number}} km
+                                    </p>
+                                    <p class="font-bold text-[#191919] text-[13px]" *ngIf="type != 'motors'">
+                                        {{sizeNumber2 | number}}
+                                    </p>
+                                    <p class="font-inter text-[#191919]/70 text-[10px]" *ngIf="type == 'motors'">
+                                        {{"VehicleDetailPage.Mileage" | translate}}
+                                    </p>
+                                    <p class="font-inter text-[#191919]/70 text-[10px]" *ngIf="type != 'motors'">
+                                        {{sizeName2}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div>
+                                    <h1 class="font-Inter font-bold text-[13px] {{secondCardData.isSold? 'text-[#191919]/40 line-through' : 'text-[#191919]'}}">
+                                        {{"General.AED" | translate}} {{secondCardData.price | number}}{{(secondCardData.status=="Rent" && Language =='ar')? '/سنوي':(secondCardData.status=="Rent"
+                                        && Language =='en'?'/\yearly':'')}}
+                                    </h1>
+                                </div>
+                                <div class="flex justify-end" *ngIf="secondCardData.isSold">
+                                    <p class="{{Language =='ar'?'ml-2':'mr-2'}} bg-[#0D263B] w-[120px] h-7 text-[#FFFFFF] uppercase rounded-md flex justify-center items-center xl:text-[8px] xl:w-[110px] xl:h-[1.5rem] font-Inter font-semibold">
+                                        {{secondCardData.soldDate}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-[45%] text-right hidden md:block ">
+                        <div>
+                            <h1 class="font-Inter font-bold text-[15px] {{Language == 'ar' ? 'md:text-left' : ''}} {{secondCardData.isSold? 'text-[#191919]/40 line-through' : 'text-[#191919]'}}">{{"General.AED" | translate}} {{secondCardData.price |
+                                number}}{{(secondCardData.status=="Rent" && Language =='ar')? '/سنوي':(secondCardData.status=="Rent"
+                                && Language =='en'?'/\yearly':'')}}</h1>
+                        </div>
+                        <div class="flex {{Language == 'ar' ? '' : 'justify-end'}}" *ngIf="secondCardData.isSold">
+                            <p class="{{Language =='ar'?'ml-2':'mr-2'}} bg-[#0D263B] w-[120px] h-7 text-[#FFFFFF] uppercase rounded-md flex justify-center items-center xl:text-[8px] xl:w-[110px] xl:h-[1.5rem] font-Inter font-semibold">
+                                {{secondCardData.soldDate}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="{{Language == 'ar' ? 'text-right' : ''}}">
+                    <h1 class="text-[#191919] font-Inter font-semibold">{{"PropertyDetailPage.Desc" | translate}}</h1>
+                    <p class="text-[#989898] font-Inter text-xs pt-1 text-justify pr-1 h-[300px] overflow-y-scroll" id="gk-featuredId"  [innerHTML]="secondCardData.description">
+                    </p>
+                </div>
+                <div class="pt-5" *ngIf="type == 'property'">
+                    <h1 class="font-Inter font-semibold text-sm {{Language == 'ar' ? 'text-right' : ''}}">{{"PropertyDetailPage.PropDetails" | translate}}</h1>
+                    <div class="flex flex-wrap {{Language == 'ar'? 'text-right' : ''}}">
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.PostedOn" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.adPostedDate}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.UpdateOn" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.lastUpdationDate}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.dinings" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.dinings}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.laundries" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.laundries}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.Furnished" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.isFurnished}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.YearBuilt" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.buildYear}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{ secondCardData.status=='Sale'?
+                                ('PlaceYourAddPage.Price' | translate):('PropertyDetailPage.PriceRent' | translate)
+                                }}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.price}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.Bedrooms" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.rooms}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.Bathrooms" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.baths}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.PropType" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.category}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.PropStatus" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.status}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.PropSize" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.size}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.Garage" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.garages}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-5" *ngIf="type == 'motors'">
+                    <h1 class="font-Inter font-semibold text-sm {{Language == 'ar' ? 'text-right' : ''}}">{{"VehicleDetailPage.MainHeading" | translate}}</h1>
+                    <div class="flex flex-wrap {{Language == 'ar' ? 'text-right' : ''}}">
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.PostedDate" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.adPostedDate}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.UpdatedDate" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.lastUpdationDate}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Make" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.make}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Model" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.model}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.BodyType" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.bodyType}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.RegionalSpecification" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">
+                                {{secondCardData.regionalSpecification}}
+                            </p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Year" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.year}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.MileageFuelEconomy" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.mileage}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Price" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.price}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.FuelType" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.fuelType}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.transmission" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.transmission}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Capacitys" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.capacity}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.SteeringSide" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.steeringSide}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"PropertyDetailPage.Condition" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.condition}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.MechanicalCondition" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.mechanicalCondition}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Cylinders" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">{{secondCardData.cylinder}}</p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.Warranty" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">
+                                {{secondCardData.warranty == true ? 'Yes': 'No'}}:
+                            </p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.ServiceHistory" | translate}}:
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">
+                                {{secondCardData.serviceHistory == true ? 'Yes': 'No'}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.EngineDisplacement" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">
+                                {{secondCardData.engineDisplacement}}
+                            </p>
+                        </div>
+                        <div class="flex w-[100%] md:w-[49%] pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                            <p class="text-[#191919] font-Inter font-bold text-[11px] {{Language == 'ar'? 'ml-2' : 'mr-2'}}">
+                                <span
+                                *ngIf="Language == 'ar'">: </span>{{"VehicleDetailPage.horsePower" | translate}}<span
+                                *ngIf="Language != 'ar'"> :</span>
+                            </p>
+                            <p class="text-[#989898] font-Inter font-medium text-[11px]">
+                                {{secondCardData.horsePower}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-5">
+                    <h1 class="text-[#191919] font-Inter font-bold text-sm {{Language == 'ar' ? 'text-right' : ''}}">{{"PropertyDetailPage.Location" | translate}}</h1>
+                    <div  class="flex pt-2 {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+                        <p class="text-[#191919] font-Inter font-semibold text-[11px] {{Language == 'ar' ? 'text-right ml-2' : 'pr-4'}}">
+                            <span
+                        *ngIf="Language == 'ar'">:</span>{{"PropertyDetailPage.PropAddress" | translate}}<span
+                        *ngIf="Language != 'ar'">:</span>
+                        </p>
+                        <p class="text-[#989898] font-Inter text-[11px]">
+                            {{secondCardData.address}}
+                        </p>
+                    </div>
+
+                    <div class="pt-3">
+                        <div id="map1" class="h-48">
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-5">
+                    <h1 class="font-Inter font-semibold text-[#191919] text-sm {{Language == 'ar' ? 'text-right' : ''}}">{{"PropertyDetailPage.Features" | translate}}</h1>
+                    <div class="flex flex-wrap">
+                        <div class="flex items-center justify-center flex-col my-2 w-[50%] sm:w-[20%]"
+                            *ngFor="let PropertyFeature of secondCardData.features">
+                            <div class="bg-gradient-to-b from-[#14A8DE] to-[#167394] w-9 h-9 rounded-full flex justify-center items-center"
+                                id="leaderboardimage">
+                                <img src="{{PropertyFeature.icon}}" alt=""
+                                    onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'">
+                            </div>
+                            <p class="text-[#989898] text-[10px] pt-1 text-center">{{PropertyFeature.name}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-5" *ngIf="type == 'property' && secondCardData.floorPlans.length > 0">
+                    <h1 class="font-Inter font-bold text-sm text-[#191919] {{Language == 'ar' ? 'text-right' : ''}}">{{"PropertyDetailPage.FloorPlan" | translate}}</h1>
+                    <div class="border border-[#DBDBDB] rounded-md px-2 py-4 mt-2" *ngFor="let FloorPlane2 of secondCardData.floorPlans">
+                        <img src="{{FloorPlane2}}" alt=""
+                            onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" class="">
+                    </div>
+                </div>
+                <div class="relative" *ngIf="secondCardData.video != null">
+                    <h1 class="text-[#191919] font-Inter font-semibold text-sm pb-3 {{Language == 'ar' ? 'text-right' : ''}}">{{"VehicleDetailPage.video"
+                        | translate}}</h1>
+                    <video #myVideo2 id="myVideo" class="w-full rounded-md" preload="auto" controls
+                        poster="./assets/images/video-thumbnail.png">
+                        <source src="{{secondCardData.video}}" type="video/mp4">
+                    </video>
+
+                    <button *ngIf="!controlsbtn2"
+                        class="bg-white w-10 h-10 rounded-full flex justify-center items-center absolute top-1/2 left-1/2 -mt-5 -ml-5"
+                        (click)="PlayPause2(myVideo2)">
+                        <fa-icon [icon]="faPlay" class="text-gk-red" *ngIf="!PlayBtnShow2"></fa-icon>
+                        <fa-icon [icon]="faPause" class="text-gk-red" *ngIf="PlayBtnShow2"></fa-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,65 @@
+<section class="bg-comingsoon-bg bg-cover h-screen bg-no-repeat">
+    <div class="w-[90%] mx-auto flex flex-col justify-center items-center absolute inset-0">
+        <div>
+            <img src="./assets/images/logo-for-white-bg.svg" alt=""
+                onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" class="w-28">
+        </div>
+        <div class="mb-4">
+            <img src="./assets/images/ComingSoon-text.png" alt=""
+                onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" class="xl:w-[70%] xl:mx-auto">
+        </div>
+        <div
+            class="bg-white p-4 w-[80%] mx-auto rounded shadow-[0_0_40px_#0989B854] md:w-[60%] lg:w-[50%] lg:p-8 xl:w-[35%]">
+            <div class="">
+                <h1 class="font-FivoSans font-bold text-center text-xl">Send Inquiry</h1>
+            </div>
+            <div>
+                <form #SurveyForm="ngForm" id="SurveyForm" (ngSubmit)="SubmitSurvey(SurveyForm.value)">
+                    <input type="text" name="" id="" placeholder="Full Name" required ngModel name="FullName" #FullName
+                        class="w-full bg-transparent border-0 border-b border-[#989898] placeholder:text-[#989898] text-xs my-1 px-0 font-Inter">
+                    <div class="group">
+                        <span class="prefix text-xs"
+                            [ngClass]="Contact.value.length > 0? 'text-black-800' : 'text-[#989898]'">+971</span>
+                        <input type="text" name="" id="" placeholder="" required ngModel name="Contact" #Contact
+                            [textMask]="{mask: mask}"
+                            class="w-full has-prefix bg-transparent border-0 border-b border-[#989898] placeholder:text-[#989898] text-xs my-1 px-0 font-Inter">
+                    </div>
+                    <input type="email" name="" id="" placeholder="Email Address" required ngModel name="email" #email
+                        email
+                        class="w-full bg-transparent border-0 border-b border-[#989898] placeholder:text-[#989898] text-xs my-1 px-0 font-Inter">
+                    <div class="my-4">
+                        <h1 class="font-Inter text-xs text-[#989898] mb-2">Interested in</h1>
+                        <div class="flex items-center">
+                            <div class="flex items-center mr-6">
+                                <input type="radio" name="radioBtn" id="" required #radioBtn [(ngModel)]="radioChecked" [value]="0"
+                                    class="border-[3px] border-[#989898]/40 focus:ring-0">
+                                <p class="text-xs ml-1 font-Inter text-black font-semibold ">Property</p>
+                            </div>
+                            <div class="flex items-center ">
+                                <input type="radio" name="radioBtn" id="" required #radioBtn [(ngModel)]="radioChecked" [value]="1"
+                                    class="border-[3px] border-[#989898]/40 focus:ring-0">
+                                <p class="text-xs ml-1 font-Inter text-black font-semibold">Motor</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-2">
+                        <button [disabled]="!SurveyForm.valid || (Contact.value.replace('_','').trim().length!==9)"
+                            class="bg-gk-red justify-center inline-flex px-4 py-3 mt-4 font-semibold w-full rounded-[4px] text-white text-xs transition ease-in-out duration-150 cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed">
+                            <svg *ngIf="SurveyStatus==false" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4">
+                                </circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                            SEND
+                        </button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

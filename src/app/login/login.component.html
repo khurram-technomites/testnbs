@@ -1,0 +1,548 @@
+<section *ngIf="LoginAndSingupPopup">
+    <div class="bg-black/50 fixed inset-0 flex justify-center items-center z-50">
+        <div class=" bg-white w-[80%] rounded-lg sm:w-[30%] md:w-[40%] xl:w-[25%]">
+            <div class="p-4">
+                <svg class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor"
+                    (click)="form =='Forgot'?toggleLoginSignUp('Login'): Close();">
+                    <path fill-rule="evenodd"
+                        d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
+                        clip-rule="evenodd" />
+                </svg>
+            </div>
+
+            <div class="flex flex-col justify-center {{form =='OTP'?'hidden':''}}">
+                <img src="./assets/images/logo-for-white-bg.svg" alt=""
+                    onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'"
+                    class="-mt-12 w-[130px] mx-auto {{form =='SignUpVendor'?'hidden':''}}">
+                <img src="./assets/images/Vendor Logo.png" alt=""
+                    onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'"
+                    class=" mb-4 w-[130px] mx-auto {{form =='SignUpVendor'?'':'hidden'}}">
+                <div
+                    class="font-Inter font-semibold flex justify-center capitalize border-b border-black/40 w-full {{form =='Forgot'?'hidden':''}}">
+                    <h1 (click)="toggleLoginSignUp('Login');"
+                        class="p-4 hover:border-b-4 hover:border-gk-red {{activeLogin}} active:border-gk-red active:text-gk-red cursor-pointer {{form =='SignUpVendor'?'hidden':''}}">
+                        {{"LoginPage.login" | translate}}
+                    </h1>
+                    <h1 (click)="toggleLoginSignUp('SignUp');"
+                        class="p-4 hover:border-b-4 hover:border-gk-red {{activeSignup}} active:border-gk-red active:text-gk-red cursor-pointer {{form =='SignUpVendor'?'hidden':''}}">
+                        {{"LoginPage.Signup" | translate}}
+                    </h1>
+                    <h1
+                        class="p-4 hover:border-b-4 hover:border-gk-red border-b-4 border-gk-red active:border-gk-red active:text-gk-red cursor-pointer {{form =='SignUpVendor'?'':'hidden'}}">
+                        {{"LoginPage.Signup" | translate}}
+                    </h1>
+                </div>
+                <!-- login -->
+                <form class="w-[90%] mx-auto {{form !='Login'?'hidden':''}}" #LoginFrom="ngForm"
+                    (ngSubmit)="getUserLoginData(LoginFrom.value)">
+                    <div class="font-Inter text-xs font-semibold flex flex-col my-4">
+                        <label for="" class="mb-2 {{Language}}">{{"LoginPage.Email/Phone" | translate}}</label>
+                        <input type="text"
+                            class="border-0 border-b border-black/40 p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="justin.hayes@gmail.com" ngModel name="UserName" required email
+                            #LoginEmailFild="ngModel">
+                        <small class="text-gk-red"
+                            *ngIf="!LoginEmailFild.valid && LoginEmailFild.touched">{{"LoginPage.ValidEmail" |
+                            translate}} </small>
+                    </div>
+                    <div class="font-Inter text-xs font-semibold flex flex-col mt-4 relative">
+                        <label for="" class="mb-2 {{Language}}">{{"LoginPage.Password" | translate}}</label>
+                        <input [type]="LoginPasswordType ? 'text' : 'password'"
+                            class="border-0 border-b border-black/40 p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="*************" ngModel name="Password" required>
+                        <fa-icon *ngIf="!LoginPasswordType"
+                            class="h-5 w-5 absolute right-0 bottom-2 fill-current text-black/40 cursor-pointer hover:text-black"
+                            (click)="toggleLoginPasswordType()" [icon]="faEye">
+                        </fa-icon>
+                        <fa-icon *ngIf="LoginPasswordType"
+                            class="h-5 w-5 absolute right-0 bottom-2 fill-current text-black/40 cursor-pointer hover:text-black"
+                            [icon]="faEyeSlash" (click)="toggleLoginPasswordType()">
+                        </fa-icon>
+
+                    </div>
+                    <p class="font-Inter capitalize text-gk-red font-semibold text-right my-2 cursor-pointer"
+                        (click)="toggleLoginSignUp('Forgot');">
+                        {{"LoginPage.ForgetPassword" | translate}}</p>
+
+                    <button [disabled]="!LoginFrom.valid"
+                        class="bg-gk-red justify-center inline-flex px-4 py-2 font-semibold w-full rounded-lg text-white transition ease-in-out duration-150 cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed mb-4">
+                        <svg *ngIf="signInStatus==false" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none"
+                            viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                        {{"LoginPage.login" | translate}}
+                    </button>
+                </form>
+                <!-- Forgot Password -->
+                <form class="w-[90%] mx-auto pb-3 {{form !='Forgot'?'hidden':''}}" #ForgotPasswordForm="ngForm"
+                    (ngSubmit)="ForgotPassword(ForgotPasswordForm.value)">
+                    <div class="font-Inter text-xs font-semibold flex flex-col mt-4">
+                        <label for="" class="mb-2 {{Language}}">{{"PropertyDetailPage.Email" | translate}}</label>
+                        <input type="text"
+                            class="border-0 border-b border-black/40 p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="justin.hayes@gmail.com" ngModel name="ForgotUserName" required email
+                            #ForgotEmailFild="ngModel">
+                        <small class="text-gk-red"
+                            *ngIf="!ForgotEmailFild.valid && ForgotEmailFild.touched">{{"LoginPage.ValidEmail" |
+                            translate}} </small>
+                    </div>
+                    <button [disabled]="!ForgotPasswordForm.valid"
+                        class="bg-gk-red justify-center inline-flex px-4 py-2 mt-4 font-semibold w-full rounded-lg text-white transition ease-in-out duration-150 cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed">
+                        <svg *ngIf="ForgotStatus==false" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                        {{"LoginPage.ResetPassword" | translate}}
+                    </button>
+                </form>
+                <!-- signup -->
+                <form class="w-[90%] mx-auto {{form !='SignUp'?'hidden':''}}" #SingUpusersFrom="ngForm"
+                    (ngSubmit)="getUserFormData(SingUpusersFrom.value)">
+                    <div class="font-Inter text-xs font-semibold flex flex-col mt-4">
+                        <label for="" class="mb-2 {{Language}}">{{"LoginPage.Name" | translate}}</label>
+                        <input type="text"
+                            class="border-0 border-b border-black/40 p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="Justin Hayes" ngModel name="UserName" required>
+                    </div>
+
+                    <div class="font-Inter text-xs font-semibold flex flex-col mt-4">
+                        <label for="" class="mb-2 {{Language}}">{{"LoginPage.Email" | translate}}</label>
+
+                        <input type="text"
+                            class="border-0 border-b border-black/40 p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="justin.hayes@gmail.com" ngModel name="Email" required email
+                            #SingUpEmailFild="ngModel">
+                        <small class="text-gk-red" *ngIf="!SingUpEmailFild.valid && SingUpEmailFild.touched">
+                            {{"LoginPage.ValidEmail" | translate}}
+                        </small>
+                    </div>
+
+                    <div class="font-Inter text-xs font-semibold flex flex-col mt-4">
+                        <label for="" class="mb-2 {{Language}}">{{"LoginPage.Phone" | translate}}</label>
+                        <div class="w-full">
+                            <span class="prefix text-xs"
+                                [ngClass]="Contact.value.length > 0? 'text-black-800/40' : 'text-[#989898]'">+971</span>
+                            <input type="text"
+                                class="has-prefix border-0 border-b border-black/40 w-full p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                                placeholder="" ngModel name="Contact" #Contact required
+                                #SingUpPhoneFild="ngModel" maxlength="9" (keypress)='restrictAlphabets($event)' autocomplete="off">
+
+                        </div>
+                        <small class="text-gk-red" *ngIf="!SingUpPhoneFild.valid && SingUpPhoneFild.touched">
+                            {{"LoginPage.ValidNumber" | translate}}
+                        </small>
+                    </div>
+
+                    <div class="font-Inter text-xs font-semibold flex flex-col mt-4 relative">
+                        <label for="" class="mb-2 {{Language}}">{{"LoginPage.Password" | translate}}</label>
+                        <input [type]="SignUp1PasswordType ? 'text' : 'password'"
+                            class="border-0 border-b border-black/40 p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="*************" ngModel name="Password" required #PasswordFild="ngModel">
+                        <fa-icon *ngIf="!SignUp1PasswordType"
+                            class="h-5 w-5 absolute right-0 bottom-2 fill-current text-black/40 cursor-pointer hover:text-black"
+                            (click)="toggleSignup1PasswordType()" [icon]="faEye">
+                        </fa-icon>
+                        <fa-icon *ngIf="SignUp1PasswordType"
+                            class="h-5 w-5 absolute right-0 bottom-2 fill-current text-black/40 cursor-pointer hover:text-black"
+                            [icon]="faEyeSlash" (click)="toggleSignup1PasswordType()">
+                        </fa-icon>
+                        <div class="text-gk-red flex flex-wrap bg-white gk-shadow p-4 absolute bottom-[4.5rem]"
+                            *ngIf="PasswordFild.value?.length !== 0 && PasswordFild.touched && (PasswordFild.value?.length <8 || UpperCaseCheck(PasswordFild.value) == false || LowerCaseCheck(PasswordFild.value)==false || NumberCheck(PasswordFild.value) == false)">
+
+                            <div class="pt-1 w-[50%] {{PasswordFild.value.length >=8?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{PasswordFild.value.length >=8?'text-green-500':'text-red-600'}}"
+                                        [icon]="PasswordFild.value.length >=8? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.Mincharacters" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="pt-1 w-[50%] {{UpperCaseCheck(PasswordFild.value)?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{UpperCaseCheck(PasswordFild.value)?'text-green-500':'text-red-600'}}"
+                                        [icon]="UpperCaseCheck(PasswordFild.value)? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.AtleastCapitalCase" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="pt-1 w-[50%] {{LowerCaseCheck(PasswordFild.value)?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{LowerCaseCheck(PasswordFild.value)?'text-green-500':'text-red-600'}}"
+                                        [icon]="LowerCaseCheck(PasswordFild.value)? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.AtleastSmallCase" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="pt-1 w-[50%] {{NumberCheck(PasswordFild.value)?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{NumberCheck(PasswordFild.value)?'text-green-500':'text-red-600'}}"
+                                        [icon]="NumberCheck(PasswordFild.value)? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.Atleastnumber" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="font-Inter text-xs font-semibold flex flex-col mt-4 relative">
+                        <label for="" class="mb-2 {{Language}}">{{"LoginPage.ConfirmPassword" | translate}}</label>
+                        <input [type]="SignUp2PasswordType ? 'text' : 'password'"
+                            class="border-0 border-b border-black/40 p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="*************" ngModel name="ConfirmPassword" required
+                            #ConfirmPasswordFild="ngModel">
+                        <fa-icon *ngIf="!SignUp2PasswordType"
+                            class="h-5 w-5 absolute right-0 bottom-2 fill-current text-black/40 cursor-pointer hover:text-black"
+                            (click)="toggleSignup2PasswordType()" [icon]="faEye">
+                        </fa-icon>
+                        <fa-icon *ngIf="SignUp2PasswordType"
+                            class="h-5 w-5 absolute right-0 bottom-2 fill-current text-black/40 cursor-pointer hover:text-black"
+                            [icon]="faEyeSlash" (click)="toggleSignup2PasswordType()">
+                        </fa-icon>
+                        <div class="text-gk-red flex flex-wrap bg-white gk-shadow p-4 absolute bottom-[4.5rem]"
+                            *ngIf="ConfirmPasswordFild.value?.length !== 0 && ConfirmPasswordFild.touched && (ConfirmPasswordFild.value?.length <8 || UpperCaseCheck(ConfirmPasswordFild.value) == false || LowerCaseCheck(ConfirmPasswordFild.value)==false || NumberCheck(ConfirmPasswordFild.value) == false || ConfirmPasswordFild.value !== PasswordFild.value )">
+
+                            <div class="flex pt-2 w-[50%] {{ConfirmPasswordFild.value.length >=8?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{ConfirmPasswordFild.value.length >=8?'text-green-500':'text-red-600'}}"
+                                        [icon]="ConfirmPasswordFild.value.length >=8? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.Mincharacters" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex pt-2 w-[50%] {{UpperCaseCheck(ConfirmPasswordFild.value)?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{UpperCaseCheck(ConfirmPasswordFild.value)?'text-green-500':'text-red-600'}}"
+                                        [icon]="UpperCaseCheck(ConfirmPasswordFild.value)? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.AtleastCapitalCase" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex pt-2 w-[50%] {{LowerCaseCheck(ConfirmPasswordFild.value)?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{LowerCaseCheck(ConfirmPasswordFild.value)?'text-green-500':'text-red-600'}}"
+                                        [icon]="LowerCaseCheck(ConfirmPasswordFild.value)? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                       {{"LoginPage.AtleastSmallCase" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex pt-2 w-[50%] {{NumberCheck(ConfirmPasswordFild.value)?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{NumberCheck(ConfirmPasswordFild.value)?'text-green-500':'text-red-600'}}"
+                                        [icon]="NumberCheck(ConfirmPasswordFild.value)? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.Atleastnumber" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex pt-2 w-[50%] {{PasswordFild.value == ConfirmPasswordFild.value?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{PasswordFild.value == ConfirmPasswordFild.value?'text-green-500':'text-red-600'}}"
+                                        [icon]="PasswordFild.value == ConfirmPasswordFild.value? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"DashboardPage.ChangePassword.ErrPswd" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        [disabled]="SingUpusersFrom.invalid || (PasswordFild.value !== ConfirmPasswordFild.value) || (SingUpPhoneFild.value?.length!==9) || (ConfirmPasswordFild.value?.length <8 || UpperCaseCheck(ConfirmPasswordFild.value) == false || LowerCaseCheck(ConfirmPasswordFild.value)==false || NumberCheck(ConfirmPasswordFild.value) == false || ConfirmPasswordFild.value !== PasswordFild.value )"
+                        class="bg-gk-red justify-center inline-flex px-4 py-2 my-4 font-semibold w-full rounded-lg text-white transition ease-in-out duration-150 cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed">
+                        <svg *ngIf="SignUpStatus==false" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                        {{"LoginPage.Signup" | translate}}
+                    </button>
+                </form>
+
+                <!-- SignUp Vendor -->
+                <form class="w-[90%] mx-auto {{form !='SignUpVendor'?'hidden':''}}" #SingUpVendorFrom="ngForm"
+                    (ngSubmit)="RegisterVendor(SingUpVendorFrom.value)">
+                    <div class="font-Inter text-xs font-semibold flex flex-col mt-4">
+                        <label for="" class="mb-2 {{Language}}">{{"LoginPage.LegalName" | translate}}</label>
+                        <input type="text"
+                            class="border-0 border-b border-black/40 p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="Justin Hayes" ngModel name="VendorUserName" required>
+                    </div>
+
+                    <div class="font-Inter text-xs font-semibold flex flex-col mt-4">
+                        <label for="" class="mb-2 {{Language}}">{{"LoginPage.Email" | translate}}</label>
+                        <input type="text"
+                            class="border-0 border-b border-black/40 p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="justin.hayes@gmail.com" ngModel name="VendorEmail" required email
+                            #VendorSingUpEmailFild="ngModel">
+                        <small class="text-gk-red"
+                            *ngIf="!VendorSingUpEmailFild.valid && VendorSingUpEmailFild.touched">
+                            {{"LoginPage.ValidEmail" | translate}}
+                        </small>
+                    </div>
+
+                    <div class="font-Inter text-xs font-semibold flex flex-col mt-4">
+                        <label for="" class="mb-2 {{Language}}"> {{"LoginPage.Phone" | translate}}</label>
+                        <div class="group">
+                            <span class="prefix text-xs"
+                                [ngClass]="VendorContact.value.length > 0? 'text-black-800/40' : 'text-[#989898]'">
+                                +971</span>
+                            <input type="text"
+                                class="has-prefix w-full border-0 border-b border-black/40 p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                                placeholder="" ngModel name="VendorContact" #VendorContact required
+                                 #VendorSingUpPhoneFild="ngModel" maxlength="9"
+                                (keypress)='restrictAlphabets($event)' autocomplete="off">
+                        </div>
+                        <small class="text-gk-red"
+                            *ngIf="!VendorSingUpPhoneFild.valid && VendorSingUpPhoneFild.touched">
+                            {{"LoginPage.ValidNumber" | translate}}
+                        </small>
+                    </div>
+
+                    <div class="font-Inter text-xs font-semibold flex flex-col mt-4 relative">
+                        <label for="" class="mb-2 {{Language}}">{{"LoginPage.Password" | translate}}</label>
+                        <input [type]="SignUpVendor1PasswordType ? 'text' : 'password'"
+                            class="border-0 border-b border-black/40 p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="*************" ngModel name="VendorPassword" required
+                            #VendorPasswordFild="ngModel">
+                        <fa-icon *ngIf="!SignUpVendor1PasswordType"
+                            class="h-5 w-5 absolute right-0 bottom-2 fill-current text-black/40 cursor-pointer hover:text-black"
+                            (click)="toggleSignupVendor1PasswordType()" [icon]="faEye">
+                        </fa-icon>
+                        <fa-icon *ngIf="SignUpVendor1PasswordType"
+                            class="h-5 w-5 absolute right-0 bottom-2 fill-current text-black/40 cursor-pointer hover:text-black"
+                            [icon]="faEyeSlash" (click)="toggleSignupVendor1PasswordType()">
+                        </fa-icon>
+
+                        <div class="text-gk-red flex flex-wrap bg-white gk-shadow p-4 absolute bottom-[4.5rem]"
+                            *ngIf="VendorPasswordFild.value?.length !==0 && VendorPasswordFild.touched && (VendorPasswordFild.value?.length <8 || UpperCaseCheck(VendorPasswordFild.value) == false || LowerCaseCheck(VendorPasswordFild.value)==false || NumberCheck(VendorPasswordFild.value) == false)">
+
+                            <div class="pt-2 w-[50%] {{VendorPasswordFild.value.length >=8?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{VendorPasswordFild.value.length >=8?'text-green-500':'text-red-600'}}"
+                                        [icon]="VendorPasswordFild.value.length >=8? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                       {{"LoginPage.Mincharacters" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex py-2 w-[50%] {{UpperCaseCheck(VendorPasswordFild.value)?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{UpperCaseCheck(VendorPasswordFild.value)?'text-green-500':'text-red-600'}}"
+                                        [icon]="UpperCaseCheck(VendorPasswordFild.value)? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                       {{"LoginPage.AtleastCapitalCase" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex py-2 w-[50%] {{LowerCaseCheck(VendorPasswordFild.value)?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{LowerCaseCheck(VendorPasswordFild.value)?'text-green-500':'text-red-600'}}"
+                                        [icon]="LowerCaseCheck(VendorPasswordFild.value)? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.AtleastSmallCase" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex py-2 w-[50%] {{NumberCheck(VendorPasswordFild.value)?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{NumberCheck(VendorPasswordFild.value)?'text-green-500':'text-red-600'}}"
+                                        [icon]="NumberCheck(VendorPasswordFild.value)? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.Atleastnumber" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="font-Inter text-xs font-semibold flex flex-col mt-4 relative">
+                        <label for="" class="mb-2 {{Language}}">{{"LoginPage.ConfirmPassword" | translate}}</label>
+                        <input [type]="SignUpVendor2PasswordType ? 'text' : 'password'"
+                            class="border-0 border-b border-black/40 p-0 text-xs py-2 focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="*************" ngModel name="VendorConfirmPassword" required
+                            #VendorConfirmPasswordFild="ngModel">
+                        <fa-icon *ngIf="!SignUpVendor2PasswordType"
+                            class="h-5 w-5 absolute right-0 bottom-2 fill-current text-black/40 cursor-pointer hover:text-black"
+                            (click)="toggleSignupVendor2PasswordType()" [icon]="faEye">
+                        </fa-icon>
+                        <fa-icon *ngIf="SignUpVendor2PasswordType"
+                            class="h-5 w-5 absolute right-0 bottom-2 fill-current text-black/40 cursor-pointer hover:text-black"
+                            [icon]="faEyeSlash" (click)="toggleSignupVendor2PasswordType()">
+                        </fa-icon>
+                        <div class="text-gk-red flex flex-wrap bg-white gk-shadow p-4 absolute bottom-[4.5rem]"
+                            *ngIf="VendorConfirmPasswordFild.value?.length !==0 && VendorConfirmPasswordFild.touched && (VendorConfirmPasswordFild.value?.length <8 || UpperCaseCheck(VendorConfirmPasswordFild.value) == false || LowerCaseCheck(VendorConfirmPasswordFild.value)==false || NumberCheck(VendorConfirmPasswordFild.value) == false || VendorConfirmPasswordFild.value !== VendorPasswordFild.value )">
+                            <div class="flex py-2 w-[50%] {{VendorConfirmPasswordFild.value.length >=8?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{VendorConfirmPasswordFild.value.length >=8?'text-green-500':'text-red-600'}}"
+                                        [icon]="VendorConfirmPasswordFild.value.length >=8? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.Mincharacters" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex py-2 w-[50%] {{UpperCaseCheck(VendorConfirmPasswordFild.value)?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{UpperCaseCheck(VendorConfirmPasswordFild.value)?'text-green-500':'text-red-600'}}"
+                                        [icon]="UpperCaseCheck(VendorConfirmPasswordFild.value)? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.AtleastCapitalCase" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex py-2 w-[50%] {{LowerCaseCheck(VendorConfirmPasswordFild.value)?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{LowerCaseCheck(VendorConfirmPasswordFild.value)?'text-green-500':'text-red-600'}}"
+                                        [icon]="LowerCaseCheck(VendorConfirmPasswordFild.value)? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.AtleastSmallCase" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex py-2 w-[50%] {{NumberCheck(VendorConfirmPasswordFild.value)?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{NumberCheck(VendorConfirmPasswordFild.value)?'text-green-500':'text-red-600'}}"
+                                        [icon]="NumberCheck(VendorConfirmPasswordFild.value)? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"LoginPage.Atleastnumber" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex py-2 w-[50%] {{VendorPasswordFild.value == VendorConfirmPasswordFild.value?'hidden':''}}">
+                                <div class="flex">
+                                    <fa-icon
+                                        class="h-5 w-5 fill-current {{VendorPasswordFild.value == VendorConfirmPasswordFild.value?'text-green-500':'text-red-600'}}"
+                                        [icon]="VendorPasswordFild.value == VendorConfirmPasswordFild.value? faCheckCircle : faTimesCircle ">
+                                    </fa-icon>
+                                    <p class="text-[8px]">
+                                        {{"DashboardPage.ChangePassword.ErrPswd" | translate}}
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button
+                        [disabled]="!SingUpVendorFrom.valid || (VendorPasswordFild.value !== VendorConfirmPasswordFild.value) || (VendorSingUpPhoneFild.value?.length!==9) || (VendorConfirmPasswordFild.value?.length <8 || UpperCaseCheck(VendorConfirmPasswordFild.value) == false || LowerCaseCheck(VendorConfirmPasswordFild.value)==false || NumberCheck(VendorConfirmPasswordFild.value) == false || VendorConfirmPasswordFild.value !== VendorPasswordFild.value )"
+                        class="bg-gk-red justify-center inline-flex px-4 py-2 my-4 font-semibold w-full rounded-lg text-white transition ease-in-out duration-150 cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed">
+                        <svg *ngIf="SignUpVendorStatus==false" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                        {{"LoginPage.Signup" | translate}}
+                    </button>
+                    <div class="font-Inter text-xs font-semibold flex flex-col pb-4 text-center relative">
+                        <p>{{"LoginPage.Alreadyaccount" | translate}} <a href="https://portal.nowbuysell.com/vendor" class="text-gk-red">{{"LoginPage.login" | translate}}</a></p>
+                    </div>
+                </form>
+            </div>
+            <div class="flex flex-col justify-center {{form !='OTP'?'hidden':''}}">
+                <img src="./assets/images/logo-for-white-bg.svg" alt=""
+                    onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'"
+                    class="-mt-12 w-[130px] mx-auto">
+                <div class="font-Inter font-semibold flex flex-col items-center justify-center capitalize w-full">
+                    <h1 class="pt-4 text-gk-red text-lg">Verify</h1>
+                    <p class="text-xs text-black/40 mt-2 px-10 text-center">{{"LoginPage.CodeSent" | translate}}</p>
+                    <p class="text-xs text-black font-semibold pb-4">{{SignupContact}}</p>
+                </div>
+                <!-- OTP -->
+                <form class="w-[90%] mx-auto " #OTPverify="ngForm" (ngSubmit)="SendOTP(OTPverify.value)">
+                    <div class="font-Inter text-xs font-semibold flex flex-wrap my-4">
+                        <input type="text"
+                            class="border-0 border-b border-black/40 p-0 text-2xl py-2 
+                        w-[22%] mr-2 text-center font-bold focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="5" maxlength="1" (keyup)="keytest($event)" required ngModel name="OTP1">
+
+                        <input type="text"
+                            class="border-0 border-b border-black/40 p-0 text-2xl py-2 
+                        w-[22%] mr-2 text-center font-bold focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="5" maxlength="1" (keyup)="keytest($event)" required ngModel name="OTP2">
+
+                        <input type="text"
+                            class="border-0 border-b border-black/40 p-0 text-2xl py-2 
+                        w-[22%] mr-2 text-center font-bold focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="5" maxlength="1" (keyup)="keytest($event)" required ngModel name="OTP3">
+
+                        <input type="text"
+                            class="border-0 border-b border-black/40 p-0 text-2xl py-2 
+                        w-[22%] mr-2 text-center font-bold focus:shadow-none focus:border-b-4 focus:border-gk-red focus:ring-0"
+                            placeholder="5" maxlength="1" (keyup)="keytest($event)" required ngModel name="OTP4">
+
+                    </div>
+
+                    <button
+                        class="bg-gk-red text-white font-semibold w-full rounded-lg py-2 cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed"
+                        [disabled]=!OTPverify.valid>{{"LoginPage.Verify" | translate}}</button>
+
+                    <p class="font-Inter capitalize text-black/40 font-semibold text-center text-xs mt-10">
+                        {{"LoginPage.CodeValid" | translate}}
+                    </p>
+                    <div class="flex items-center justify-center font-Inter text-xs font-bold capitalize mb-4">
+                        <p class="font-Inter capitalize text-black text-center text-xs my-2 mr-2" *ngIf="!isTimeOut">
+                            {{showOPTcounter}}</p>
+                        <a class="font-Inter capitalize text-gk-red text-center text-xs my-2 cursor-pointer"
+                            *ngIf="isTimeOut" (click)="reSendOTP();">{{"LoginPage.ResendCode" | translate}}</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

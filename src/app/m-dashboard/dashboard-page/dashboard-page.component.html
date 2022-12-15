@@ -1,0 +1,86 @@
+<section class="px-5 md:px-10 xl:hidden">
+    <div class="flex justify-between bg-gk-red text-white font-Inter text-xs py-4 px-3 rounded"
+        (click)="hideShowDashboard()">
+        <fa-icon [icon]="faBars" class=""></fa-icon>
+        <h1 class="font-bold">{{"DashboardPage.Navigation.DashboardNav" | translate}}</h1>
+    </div>
+    <div *ngIf="dashboardHideShow" class="mt-5">
+        <div class="flex rounded-t bg-gk-red text-white font-Inter text-xs py-4 px-3 ">
+            <fa-icon [icon]="faUser" class="mr-2"></fa-icon>
+            <a routerLink="/dashboard" [queryParams]="{type : 'myprofile'}" class="">
+                <h1 class="">{{"DashboardPage.Navigation.Profile" | translate}}</h1>
+            </a>
+        </div>
+        <div class="flex bg-gk-red text-white font-Inter text-xs py-4 px-3 ">
+            <fa-icon [icon]="faLock" class="mr-2"></fa-icon>
+            <a routerLink="/dashboard" [queryParams]="{type : 'changepassword'}">
+                <h1 class="">{{"DashboardPage.Navigation.ChangePswd" | translate}}</h1>
+            </a>
+        </div>
+        <div class="flex bg-gk-red text-white font-Inter text-xs py-4 px-3 ">
+            <fa-icon [icon]="faFile" class="mr-2"></fa-icon>
+            <a routerLink="/dashboard" [queryParams]="{type : 'myrequest'}">
+                <h1 class="">{{"DashboardPage.Navigation.MyRequest" | translate}}</h1>
+            </a>
+        </div>
+        <div class="flex rounded-b bg-gk-red text-white font-Inter text-xs py-4 px-3 ">
+            <fa-icon [icon]="faPowerOff" class="mr-2"></fa-icon>
+            <h1 class="" (click)="logOut()">{{"DashboardPage.Navigation.Logout" | translate}}</h1>
+        </div>
+    </div>
+</section>
+
+<div class="xl:flex xl:w-[80%] xl:mx-auto xl:py-4">
+    <section class="xl:block xl:w-[20%] bg-white hidden px-20 mt-24 xl:p-0">
+        <div class="flex  bg-white font-Inter text-xs py-4 px-4 rounded-t ">
+            <fa-icon [icon]="faBars" class="mr-2 "></fa-icon>
+            <h1 class="font-bold text-black ">{{"DashboardPage.Navigation.DashboardNav" | translate}}</h1>
+        </div>
+        <div class="">
+            <div
+                class="flex bg-white font-Inter text-xs py-4 px-4 rounded hoverDiv {{myprofile?'bg-[#0989B8] text-white':''}}">
+                <fa-icon [icon]="faUser" class="mr-2 {{myprofile?'bg-[#0989B8] text-white':'text-black'}} hoverIcon">
+                </fa-icon>
+                <a routerLink="/dashboard" [queryParams]="{type : 'myprofile'}" class="">
+                    <h1 class="{{myprofile?'bg-[#0989B8] text-white':'text-black'}}  hoverText">
+                        {{"DashboardPage.Navigation.Profile" | translate}}</h1>
+                </a>
+            </div>
+            <div
+                class="flex bg-white font-Inter text-xs py-4 px-4 rounded hoverDiv {{changepassword?'bg-[#0989B8]':''}}">
+                <fa-icon [icon]="faLock"
+                    class="mr-2 {{changepassword?'bg-[#0989B8] text-white':'text-black'}} hoverIcon"></fa-icon>
+                <a routerLink="/dashboard" [queryParams]="{type : 'changepassword'}">
+                    <h1 class="{{changepassword?'bg-[#0989B8] text-white':'text-black'}} hoverText">
+                        {{"DashboardPage.Navigation.ChangePswd" | translate}}</h1>
+                </a>
+            </div>
+            <div class="flex bg-white font-Inter text-xs py-4 px-4 rounded hoverDiv {{myrequest?'bg-[#0989B8]':''}}">
+                <fa-icon [icon]="faFile" class="mr-2 {{myrequest?'bg-[#0989B8] text-white':'text-black'}} hoverIcon">
+                </fa-icon>
+                <a routerLink="/dashboard" [queryParams]="{type : 'myrequest'}">
+                    <h1 class="{{myrequest?'bg-[#0989B8] text-white':'text-black'}} hoverText">
+                        {{"DashboardPage.Navigation.MyRequest" | translate}}</h1>
+                </a>
+            </div>
+            <div class="flex bg-white font-Inter text-xs py-4 px-4 rounded hoverDiv">
+                <fa-icon [icon]="faThList" class="mr-2 hoverIcon">
+                </fa-icon>
+                <a routerLink="/placeyouradd">
+                    <h1 class="hoverText">
+                        {{'Footer.Request' | translate}}</h1>
+                </a>
+            </div>
+
+            <div class="flex rounded-b bg-white font-Inter text-xs py-4 px-4 rounded hoverDiv cursor-pointer"
+                (click)="logOut()">
+                <fa-icon [icon]="faPowerOff" class="mr-2 text-black hoverIcon"></fa-icon>
+                <h1 class="text-black hoverText">{{"DashboardPage.Navigation.Logout" | translate}}</h1>
+            </div>
+        </div>
+    </section>
+
+    <app-profile-page *ngIf="myprofile" class="xl:w-[80%]"></app-profile-page>
+    <app-change-password *ngIf="changepassword" class="xl:w-[80%]"></app-change-password>
+    <app-request class="xl:w-[80%]" *ngIf="myrequest"></app-request>
+</div>

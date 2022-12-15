@@ -1,0 +1,19 @@
+<app-hero-section [heroSectionData]="aboutHeroData" [customClass]="'bg-about-hero-bg bg-cover font-Inter text-xs text-white py-20 flex flex-col justify-center items-center xl:py-32'" [customClass2]="'text-xl font-extrabold'"></app-hero-section>
+
+<section class="px-5 md:px-10 xl:px-56">
+    <div class="font-Inter text-xs my-5 text-center xl:my-10">
+        <h1 class="font-bold text-xl ">{{'AboutUsPage.AboutUsPageBanner.AboutUs' | translate}}</h1>
+    </div>
+    <div class="text-xs font-Inter text-justify xl:flex xl:justify-center xl:items-center xl:text-left {{Language == 'ar' ? 'flex-row-reverse' : ''}}">
+        <div class="flex justify-center xl:w-[50%]">
+            <img src="./assets/images/main1.jpg" alt=""
+                onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'">
+        </div>
+        <div class=" xl:w-[50%] p-4 {{Language == 'ar' ? 'text-right' : ''}}">
+            <p class="mb-2 text-justify" [innerHTML]="'AboutUsPage.AboutUsPageBanner.ParaDesc' | translate"></p>
+        </div>
+    </div>
+</section>
+
+<app-counter-section></app-counter-section>
+<app-why-choose-us></app-why-choose-us>

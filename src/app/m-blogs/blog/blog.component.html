@@ -1,0 +1,60 @@
+<app-hero-section [heroSectionData]="heroData" [customClass]="'bg-blogs-bg bg-cover font-Inter text-xs text-white py-20 flex flex-col justify-center items-center xl:py-32'" [customClass2]="'text-xl font-FivoSans 2xl:text-4xl'"></app-hero-section>
+<section>
+    <div class="w-[80%] mx-auto mt-4 mb-4 xl:w-[40%] xl:h-[40%] relative group">
+        <img *ngIf="!VideoOrImage" src="{{newsfeeds.bannerImage}}" alt="" onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" >
+        <div *ngIf="VideoOrImage">
+            <video #myVideo id="myVideo" class="w-full" preload="auto" controls
+            poster="./assets/images/video-thumbnail.png">
+                <source src="{{video}}" type="video/mp4">
+            </video>
+
+            <button *ngIf="!controlsbtn"
+                class="bg-white w-10 h-10 rounded-full flex justify-center items-center absolute top-1/2 left-1/2 -mt-5 -ml-5"
+                (click)="PlayPause(myVideo)">
+                <fa-icon [icon]="faPlay" class="text-gk-red" *ngIf="!PlayBtnShow"></fa-icon>
+                <fa-icon [icon]="faPause" class="text-gk-red" *ngIf="PlayBtnShow"></fa-icon>
+            </button>
+        </div>
+        <div class="justify-end absolute bottom-2 right-2 hidden group-hover:flex group-hover:delay-500">
+            <div class="w-[48px] h-[48px] rounded-full flex justify-center items-center mr-2 cursor-pointer 
+            {{VideoOrImage == false ? 'bg-gk-red' : 'bg-white' }}" (click)="VideoOrImage = false">
+                <svg class="stroke-[#989898]" width="22" height="16.5" viewBox="0 0 22 16.5">
+                    <path id="Path_107" data-name="Path 107" d="M8.938-16.5H-8.937A2.062,2.062,0,0,0-11-14.437V-2.062A2.062,2.062,0,0,0-8.937,0H8.938A2.062,2.062,0,0,0,11-2.062V-14.437A2.062,2.062,0,0,0,8.938-16.5ZM9.625-2.062a.688.688,0,0,1-.687.688H-8.937a.688.688,0,0,1-.687-.687V-14.437a.688.688,0,0,1,.688-.687H8.938a.688.688,0,0,1,.688.688ZM-6.187-9.281a2.406,2.406,0,0,0,2.406-2.406,2.406,2.406,0,0,0-2.406-2.406,2.406,2.406,0,0,0-2.406,2.406A2.406,2.406,0,0,0-6.187-9.281Zm0-3.437a1.032,1.032,0,0,1,1.031,1.031,1.032,1.032,0,0,1-1.031,1.031,1.032,1.032,0,0,1-1.031-1.031A1.032,1.032,0,0,1-6.187-12.719Zm8.9.99L-1.375-7.646-2.708-8.979a1.031,1.031,0,0,0-1.458,0L-7.948-5.2a1.184,1.184,0,0,0-.3.729v1.2a.516.516,0,0,0,.516.516H7.734a.516.516,0,0,0,.516-.516V-7.219a1.031,1.031,0,0,0-.3-.729L4.167-11.729A1.031,1.031,0,0,0,2.708-11.729Zm4.167,7.6H-6.875v-.2l3.438-3.437L-1.375-5.7l4.813-4.813L6.875-7.076Z" transform="translate(11 16.5)" fill="#fff"/>
+                </svg>
+            </div>
+            <div class="w-[48px] h-[48px] rounded-full flex justify-center items-center cursor-pointer 
+            {{VideoOrImage == true ? 'bg-gk-red' : 'bg-white' }}" (click)="VideoOrImage = true">
+                <svg class="stroke-[#989898]" width="24.746" height="16.5" viewBox="0 0 24.746 16.5">
+                    <path id="Path_108" data-name="Path 108" d="M11-15.125a1.376,1.376,0,0,0-.782.245l-4.714,3v-2.57A2.145,2.145,0,0,0,3.274-16.5H-10.149a2.145,2.145,0,0,0-2.226,2.054V-2.054A2.145,2.145,0,0,0-10.149,0H3.274A2.145,2.145,0,0,0,5.5-2.054v-2.57l4.709,3a1.354,1.354,0,0,0,.782.245,1.366,1.366,0,0,0,1.379-1.354V-13.771A1.36,1.36,0,0,0,11-15.125ZM4.125-2.054a.79.79,0,0,1-.851.679H-10.149A.79.79,0,0,1-11-2.054V-14.446a.79.79,0,0,1,.851-.679H3.274a.79.79,0,0,1,.851.679ZM11-2.729l-.052-.056L5.5-6.256v-3.992l5.5-3.5Z" transform="translate(12.375 16.5)" fill="#fff"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex items-center justify-center">
+        <div class="flex mr-4">
+            <svg viewBox="0 0 448 512" class="w-4">
+                <path fill="#989898"
+                    d="M313.6 288c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4zM416 464c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16v-41.6C32 365.9 77.9 320 134.4 320c19.6 0 39.1 16 89.6 16 50.4 0 70-16 89.6-16 56.5 0 102.4 45.9 102.4 102.4V464zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm0-224c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"
+                    class=""></path>
+            </svg>
+            <h1 class="font-Inter ml-2 text-xs text-[#989898]">{{newsfeeds.author}}</h1>
+        </div>
+        <div class="flex items-center">
+            <svg viewBox="0 0 448 512" class="w-4">
+                <path fill="#989898"
+                    d="M400 64h-48V12c0-6.627-5.373-12-12-12h-8c-6.627 0-12 5.373-12 12v52H128V12c0-6.627-5.373-12-12-12h-8c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zM48 96h352c8.822 0 16 7.178 16 16v48H32v-48c0-8.822 7.178-16 16-16zm352 384H48c-8.822 0-16-7.178-16-16V192h384v272c0 8.822-7.178 16-16 16z"
+                    class=""></path>
+            </svg>
+            <h1 class="font-Inter ml-2 text-xs text-[#989898]">{{newsfeeds.createdOn | date:'longDate'}}</h1>
+        </div>
+    </div>
+
+    <div class="px-5 text-center mt-4 font-bold">
+        <h1 class="font-Inter text-xl">{{newsfeeds.title}}</h1>
+    </div>
+</section>
+
+<section class="w-[90%] mx-auto my-4 md:w-[70%]">
+    <p class="font-Inter text-xs text-justify text-[#989898]  {{Language}}" [innerHTML]="newsfeeds.description"></p>
+</section>

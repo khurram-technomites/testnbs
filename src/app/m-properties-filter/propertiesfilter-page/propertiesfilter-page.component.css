@@ -1,0 +1,15 @@
+.gk-query
+{
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.gk-query h1
+{
+    letter-spacing: 5px;
+}
+
+.sidenav {
+  transition: 0.5s;
+}
+

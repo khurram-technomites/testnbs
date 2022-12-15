@@ -1,0 +1,172 @@
+<section *ngIf="loaderName == 'gridCard'">
+    <div class="relative">
+        <div>
+            <ngx-skeleton-loader [theme]="{ height: '150px'}"></ngx-skeleton-loader>
+        </div>
+        <div class="absolute right-0 -bottom-3">
+            <ngx-skeleton-loader appearance="circle"
+            [theme]="{ width: '40px', height: '40px', 'background-color': '#c8cbd3'}"></ngx-skeleton-loader>
+        </div>
+        </div>       
+        <div class="w-[60%]">
+            <ngx-skeleton-loader [theme]="{ height: '20px'}">
+            </ngx-skeleton-loader>
+        </div>
+        <ngx-skeleton-loader [theme]="{ height: '20px'}">
+        </ngx-skeleton-loader>
+        <div class="w-[40%]">
+            <ngx-skeleton-loader [theme]="{ height: '20px'}">
+            </ngx-skeleton-loader>
+        </div>
+        <div class="flex justify-between">
+            <div class="w-[70%]">
+                <ngx-skeleton-loader [theme]="{ height: '20px'}">
+                </ngx-skeleton-loader>
+            </div>
+            <div>
+                <ngx-skeleton-loader [theme]="{ width: '20px', height: '20px'}">
+                </ngx-skeleton-loader>
+            </div>
+        </div>
+</section>
+
+<div class="flex" *ngIf="loaderName == 'listCard'">
+    <div class="w-[20%]">
+        <ngx-skeleton-loader [theme]="{ width: '150px', height: '180px'}">
+        </ngx-skeleton-loader>
+    </div>
+    <div class="flex flex-col pl-4 w-[80%] justify-center">
+        <div class="flex justify-between">
+            <div>
+                <ngx-skeleton-loader [theme]="{ width: '400px', height: '20px'}">
+                </ngx-skeleton-loader>
+                <ngx-skeleton-loader [theme]="{ width: '400px', height: '20px'}">
+                </ngx-skeleton-loader>
+            </div>
+            <div>
+                <ngx-skeleton-loader [theme]="{ width: '110px', height: '60px'}">
+                </ngx-skeleton-loader>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="flex items-center">
+                <ngx-skeleton-loader appearance="circle"
+                [theme]="{ width: '25px', height: '25px', 'background-color': '#c8cbd3'}">
+                </ngx-skeleton-loader>
+                <ngx-skeleton-loader [theme]="{ width: '50px', height: '20px'}">
+                </ngx-skeleton-loader>
+            </div>
+            <div class="flex pl-3">
+                <ngx-skeleton-loader appearance="circle"
+                [theme]="{ width: '25px', height: '25px', 'background-color': '#c8cbd3'}">
+                </ngx-skeleton-loader>
+                <ngx-skeleton-loader [theme]="{ width: '50px', height: '20px'}">
+                </ngx-skeleton-loader>
+            </div>
+            <div class="flex items-center pl-3">
+                <ngx-skeleton-loader appearance="circle"
+                [theme]="{ width: '25px', height: '25px', 'background-color': '#c8cbd3'}">
+                </ngx-skeleton-loader>
+                <ngx-skeleton-loader [theme]="{ width: '50px', height: '20px'}">
+                </ngx-skeleton-loader>
+            </div>
+        </div>
+        <div class="flex justify-between pt-2">
+            <div class="flex">
+                <ngx-skeleton-loader class="pl-3" [theme]="{ width: '110px', height: '40px'}">
+                </ngx-skeleton-loader>
+                <ngx-skeleton-loader class="pl-3" [theme]="{ width: '110px', height: '40px'}">
+                </ngx-skeleton-loader>
+                <ngx-skeleton-loader class="pl-3" [theme]="{ width: '110px', height: '40px'}">
+                </ngx-skeleton-loader>
+                <ngx-skeleton-loader class="pl-3" appearance="circle"
+                [theme]="{ width: '25px', height: '25px', 'background-color': '#c8cbd3'}"></ngx-skeleton-loader>
+            </div>
+            <div class="flex">
+                <ngx-skeleton-loader appearance="circle"
+                [theme]="{ width: '30px', height: '30px', 'background-color': '#c8cbd3'}"></ngx-skeleton-loader>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="relative" *ngIf="loaderName == 'filterSection'">
+    <ngx-skeleton-loader [theme]="{ height: '100px'}">
+    </ngx-skeleton-loader>
+    <div class="absolute bottom-4 left-8 flex w-[95%]">
+        <div class="flex flex-col w-[15%]">
+            <div>
+                <ngx-skeleton-loader [theme]="{width: '100px', height: '10px', 'background-color': '#c8cbd3'}">
+                </ngx-skeleton-loader>
+            </div>
+            <ngx-skeleton-loader [theme]="{width: '150px', height: '35px', 'background-color': '#c8cbd3'}">
+            </ngx-skeleton-loader>
+        </div>
+        <div class=" ml-5 self-end flex justify-between w-[85%]">
+            <div>
+                <ngx-skeleton-loader [theme]="{width: '90px', height: '60px', 'background-color': '#c8cbd3'}">
+                </ngx-skeleton-loader>
+            </div>
+            <div >
+                <ngx-skeleton-loader [theme]="{width: '90px', height: '60px', 'background-color': '#c8cbd3'}">
+                </ngx-skeleton-loader>
+            </div>
+            <div >
+                <ngx-skeleton-loader [theme]="{width: '90px', height: '60px', 'background-color': '#c8cbd3'}">
+                </ngx-skeleton-loader>
+            </div>
+            <div >
+                <ngx-skeleton-loader [theme]="{width: '90px', height: '60px', 'background-color': '#c8cbd3'}">
+                </ngx-skeleton-loader>
+            </div>
+            <div >
+                <ngx-skeleton-loader [theme]="{width: '90px', height: '60px', 'background-color': '#c8cbd3'}">
+                </ngx-skeleton-loader>
+            </div>
+            <div >
+                <ngx-skeleton-loader [theme]="{width: '90px', height: '60px', 'background-color': '#c8cbd3'}">
+                </ngx-skeleton-loader>
+            </div>
+            <div>
+                <ngx-skeleton-loader [theme]="{width: '80px', height: '60px', 'background-color': '#c8cbd3'}">
+                </ngx-skeleton-loader>
+            </div>
+            <div >
+                <ngx-skeleton-loader [theme]="{width: '90px', height: '60px', 'background-color': '#c8cbd3'}">
+                </ngx-skeleton-loader>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section *ngIf="loaderName == 'DetailRightBar'" class="flex flex-col items-center">
+    <ngx-skeleton-loader appearance="circle" [theme]="{ width: '150px', height: '150px'}">
+    </ngx-skeleton-loader>
+    <div class="w-[50%]">
+        <ngx-skeleton-loader [theme]="{ height: '20px'}"></ngx-skeleton-loader>
+    </div>
+    <div class="w-[50%]">
+        <ngx-skeleton-loader [theme]="{ height: '10px'}"></ngx-skeleton-loader>
+    </div>
+    <div class="w-[50%]">
+        <ngx-skeleton-loader [theme]="{ height: '10px'}"></ngx-skeleton-loader>
+    </div>
+    <div class="w-[50%]">
+        <ngx-skeleton-loader [theme]="{ height: '10px'}"></ngx-skeleton-loader>
+    </div>
+    <div class="w-[50%]">
+        <ngx-skeleton-loader [theme]="{ height: '20px'}"></ngx-skeleton-loader>
+    </div>
+    <div class="w-[90%]">
+        <ngx-skeleton-loader [theme]="{ height: '40px'}"></ngx-skeleton-loader>
+    </div>
+    <div class="w-[90%]">
+        <ngx-skeleton-loader [theme]="{ height: '40px'}"></ngx-skeleton-loader>
+    </div>
+    <div class="w-[90%]">
+        <ngx-skeleton-loader [theme]="{ height: '40px'}"></ngx-skeleton-loader>
+    </div>
+    <div class="w-[90%]">
+        <ngx-skeleton-loader [theme]="{ height: '40px'}"></ngx-skeleton-loader>
+    </div>
+</section>

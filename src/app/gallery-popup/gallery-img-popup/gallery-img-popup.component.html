@@ -1,0 +1,16 @@
+<section> 
+    <div class="bg-black/80 fixed inset-0 z-50 overflow-x-hidden overflow-y-auto w-full h-full block example">
+        <div class="flex flex-col justify-center items-center w-[75%] mx-auto relative">
+            <div class="fixed top-3 left-2 md:left-8 md:top-11 xl:left-28">
+                <div class="flex justify-center items-center w-8 h-8 bg-white rounded-full cursor-pointer" (click)="close()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 21 20.758">
+                        <path id="Path_1801" data-name="Path 1801" d="M.277,1.214,1.2.286a.563.563,0,0,0,0-.8L-6.067-7.781h16a.563.563,0,0,0,.563-.562V-9.656a.563.563,0,0,0-.562-.562h-16L1.2-17.49a.563.563,0,0,0,0-.8l-.928-.928a.563.563,0,0,0-.8,0L-10.335-9.4a.563.563,0,0,0,0,.8L-.519,1.214A.563.563,0,0,0,.277,1.214Z" transform="translate(10.5 19.379)" fill="#191919"/>
+                    </svg>
+                </div>
+            </div>
+            <div *ngFor="let img of Collectionimage; let last = last" class="mt-5 {{last? 'mb-5' : ''}}">
+                <img src="{{img}}" class="rounded-md">
+            </div>
+        </div>
+    </div>
+</section>

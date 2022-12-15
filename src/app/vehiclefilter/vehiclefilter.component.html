@@ -1,0 +1,470 @@
+<!-- new filter section -->
+<section class="pt-10 w-[75%] mx-auto hidden xl:block" *ngIf="!contentLoaded || !filterLoader || !loadBodyTypesData">
+    <app-skeleton-loader [loaderName]="'filterSection'"></app-skeleton-loader>
+</section>
+<div *ngIf="contentLoaded && loadBodyTypesData && filterLoader" class="px-5 pt-10 pb-7 md:px-10 xl:px-0 xl:py-0">
+    <app-vehicle-filter 
+        [categoriesData]="categoriesData" 
+        [paramsCategoryId]="paramsCategoryId" 
+        [FeaturesData]="FeaturesData" 
+        [filterData]="ExtraFilter" 
+        [condition]="'desktop'" 
+        [Make]="Make" 
+        [Model]="Model" 
+        [bodyTypes]="bodyTypes" 
+        [region]="region" 
+        [paramsSearch]="paramsSearch" 
+        [filterClearBtn]="filterResetBtn" 
+        [checkMapVariation]="showMapView" 
+        [checkMapVariation2]="showMapView2"
+        [locationData]="LocationInputData" 
+        [checkFeatureData]="checkFeatureData"  
+        (categoryValue)="categorySelectedId($event)" 
+        (featureValue)="featureSelecteId($event)" 
+        (extraFilterValue)="ExtraFiltersNew($event)" 
+        (makeMyModel)="FetchMakeByModel($event)" 
+        (VehicleFilterClear)="clearFilter('')" 
+        (variationCheck)="checkVariation($event)" 
+        (placeIdValues)="getPlaceId($event)" 
+        (filterReset)="resetFilter($event)"
+        (AgencySearchValue)="searchAgent($event)"
+        (searchValues)="inputSearch($event)">
+    </app-vehicle-filter>
+</div>
+<!-- new filter section -->
+
+<!-- mobile screen start -->
+<section class="bg-gk-blue font-Inter px-5 md:px-10 xl:hidden">
+    <div *ngIf="!showMapView2">
+        <app-product-carousel *ngIf="loadPremium" [premiumData]="premiumData" [ConditionName]="'vehicle'" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)" (vendorContactData)="OpenContactPopup($event)" (vendorCallData)="OpenCallPopup($event)" (PremiumCompareData)="compareData($event)"></app-product-carousel>
+
+        <!-- <div class="flex justify-between items-center mt-6 mb-1" *ngIf="filterLoader">
+            <div>
+                <h1 class="text-[#191919] font-bold text-[24px]">{{"newFilterKey.Browse" | translate}}</h1>
+            </div>
+            <div class="flex">
+                <div class="flex justify-center items-center border-2 border-[#0989B8] px-2 py-1 rounded-md cursor-pointer" (click)="mapView2('mapVariation')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21.375 16.625">
+                        <path id="Path_1868" data-name="Path 1868" d="M10.094-15.437a.6.6,0,0,0-.221.043l-6.31,2.332h0L-2.82-15.316a2.854,2.854,0,0,0-.751-.122,2.381,2.381,0,0,0-.735.117l-5.634,1.96a1.281,1.281,0,0,0-.747,1.1V.593a.6.6,0,0,0,.593.594.6.6,0,0,0,.221-.043l6.31-2.332L2.82,1.065a2.843,2.843,0,0,0,.752.122,2.844,2.844,0,0,0,.735-.117L9.941-.889a1.281,1.281,0,0,0,.747-1.1V-14.843A.594.594,0,0,0,10.094-15.437ZM-2.375-13.27l4.75,1.677V-.98l-4.75-1.677ZM-8.906-1.111V-11.835l4.75-1.652V-2.867l-.024.009Zm17.813-1.3L4.156-.763v-10.62l.024-.009,4.726-1.747Z" transform="translate(10.688 15.438)" fill="#0989b8"/>
+                    </svg>
+                    <p class="font-Inter font-bold text-[11px] text-[#0989B8] pl-3">Map View</p>
+                </div>
+                <div class="{{variationName == 'list' ? 'bg-gk-red': 'bg-[#E5E5E5]'}} w-8 h-8 flex justify-center items-center rounded-md cursor-pointer ml-2" 
+                (click)="changeVariation('list',false)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 16.25" *ngIf="variationName == 'list'">
+                        <path id="Path_1797" data-name="Path 1797" d="M5-12.969a.625.625,0,0,0,.625.625h13.75A.625.625,0,0,0,20-12.969v-1.562a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-14.531Zm.625,6.875h13.75A.625.625,0,0,0,20-6.719V-8.281a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-8.281v1.563A.625.625,0,0,0,5.625-6.094Zm0,6.25h13.75A.625.625,0,0,0,20-.469V-2.031a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-2.031V-.469A.625.625,0,0,0,5.625.156Zm-5-12.031h2.5A.625.625,0,0,0,3.75-12.5V-15a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-15v2.5A.625.625,0,0,0,.625-11.875Zm0,6.25h2.5A.625.625,0,0,0,3.75-6.25v-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-8.75v2.5A.625.625,0,0,0,.625-5.625Zm0,6.25h2.5A.625.625,0,0,0,3.75,0V-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-2.5V0A.625.625,0,0,0,.625.625Z" transform="translate(0 15.625)" fill="#fff"/>
+                    </svg>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 17.25" *ngIf="variationName != 'list'">
+                        <path id="Path_1797" data-name="Path 1797" d="M5-12.969a.625.625,0,0,0,.625.625h13.75A.625.625,0,0,0,20-12.969v-1.562a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-14.531Zm.625,6.875h13.75A.625.625,0,0,0,20-6.719V-8.281a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-8.281v1.563A.625.625,0,0,0,5.625-6.094Zm0,6.25h13.75A.625.625,0,0,0,20-.469V-2.031a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-2.031V-.469A.625.625,0,0,0,5.625.156Zm-5-12.031h2.5A.625.625,0,0,0,3.75-12.5V-15a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-15v2.5A.625.625,0,0,0,.625-11.875Zm0,6.25h2.5A.625.625,0,0,0,3.75-6.25v-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-8.75v2.5A.625.625,0,0,0,.625-5.625Zm0,6.25h2.5A.625.625,0,0,0,3.75,0V-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-2.5V0A.625.625,0,0,0,.625.625Z" transform="translate(0.5 16.125)" fill="#989898" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                    </svg>
+                </div>                    
+                <div class="{{variationName == 'grid' ? 'bg-gk-red' : 'bg-[#E5E5E5]'}} xl:mr-5 w-8 h-8 flex justify-center items-center rounded-md cursor-pointer" (click)="changeVariation('grid',true)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 18.5" *ngIf="variationName != 'grid'">
+                        <path id="Path_1798" data-name="Path 1798" d="M11.563-16.25a.937.937,0,0,0-.937.938v6.25a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,20-9.062v-6.25a.937.937,0,0,0-.937-.937Zm-3.125,0H.938A.937.937,0,0,0,0-15.312v6.25a.937.937,0,0,0,.938.938h7.5a.937.937,0,0,0,.938-.937v-6.25A.937.937,0,0,0,8.438-16.25ZM0-5.937V.313a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,9.375.313v-6.25a.937.937,0,0,0-.937-.937H.938A.937.937,0,0,0,0-5.937ZM11.563,1.25h7.5A.937.937,0,0,0,20,.313v-6.25a.937.937,0,0,0-.937-.937h-7.5a.937.937,0,0,0-.937.938V.313A.937.937,0,0,0,11.563,1.25Z" transform="translate(0.5 16.75)" fill="#989898" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 18.5" *ngIf="variationName == 'grid'">
+                        <path id="Path_1798" data-name="Path 1798" d="M11.563-16.25a.937.937,0,0,0-.937.938v6.25a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,20-9.062v-6.25a.937.937,0,0,0-.937-.937Zm-3.125,0H.938A.937.937,0,0,0,0-15.312v6.25a.937.937,0,0,0,.938.938h7.5a.937.937,0,0,0,.938-.937v-6.25A.937.937,0,0,0,8.438-16.25ZM0-5.937V.313a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,9.375.313v-6.25a.937.937,0,0,0-.937-.937H.938A.937.937,0,0,0,0-5.937ZM11.563,1.25h7.5A.937.937,0,0,0,20,.313v-6.25a.937.937,0,0,0-.937-.937h-7.5a.937.937,0,0,0-.937.938V.313A.937.937,0,0,0,11.563,1.25Z" transform="translate(0.5 16.75)" fill="#fff" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                    </svg>
+                </div>                    
+            </div>
+        </div> -->
+
+        <div class="border-2 border-gray-300 relative group flex px-2 py-1 items-center rounded-md cursor-pointer w-[40%] md:w-[22%] lg:w-[16%] mt-4">
+            <div class="flex items-center justify-between w-full {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3" viewBox="0 0 15 13.125">
+                        <path id="Path_1880" data-name="Path 1880" d="M-14.862-9.706a.469.469,0,0,0,.331.8h1.406V.469a.469.469,0,0,0,.469.469h.938A.469.469,0,0,0-11.25.469V-8.906h1.406a.469.469,0,0,0,.331-.8l-2.343-2.344a.469.469,0,0,0-.663,0Zm6.893-.606h7.5A.469.469,0,0,0,0-10.781v-.937a.469.469,0,0,0-.469-.469h-7.5a.469.469,0,0,0-.469.469v.938A.469.469,0,0,0-7.969-10.312Zm-.469,3.281a.469.469,0,0,0,.469.469h5.625a.469.469,0,0,0,.469-.469v-.937a.469.469,0,0,0-.469-.469H-7.969a.469.469,0,0,0-.469.469Zm0,7.5a.469.469,0,0,0,.469.469h1.875A.469.469,0,0,0-5.625.469V-.469a.469.469,0,0,0-.469-.469H-7.969a.469.469,0,0,0-.469.469Zm0-3.75a.469.469,0,0,0,.469.469h3.75a.469.469,0,0,0,.469-.469v-.937a.469.469,0,0,0-.469-.469h-3.75a.469.469,0,0,0-.469.469Z" transform="translate(15 12.188)" fill="#0989b8"/>
+                    </svg>
+                    <p class="text-[#191919] text-xs font-Inter font-semibold {{Language == 'ar'? 'pr-1': 'pl-1'}}">
+                        {{"newFilterKey.SortBy" | translate}}
+                    </p>
+                </div>
+                <div class="{{Language == 'ar'? 'pr-8': 'pl-8'}}">
+                    <fa-icon [icon]="faCaretDown" class=""></fa-icon>
+                </div> 
+            </div>
+            <div class="absolute translate-x-[-4%] top-[35px] bottom-0 zClass">
+                <div class="bg-white shades w-[140px] p-3 rounded-md hidden group-hover:block">
+                    <div class="border {{sortingId == datas.sortBy ? 'bg-[#0989B826] text-[#0989B8] border-[#0989B8]': 'border-[#19191933] text-[#191919] bg-white'}} rounded-full mt-[5px] mr-2 hover:bg-[#0989B826] hover:text-[#0989B8] cursor-pointer hover:border-[#0989B8] text-center py-1" *ngFor="let datas of sortingData" (click)="SortBy(datas)">
+                        <p class="font-Inter font-medium text-xs">{{datas.name | translate}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!checkConditionVariation && !loadComponent" class="flex justify-center my-10">
+            <svg class="animate-spin h-9 w-9 text-gk-red" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                </circle>
+                <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+            </svg>
+        </div>
+
+        <!-- <div *ngIf="!checkConditionVariation && loadComponent" class="mb-5">
+            <div *ngFor="let cardData of propertiesThumbnail" class="mt-5">
+                <app-product-card-variation [condition]="''" [ConditionName]="'componentVehicle'" [cardData]="cardData" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)" (callPopupCondition)="''" (contactData)="OpenContactPopup($event)" (callNowData)="OpenCallPopup($event)" (SelectedCompareData)="compareData($event)"></app-product-card-variation>
+            </div>
+        </div> -->
+
+        <!-- new vehicle card UI -->
+        <div class="md:flex md:flex-wrap justify-center mt-10" *ngIf="!checkConditionVariation && loadComponent">
+            <div class="font-Inter text-xs mx-auto flex flex-col border border-[#707070]/20 rounded-lg my-5 w-[90%] md:w-[40%] xl:w-[23%] bg-white/20 hover:shadow-md " *ngFor="let propertyThumbnail of propertiesThumbnail ">
+                <app-product-card [productData]="propertyThumbnail" [ConditionName]="'vehicle'" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)"></app-product-card>
+            </div>
+        </div>
+        <!-- new vehicle card UI -->  
+    </div>
+
+    <!-- <div *ngIf="showMapView2" class="xl:hidden">
+        <div *ngIf="mapLoad" class="xl:hidden">
+            <app-map-variation [cardsData]="propertiesThumbnail" [checkScreen]="'mobile'" [mapReset]="mapDataSet" [filterClearBtn]="mapInputReset" (mapValue)="getMapValue($event)"></app-map-variation>
+        </div>
+        <div class="my-4 flex justify-between mt-8">
+            <h1 class="text-[#191919] font-bold text-[24px]">{{"newFilterKey.Browse" | translate}}</h1>
+            <div class="flex ml-4">
+                <div class="flex justify-center items-center border-2 border-[#0989B8] px-2 py-1 rounded-md cursor-pointer" (click)="mapView2('listVariation')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 17.25">
+                        <path id="Path_1797" data-name="Path 1797" d="M5-12.969a.625.625,0,0,0,.625.625h13.75A.625.625,0,0,0,20-12.969v-1.562a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-14.531Zm.625,6.875h13.75A.625.625,0,0,0,20-6.719V-8.281a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-8.281v1.563A.625.625,0,0,0,5.625-6.094Zm0,6.25h13.75A.625.625,0,0,0,20-.469V-2.031a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-2.031V-.469A.625.625,0,0,0,5.625.156Zm-5-12.031h2.5A.625.625,0,0,0,3.75-12.5V-15a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-15v2.5A.625.625,0,0,0,.625-11.875Zm0,6.25h2.5A.625.625,0,0,0,3.75-6.25v-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-8.75v2.5A.625.625,0,0,0,.625-5.625Zm0,6.25h2.5A.625.625,0,0,0,3.75,0V-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-2.5V0A.625.625,0,0,0,.625.625Z" transform="translate(0.5 16.125)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                    </svg>
+                    <p class="text-[10px] text-[#0989B8] font-Inter font-bold pl-3">List View</p>
+                </div>
+                <div class="{{variationName == 'list' ? 'bg-gk-red': 'bg-[#E5E5E5]'}} w-9 h-9 flex justify-center items-center rounded-md cursor-pointer ml-2" 
+                (click)="changeVariation('list',false)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 16.25" *ngIf="variationName == 'list'">
+                        <path id="Path_1797" data-name="Path 1797" d="M5-12.969a.625.625,0,0,0,.625.625h13.75A.625.625,0,0,0,20-12.969v-1.562a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-14.531Zm.625,6.875h13.75A.625.625,0,0,0,20-6.719V-8.281a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-8.281v1.563A.625.625,0,0,0,5.625-6.094Zm0,6.25h13.75A.625.625,0,0,0,20-.469V-2.031a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-2.031V-.469A.625.625,0,0,0,5.625.156Zm-5-12.031h2.5A.625.625,0,0,0,3.75-12.5V-15a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-15v2.5A.625.625,0,0,0,.625-11.875Zm0,6.25h2.5A.625.625,0,0,0,3.75-6.25v-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-8.75v2.5A.625.625,0,0,0,.625-5.625Zm0,6.25h2.5A.625.625,0,0,0,3.75,0V-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-2.5V0A.625.625,0,0,0,.625.625Z" transform="translate(0 15.625)" fill="#fff"/>
+                    </svg>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 17.25" *ngIf="variationName != 'list'">
+                        <path id="Path_1797" data-name="Path 1797" d="M5-12.969a.625.625,0,0,0,.625.625h13.75A.625.625,0,0,0,20-12.969v-1.562a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-14.531Zm.625,6.875h13.75A.625.625,0,0,0,20-6.719V-8.281a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-8.281v1.563A.625.625,0,0,0,5.625-6.094Zm0,6.25h13.75A.625.625,0,0,0,20-.469V-2.031a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-2.031V-.469A.625.625,0,0,0,5.625.156Zm-5-12.031h2.5A.625.625,0,0,0,3.75-12.5V-15a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-15v2.5A.625.625,0,0,0,.625-11.875Zm0,6.25h2.5A.625.625,0,0,0,3.75-6.25v-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-8.75v2.5A.625.625,0,0,0,.625-5.625Zm0,6.25h2.5A.625.625,0,0,0,3.75,0V-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-2.5V0A.625.625,0,0,0,.625.625Z" transform="translate(0.5 16.125)" fill="#989898" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                    </svg>
+                </div>                    
+                <div class="{{variationName == 'grid' ? 'bg-gk-red' : 'bg-[#E5E5E5]'}} xl:mr-5 w-9 h-9 flex justify-center items-center rounded-md cursor-pointer" (click)="changeVariation('grid',true)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 18.5" *ngIf="variationName != 'grid'">
+                        <path id="Path_1798" data-name="Path 1798" d="M11.563-16.25a.937.937,0,0,0-.937.938v6.25a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,20-9.062v-6.25a.937.937,0,0,0-.937-.937Zm-3.125,0H.938A.937.937,0,0,0,0-15.312v6.25a.937.937,0,0,0,.938.938h7.5a.937.937,0,0,0,.938-.937v-6.25A.937.937,0,0,0,8.438-16.25ZM0-5.937V.313a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,9.375.313v-6.25a.937.937,0,0,0-.937-.937H.938A.937.937,0,0,0,0-5.937ZM11.563,1.25h7.5A.937.937,0,0,0,20,.313v-6.25a.937.937,0,0,0-.937-.937h-7.5a.937.937,0,0,0-.937.938V.313A.937.937,0,0,0,11.563,1.25Z" transform="translate(0.5 16.75)" fill="#989898" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 18.5" *ngIf="variationName == 'grid'">
+                        <path id="Path_1798" data-name="Path 1798" d="M11.563-16.25a.937.937,0,0,0-.937.938v6.25a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,20-9.062v-6.25a.937.937,0,0,0-.937-.937Zm-3.125,0H.938A.937.937,0,0,0,0-15.312v6.25a.937.937,0,0,0,.938.938h7.5a.937.937,0,0,0,.938-.937v-6.25A.937.937,0,0,0,8.438-16.25ZM0-5.937V.313a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,9.375.313v-6.25a.937.937,0,0,0-.937-.937H.938A.937.937,0,0,0,0-5.937ZM11.563,1.25h7.5A.937.937,0,0,0,20,.313v-6.25a.937.937,0,0,0-.937-.937h-7.5a.937.937,0,0,0-.937.938V.313A.937.937,0,0,0,11.563,1.25Z" transform="translate(0.5 16.75)" fill="#fff" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                    </svg>
+                </div>                    
+            </div>
+        </div>
+        <div *ngIf="!checkConditionVariation && loadComponent">
+            <div *ngFor="let cardData of propertiesThumbnail" class="mt-5">
+                <app-product-card-variation [condition]="''" [ConditionName]="'componentVehicle'" [cardData]="cardData" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)" (callPopupCondition)="''" (contactData)="OpenContactPopup($event)" (callNowData)="OpenCallPopup($event)" (SelectedCompareData)="compareData($event)"></app-product-card-variation>
+            </div>
+        </div>
+
+        <div class="md:flex md:flex-wrap justify-center" *ngIf="checkConditionVariation">
+            <div class="font-Inter text-xs mx-auto flex flex-col border border-[#707070]/20 rounded-lg my-5 w-[80%] md:w-[40%] xl:w-[23%] bg-white/20 hover:shadow-md" *ngFor="let propertyThumbnail of propertiesThumbnail ">
+                <app-product-card [productData]="propertyThumbnail" [ConditionName]="'vehicle'" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)"></app-product-card>
+            </div>
+        </div>
+    </div> -->
+
+    <section class="flex justify-center items-center mt-10 mr-5" *ngIf="loadComponent && propertiesThumbnail.length==0">
+        <div class="flex flex-col items-center text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" viewBox="0 0 87.004 87.005">
+                <path id="Path_1800" data-name="Path 1800" d="M10993.761,1388.412l-20.393-20.392a2.073,2.073,0,0,1-.588-1.427v-2.217a34.937,34.937,0,1,1,3.595-3.595h2.217a1.986,1.986,0,0,1,1.428.588l20.393,20.392a2.017,2.017,0,0,1,0,2.855l-3.8,3.8a2.016,2.016,0,0,1-2.854,0Zm-70.7-50.475a26.875,26.875,0,1,0,26.875-26.875A26.868,26.868,0,0,0,10923.062,1337.937Zm36.775,14.3L10951,1343.4l-8.835,8.838a1.311,1.311,0,0,1-1.853,0l-2.054-2.051a1.311,1.311,0,0,1,0-1.853l8.838-8.838-8.838-8.835a1.311,1.311,0,0,1,0-1.853l2.054-2.054a1.311,1.311,0,0,1,1.853,0l8.835,8.838,8.838-8.838a1.308,1.308,0,0,1,1.85,0l2.055,2.054a1.311,1.311,0,0,1,0,1.853l-8.838,8.835,8.838,8.835a1.311,1.311,0,0,1,0,1.853l-2.052,2.054a1.311,1.311,0,0,1-1.853,0Z" transform="translate(-10914.5 -1302.5)" fill="#111" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.1"/>
+            </svg>
+            <p class="text-[#191919] font-Inter font-semibold pt-1">
+                {{'newFilterKey.NoResultFound' | translate}}
+            </p>
+            <p class="text-[#2D2D2D]/40 font-semibold text-[14px] -mt-1">
+                {{'newFilterKey.FindMatching' | translate}}
+            </p>
+            <button type="button" class="bg-gk-red mt-3 flex items-center justify-center px-5 py-2 rounded-md text-[#FFFFFF] font-Inter text-[12px]" (click)="noDataResetFilter()">
+                <img src="../../../assets/images/sync-img.png" class="w-[1.3rem] pr-2">
+                {{'newFilterKey.RESETFILTERS' | translate}}
+            </button>
+        </div>
+    </section>
+    <!-- new vehicle card ui -->
+    
+    <section class="flex justify-center items-center my-10">
+        <button
+            class="bg-gk-red flex items-center text-white px-4 rounded py-2 disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed"
+            (click)="LoadMore()" [disabled]='propertiesThumbnail.length < pagesize'>
+            <svg *ngIf="loadMoreLoader" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                </circle>
+                <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+            </svg>
+            {{'PropertyFilterPage.loadMore' | translate}}
+        </button>
+    </section>
+</section>
+<!-- mobile screen end -->
+
+<!-- desktop screen start -->
+<section class=" {{ Language=='ar'?'flex-row-reverse':''}} hidden xl:flex xl:justify-center bg-gk-blue xl:w-[100%] xl:mx-auto">
+    <div class="{{!showMapView ? 'w-[75%]' : 'w-[95%]'}}">
+        <!-- variation component card UI -->
+        <section class="xl:flex hidden" *ngIf="!showMapView">
+            <div class="w-[100%] lg:w-[80%] mx-auto xl:w-[75%] flex flex-col">
+                <div class="mt-5 mr-6" *ngIf="!loadPremium">
+                    <app-skeleton-loader [loaderName]="'listCard'"></app-skeleton-loader>
+                </div>
+                <app-product-carousel *ngIf="loadPremium" [premiumData]="premiumData" [ConditionName]="'vehicle'" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)" (vendorContactData)="OpenContactPopup($event)" (vendorCallData)="OpenCallPopup($event)" (PremiumCompareData)="compareData($event)"></app-product-carousel>
+
+                <div class="flex justify-between {{Language == 'ar'? 'flex-row-reverse': ''}} items-center mt-6 mb-1" *ngIf="filterLoader">
+                    <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                        <h1 class="text-[#191919] font-bold text-[24px] {{Language == 'ar'? 'pl-5 pr-4': 'pr-5'}}">{{"newFilterKey.Browse" | translate}}</h1>
+                        <div class="border-2 border-gray-300 relative group flex px-2 py-1 items-center rounded-md cursor-pointer">
+                            <div class="flex items-center justify-between w-full {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                                <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3" viewBox="0 0 15 13.125">
+                                        <path id="Path_1880" data-name="Path 1880" d="M-14.862-9.706a.469.469,0,0,0,.331.8h1.406V.469a.469.469,0,0,0,.469.469h.938A.469.469,0,0,0-11.25.469V-8.906h1.406a.469.469,0,0,0,.331-.8l-2.343-2.344a.469.469,0,0,0-.663,0Zm6.893-.606h7.5A.469.469,0,0,0,0-10.781v-.937a.469.469,0,0,0-.469-.469h-7.5a.469.469,0,0,0-.469.469v.938A.469.469,0,0,0-7.969-10.312Zm-.469,3.281a.469.469,0,0,0,.469.469h5.625a.469.469,0,0,0,.469-.469v-.937a.469.469,0,0,0-.469-.469H-7.969a.469.469,0,0,0-.469.469Zm0,7.5a.469.469,0,0,0,.469.469h1.875A.469.469,0,0,0-5.625.469V-.469a.469.469,0,0,0-.469-.469H-7.969a.469.469,0,0,0-.469.469Zm0-3.75a.469.469,0,0,0,.469.469h3.75a.469.469,0,0,0,.469-.469v-.937a.469.469,0,0,0-.469-.469h-3.75a.469.469,0,0,0-.469.469Z" transform="translate(15 12.188)" fill="#0989b8"/>
+                                    </svg>
+                                    <p class="text-[#191919] text-xs font-Inter font-semibold {{Language == 'ar'? 'pr-1': 'pl-1'}}">
+                                        {{"newFilterKey.SortBy" | translate}}
+                                    </p>
+                                </div>
+                                <div class="{{Language == 'ar'? 'pr-8': 'pl-8'}}">
+                                    <fa-icon [icon]="faCaretDown" class=""></fa-icon>
+                                </div> 
+                            </div>
+                            <div class="absolute translate-x-[-14%] top-[35px] bottom-0 zClass">
+                                <div class="bg-white shades w-[140px] p-3 rounded-md hidden group-hover:block">
+                                    <div class="border {{sortingId == datas.sortBy ? 'bg-[#0989B826] text-[#0989B8] border-[#0989B8]': 'border-[#19191933] text-[#191919] bg-white'}} rounded-full mt-[5px] mr-2 hover:bg-[#0989B826] hover:text-[#0989B8] cursor-pointer hover:border-[#0989B8] text-center py-1" *ngFor="let datas of sortingData" (click)="SortBy(datas)">
+                                        <p class="font-Inter font-medium text-xs">{{datas.name | translate}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                        <div class="flex justify-center items-center border-2 border-[#0989B8] px-2 py-1 rounded-md cursor-pointer {{Language == 'ar'? 'ml-4': ''}}" (click)="mapView('mapVariation')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21.375 16.625">
+                                <path id="Path_1868" data-name="Path 1868" d="M10.094-15.437a.6.6,0,0,0-.221.043l-6.31,2.332h0L-2.82-15.316a2.854,2.854,0,0,0-.751-.122,2.381,2.381,0,0,0-.735.117l-5.634,1.96a1.281,1.281,0,0,0-.747,1.1V.593a.6.6,0,0,0,.593.594.6.6,0,0,0,.221-.043l6.31-2.332L2.82,1.065a2.843,2.843,0,0,0,.752.122,2.844,2.844,0,0,0,.735-.117L9.941-.889a1.281,1.281,0,0,0,.747-1.1V-14.843A.594.594,0,0,0,10.094-15.437ZM-2.375-13.27l4.75,1.677V-.98l-4.75-1.677ZM-8.906-1.111V-11.835l4.75-1.652V-2.867l-.024.009Zm17.813-1.3L4.156-.763v-10.62l.024-.009,4.726-1.747Z" transform="translate(10.688 15.438)" fill="#0989b8"/>
+                            </svg>
+                            <p class="font-Inter font-bold text-[10px] text-[#0989B8] pl-3">
+                                {{"newFilterKey.MapView" | translate}}
+                            </p>
+                        </div>
+                        <div class="{{variationName == 'list' ? 'bg-gk-red': 'bg-[#E5E5E5]'}} w-8 h-8 flex justify-center items-center rounded-md cursor-pointer {{Language == 'ar'? '': 'ml-3'}}" 
+                        (click)="changeVariation('list',true)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 16.25" *ngIf="variationName == 'list'">
+                                <path id="Path_1797" data-name="Path 1797" d="M5-12.969a.625.625,0,0,0,.625.625h13.75A.625.625,0,0,0,20-12.969v-1.562a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-14.531Zm.625,6.875h13.75A.625.625,0,0,0,20-6.719V-8.281a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-8.281v1.563A.625.625,0,0,0,5.625-6.094Zm0,6.25h13.75A.625.625,0,0,0,20-.469V-2.031a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-2.031V-.469A.625.625,0,0,0,5.625.156Zm-5-12.031h2.5A.625.625,0,0,0,3.75-12.5V-15a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-15v2.5A.625.625,0,0,0,.625-11.875Zm0,6.25h2.5A.625.625,0,0,0,3.75-6.25v-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-8.75v2.5A.625.625,0,0,0,.625-5.625Zm0,6.25h2.5A.625.625,0,0,0,3.75,0V-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-2.5V0A.625.625,0,0,0,.625.625Z" transform="translate(0 15.625)" fill="#fff"/>
+                            </svg>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 17.25" *ngIf="variationName != 'list'">
+                                <path id="Path_1797" data-name="Path 1797" d="M5-12.969a.625.625,0,0,0,.625.625h13.75A.625.625,0,0,0,20-12.969v-1.562a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-14.531Zm.625,6.875h13.75A.625.625,0,0,0,20-6.719V-8.281a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-8.281v1.563A.625.625,0,0,0,5.625-6.094Zm0,6.25h13.75A.625.625,0,0,0,20-.469V-2.031a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-2.031V-.469A.625.625,0,0,0,5.625.156Zm-5-12.031h2.5A.625.625,0,0,0,3.75-12.5V-15a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-15v2.5A.625.625,0,0,0,.625-11.875Zm0,6.25h2.5A.625.625,0,0,0,3.75-6.25v-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-8.75v2.5A.625.625,0,0,0,.625-5.625Zm0,6.25h2.5A.625.625,0,0,0,3.75,0V-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-2.5V0A.625.625,0,0,0,.625.625Z" transform="translate(0.5 16.125)" fill="#989898" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                            </svg>
+                        </div>                    
+                        <div class="{{variationName == 'grid' ? 'bg-gk-red' : 'bg-[#E5E5E5]'}} w-8 h-8 flex justify-center items-center rounded-md cursor-pointer {{Language == 'ar'? '': 'xl:mr-5'}}" (click)="changeVariation('grid',false)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 18.5" *ngIf="variationName != 'grid'">
+                                <path id="Path_1798" data-name="Path 1798" d="M11.563-16.25a.937.937,0,0,0-.937.938v6.25a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,20-9.062v-6.25a.937.937,0,0,0-.937-.937Zm-3.125,0H.938A.937.937,0,0,0,0-15.312v6.25a.937.937,0,0,0,.938.938h7.5a.937.937,0,0,0,.938-.937v-6.25A.937.937,0,0,0,8.438-16.25ZM0-5.937V.313a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,9.375.313v-6.25a.937.937,0,0,0-.937-.937H.938A.937.937,0,0,0,0-5.937ZM11.563,1.25h7.5A.937.937,0,0,0,20,.313v-6.25a.937.937,0,0,0-.937-.937h-7.5a.937.937,0,0,0-.937.938V.313A.937.937,0,0,0,11.563,1.25Z" transform="translate(0.5 16.75)" fill="#989898" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 18.5" *ngIf="variationName == 'grid'">
+                                <path id="Path_1798" data-name="Path 1798" d="M11.563-16.25a.937.937,0,0,0-.937.938v6.25a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,20-9.062v-6.25a.937.937,0,0,0-.937-.937Zm-3.125,0H.938A.937.937,0,0,0,0-15.312v6.25a.937.937,0,0,0,.938.938h7.5a.937.937,0,0,0,.938-.937v-6.25A.937.937,0,0,0,8.438-16.25ZM0-5.937V.313a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,9.375.313v-6.25a.937.937,0,0,0-.937-.937H.938A.937.937,0,0,0,0-5.937ZM11.563,1.25h7.5A.937.937,0,0,0,20,.313v-6.25a.937.937,0,0,0-.937-.937h-7.5a.937.937,0,0,0-.937.938V.313A.937.937,0,0,0,11.563,1.25Z" transform="translate(0.5 16.75)" fill="#fff" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                            </svg>
+                        </div>                    
+                    </div>
+                </div>
+
+                <section class="pt-10 mr-6" *ngIf="checkConditionVariation && !loadComponent">  
+                    <div *ngFor='let in of counterForLoading(2)'>
+                        <app-skeleton-loader [loaderName]="'listCard'"></app-skeleton-loader>
+                    </div>
+                </section>
+                <div *ngIf="checkConditionVariation && loadComponent">
+                    <div *ngFor="let cardData of propertiesThumbnail" class="mt-5">
+                        <app-product-card-variation [condition]="''" [checkVariation]="'listView'" [ConditionName]="'componentVehicle'" [cardData]="cardData" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)" (callPopupCondition)="''" (contactData)="OpenContactPopup($event)" (callNowData)="OpenCallPopup($event)" (SelectedCompareData)="compareData($event)" (checkingPurpose)="storeFilter()"></app-product-card-variation>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap" id="{{Language =='ar'? 'gk-property2' : 'gk-property'}}" *ngIf="!checkConditionVariation && !loadComponent">
+                    <div class="w-[42%] mt-5 {{Language =='ar'? 'xl:mr-[3rem] 2xl:mr-[3.4rem]' : 'xl:mr-[2rem] xl:ml-[1.1rem] 2xl:mr-[1rem] 2xl:ml-[2rem]'}}" *ngFor='let in of counterForLoading(4)'>
+                        <app-skeleton-loader [loaderName]="'gridCard'"></app-skeleton-loader>
+                    </div>
+                </div>
+
+                <div *ngIf="!checkConditionVariation && loadComponent" class="md:flex flex-wrap {{Language =='ar'? 'md:justify-end' : 'md:justify-start'}}" id="{{Language =='ar'? 'gk-property2' : 'gk-property'}}">
+                    <div class="font-Inter text-xs flex flex-col border border-[#707070]/20 rounded-lg my-5 md:w-[40%] xl:w-[42%] bg-white/20 hover:shadow-md {{Language =='ar'? 'xl:mr-[3rem] 2xl:mr-[3.4rem]' : 'xl:mr-[2rem] xl:ml-[1.1rem] 2xl:mr-[1rem] 2xl:ml-[2rem]'}}" *ngFor="let propertyThumbnail of propertiesThumbnail ">
+                        <app-product-card [productData]="propertyThumbnail"  [checkVariation]="'listView'" [Cssclass]="'px-5'" [ConditionName]="'vehicle'" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)" (checkingPurpose)="storeFilter()"></app-product-card>
+                    </div>
+                </div>
+                <section class="flex justify-center items-center mt-10 mr-5" *ngIf="loadComponent && propertiesThumbnail.length==0">
+                    <div class="flex flex-col items-center text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" viewBox="0 0 87.004 87.005">
+                            <path id="Path_1800" data-name="Path 1800" d="M10993.761,1388.412l-20.393-20.392a2.073,2.073,0,0,1-.588-1.427v-2.217a34.937,34.937,0,1,1,3.595-3.595h2.217a1.986,1.986,0,0,1,1.428.588l20.393,20.392a2.017,2.017,0,0,1,0,2.855l-3.8,3.8a2.016,2.016,0,0,1-2.854,0Zm-70.7-50.475a26.875,26.875,0,1,0,26.875-26.875A26.868,26.868,0,0,0,10923.062,1337.937Zm36.775,14.3L10951,1343.4l-8.835,8.838a1.311,1.311,0,0,1-1.853,0l-2.054-2.051a1.311,1.311,0,0,1,0-1.853l8.838-8.838-8.838-8.835a1.311,1.311,0,0,1,0-1.853l2.054-2.054a1.311,1.311,0,0,1,1.853,0l8.835,8.838,8.838-8.838a1.308,1.308,0,0,1,1.85,0l2.055,2.054a1.311,1.311,0,0,1,0,1.853l-8.838,8.835,8.838,8.835a1.311,1.311,0,0,1,0,1.853l-2.052,2.054a1.311,1.311,0,0,1-1.853,0Z" transform="translate(-10914.5 -1302.5)" fill="#111" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.1"/>
+                        </svg>
+                        <p class="text-[#191919] font-Inter font-semibold pt-1">
+                            {{'newFilterKey.NoResultFound' | translate}}
+                        </p>
+                        <p class="text-[#2D2D2D]/40 font-semibold text-[14px] -mt-1">
+                           {{'newFilterKey.FindMatching' | translate}}
+                        </p>
+                        <button type="button" class="bg-gk-red mt-3 flex items-center justify-center px-5 py-2 rounded-md text-[#FFFFFF] font-Inter text-[12px]" (click)="noDataResetFilter()">
+                            <img src="../../../assets/images/sync-img.png" class="w-[1.3rem] pr-2">
+                            {{'newFilterKey.RESETFILTERS' | translate}}
+                        </button>
+                    </div>
+                </section>
+            </div>
+            <div class="w-[25%] pt-2">
+                <div *ngIf="!bannerLoad">
+                    <ngx-skeleton-loader [theme]="{ height: '600px'}">
+                    </ngx-skeleton-loader>
+                </div>
+                <div class="sticky top-[8.5rem]" *ngIf="bannerLoad">
+                    <img src="{{sideBannerImage}}" class="rounded-lg"/>
+                </div>
+            </div>
+        </section>
+        <!-- variation component card UI -->
+        
+         <!-- map variaton component UI -->
+        <section class="xl:flex" *ngIf="showMapView">
+            <div class="xl:w-[50%]">
+                <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}} justify-between items-center mt-6 mb-1 mr-3" *ngIf="filterLoader">
+                    <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                        <h1 class="text-[#191919] font-bold text-[24px] {{Language == 'ar'? 'pl-4': 'pr-4'}}">{{"newFilterKey.Browse" | translate}}</h1>
+                        <div class="border-2 border-gray-300 relative group flex px-2 py-1 items-center rounded-md cursor-pointer">
+                            <div class="flex items-center justify-between w-full {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                                <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3" viewBox="0 0 15 13.125">
+                                        <path id="Path_1880" data-name="Path 1880" d="M-14.862-9.706a.469.469,0,0,0,.331.8h1.406V.469a.469.469,0,0,0,.469.469h.938A.469.469,0,0,0-11.25.469V-8.906h1.406a.469.469,0,0,0,.331-.8l-2.343-2.344a.469.469,0,0,0-.663,0Zm6.893-.606h7.5A.469.469,0,0,0,0-10.781v-.937a.469.469,0,0,0-.469-.469h-7.5a.469.469,0,0,0-.469.469v.938A.469.469,0,0,0-7.969-10.312Zm-.469,3.281a.469.469,0,0,0,.469.469h5.625a.469.469,0,0,0,.469-.469v-.937a.469.469,0,0,0-.469-.469H-7.969a.469.469,0,0,0-.469.469Zm0,7.5a.469.469,0,0,0,.469.469h1.875A.469.469,0,0,0-5.625.469V-.469a.469.469,0,0,0-.469-.469H-7.969a.469.469,0,0,0-.469.469Zm0-3.75a.469.469,0,0,0,.469.469h3.75a.469.469,0,0,0,.469-.469v-.937a.469.469,0,0,0-.469-.469h-3.75a.469.469,0,0,0-.469.469Z" transform="translate(15 12.188)" fill="#0989b8"/>
+                                    </svg>
+                                    <p class="text-[#191919] text-xs font-Inter font-semibold {{Language == 'ar'? 'pr-1': 'pl-1'}}">
+                                        {{"newFilterKey.SortBy" | translate}}
+                                    </p>
+                                </div>
+                                <div class="{{Language == 'ar'? 'pr-8': 'pl-8'}}">
+                                    <fa-icon [icon]="faCaretDown" class=""></fa-icon>
+                                </div> 
+                            </div>
+                            <div class="absolute translate-x-[-14%] top-[35px] bottom-0 zClass">
+                                <div class="bg-white shades w-[140px] p-3 rounded-md hidden group-hover:block">
+                                    <div class="border {{sortingId == datas.sortBy ? 'bg-[#0989B826] text-[#0989B8] border-[#0989B8]': 'border-[#19191933] text-[#191919] bg-white'}} rounded-full mt-[5px] mr-2 hover:bg-[#0989B826] hover:text-[#0989B8] cursor-pointer hover:border-[#0989B8] text-center py-1" *ngFor="let datas of sortingData" (click)="SortBy(datas)">
+                                        <p class="font-Inter font-medium text-xs">{{datas.name | translate}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="{{variationName == 'list' ? 'bg-gk-red': 'bg-[#E5E5E5]'}} w-8 h-8 flex justify-center items-center rounded-md cursor-pointer ml-3" 
+                        (click)="changeVariation('list',true)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 16.25" *ngIf="variationName == 'list'">
+                                <path id="Path_1797" data-name="Path 1797" d="M5-12.969a.625.625,0,0,0,.625.625h13.75A.625.625,0,0,0,20-12.969v-1.562a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-14.531Zm.625,6.875h13.75A.625.625,0,0,0,20-6.719V-8.281a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-8.281v1.563A.625.625,0,0,0,5.625-6.094Zm0,6.25h13.75A.625.625,0,0,0,20-.469V-2.031a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-2.031V-.469A.625.625,0,0,0,5.625.156Zm-5-12.031h2.5A.625.625,0,0,0,3.75-12.5V-15a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-15v2.5A.625.625,0,0,0,.625-11.875Zm0,6.25h2.5A.625.625,0,0,0,3.75-6.25v-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-8.75v2.5A.625.625,0,0,0,.625-5.625Zm0,6.25h2.5A.625.625,0,0,0,3.75,0V-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-2.5V0A.625.625,0,0,0,.625.625Z" transform="translate(0 15.625)" fill="#fff"/>
+                            </svg>
+    
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 17.25" *ngIf="variationName != 'list'">
+                                <path id="Path_1797" data-name="Path 1797" d="M5-12.969a.625.625,0,0,0,.625.625h13.75A.625.625,0,0,0,20-12.969v-1.562a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-14.531Zm.625,6.875h13.75A.625.625,0,0,0,20-6.719V-8.281a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-8.281v1.563A.625.625,0,0,0,5.625-6.094Zm0,6.25h13.75A.625.625,0,0,0,20-.469V-2.031a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-2.031V-.469A.625.625,0,0,0,5.625.156Zm-5-12.031h2.5A.625.625,0,0,0,3.75-12.5V-15a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-15v2.5A.625.625,0,0,0,.625-11.875Zm0,6.25h2.5A.625.625,0,0,0,3.75-6.25v-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-8.75v2.5A.625.625,0,0,0,.625-5.625Zm0,6.25h2.5A.625.625,0,0,0,3.75,0V-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-2.5V0A.625.625,0,0,0,.625.625Z" transform="translate(0.5 16.125)" fill="#989898" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                            </svg>
+                        </div>                    
+                        <div class="{{variationName == 'grid' ? 'bg-gk-red' : 'bg-[#E5E5E5]'}} xl:mr-5 w-8 h-8 flex justify-center items-center rounded-md cursor-pointer" (click)="changeVariation('grid',false)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 18.5" *ngIf="variationName != 'grid'">
+                                <path id="Path_1798" data-name="Path 1798" d="M11.563-16.25a.937.937,0,0,0-.937.938v6.25a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,20-9.062v-6.25a.937.937,0,0,0-.937-.937Zm-3.125,0H.938A.937.937,0,0,0,0-15.312v6.25a.937.937,0,0,0,.938.938h7.5a.937.937,0,0,0,.938-.937v-6.25A.937.937,0,0,0,8.438-16.25ZM0-5.937V.313a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,9.375.313v-6.25a.937.937,0,0,0-.937-.937H.938A.937.937,0,0,0,0-5.937ZM11.563,1.25h7.5A.937.937,0,0,0,20,.313v-6.25a.937.937,0,0,0-.937-.937h-7.5a.937.937,0,0,0-.937.938V.313A.937.937,0,0,0,11.563,1.25Z" transform="translate(0.5 16.75)" fill="#989898" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 18.5" *ngIf="variationName == 'grid'">
+                                <path id="Path_1798" data-name="Path 1798" d="M11.563-16.25a.937.937,0,0,0-.937.938v6.25a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,20-9.062v-6.25a.937.937,0,0,0-.937-.937Zm-3.125,0H.938A.937.937,0,0,0,0-15.312v6.25a.937.937,0,0,0,.938.938h7.5a.937.937,0,0,0,.938-.937v-6.25A.937.937,0,0,0,8.438-16.25ZM0-5.937V.313a.937.937,0,0,0,.938.938h7.5A.937.937,0,0,0,9.375.313v-6.25a.937.937,0,0,0-.937-.937H.938A.937.937,0,0,0,0-5.937ZM11.563,1.25h7.5A.937.937,0,0,0,20,.313v-6.25a.937.937,0,0,0-.937-.937h-7.5a.937.937,0,0,0-.937.938V.313A.937.937,0,0,0,11.563,1.25Z" transform="translate(0.5 16.75)" fill="#fff" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                            </svg>
+                        </div>                    
+                    </div>
+                </div>
+                <div class="xl:h-[60vh] xl:overflow-y-auto example">
+                    <section class="pt-10 mr-6" *ngIf="checkConditionVariation && !loadComponent"> 
+                        <div *ngFor='let in of counterForLoading(2)'>
+                            <app-skeleton-loader [loaderName]="'listCard'"></app-skeleton-loader>
+                        </div> 
+                    </section>
+                    <div *ngIf="checkConditionVariation && loadComponent">
+                        <div *ngFor="let cardData of propertiesThumbnail; let i = index"  id="abcd{{i}}" (click)="MapCardScroll(cards)" [attr.data-gk-id]="'abcd'+i" #cards class="mt-5">
+                            <app-product-card-variation [condition]="''" [checkVariation]="'mapview'" [ConditionName]="'componentVehicle'" [cardData]="cardData" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)" (callPopupCondition)="''" (contactData)="OpenContactPopup($event)" (callNowData)="OpenCallPopup($event)" (SelectedCompareData)="compareData($event)" (hoverCardData)="getHoverData($event)" (checkingPurpose)="MapCardScroll(cards);storeFilter()"></app-product-card-variation>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap" id="{{Language =='ar'? 'gk-property2' : 'gk-property'}}" *ngIf="!checkConditionVariation && !loadComponent">
+                        <div class="w-[44%] mt-5 {{Language =='ar'? 'xl:mr-[2.2rem]' : 'xl:mr-[4.9rem] 2xl:mr-[3rem]'}}" *ngFor='let in of counterForLoading(4) ;let i = index'>
+                            <app-skeleton-loader [loaderName]="'gridCard'"></app-skeleton-loader>
+                        </div>
+                    </div>
+                    <div *ngIf="!checkConditionVariation && loadComponent" class="md:flex flex-wrap {{Language =='ar'? 'md:justify-end' : 'md:justify-start'}}" id="{{Language =='ar'? 'gk-property2' : 'gk-property'}}"> 
+                        <div class="font-Inter text-xs flex flex-col border border-[#707070]/20 rounded-lg my-5 md:w-[40%] xl:w-[44%] bg-white/20 hover:shadow-md {{Language =='ar'? 'xl:mr-[2.2rem]' : 'xl:mr-[4.9rem] 2xl:mr-[3rem]'}}" *ngFor="let propertyThumbnail of propertiesThumbnail; let i = index"  id="abcd{{i}}" (click)="MapCardScroll(cards)" [attr.data-gk-id]="'abcd'+i" #cards>
+                            <app-product-card [productData]="propertyThumbnail" [checkVariation]="'mapview'" [ConditionName]="'vehicle'" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)" (hoverCardData)="getHoverData($event)" (checkingPurpose)="MapCardScroll(cards);storeFilter()"></app-product-card>
+                        </div>
+                    </div>
+                    <section class="flex justify-center items-center mt-14 mr-5" *ngIf="loadComponent && propertiesThumbnail.length==0">
+                        <div class="flex flex-col items-center text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" viewBox="0 0 87.004 87.005">
+                                <path id="Path_1800" data-name="Path 1800" d="M10993.761,1388.412l-20.393-20.392a2.073,2.073,0,0,1-.588-1.427v-2.217a34.937,34.937,0,1,1,3.595-3.595h2.217a1.986,1.986,0,0,1,1.428.588l20.393,20.392a2.017,2.017,0,0,1,0,2.855l-3.8,3.8a2.016,2.016,0,0,1-2.854,0Zm-70.7-50.475a26.875,26.875,0,1,0,26.875-26.875A26.868,26.868,0,0,0,10923.062,1337.937Zm36.775,14.3L10951,1343.4l-8.835,8.838a1.311,1.311,0,0,1-1.853,0l-2.054-2.051a1.311,1.311,0,0,1,0-1.853l8.838-8.838-8.838-8.835a1.311,1.311,0,0,1,0-1.853l2.054-2.054a1.311,1.311,0,0,1,1.853,0l8.835,8.838,8.838-8.838a1.308,1.308,0,0,1,1.85,0l2.055,2.054a1.311,1.311,0,0,1,0,1.853l-8.838,8.835,8.838,8.835a1.311,1.311,0,0,1,0,1.853l-2.052,2.054a1.311,1.311,0,0,1-1.853,0Z" transform="translate(-10914.5 -1302.5)" fill="#111" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.1"/>
+                            </svg>
+                            <p class="text-[#191919] font-Inter font-semibold pt-1">
+                                {{'newFilterKey.NoResultFound' | translate}}
+                            </p>
+                            <p class="text-[#2D2D2D]/40 font-semibold text-[14px] -mt-1">
+                                {{'newFilterKey.FindMatchingProperty' | translate}}
+                            </p>
+                            <button type="button" class="bg-gk-red mt-3 flex items-center justify-center px-5 py-2 rounded-md text-[#FFFFFF] font-Inter text-[12px]" (click)="noDataResetFilter()">
+                                <img src="../../../assets/images/sync-img.png" class="w-[1.3rem] pr-2">
+                                {{'newFilterKey.RESETFILTERS' | translate}}
+                            </button>
+                        </div>
+                    </section>
+                    <section class="flex justify-center items-center my-10">
+                        <button
+                            class="bg-gk-red flex items-center text-white px-4 rounded py-2 disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed {{propertiesThumbnail.length < pagesize?'hidden':''}}"
+                            (click)="LoadMore()" [disabled]='propertiesThumbnail.length < pagesize'>
+                            
+                            <svg *ngIf="loadMoreLoader" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none"
+                                viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                                </circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                            {{'PropertyFilterPage.loadMore' | translate}}
+                        </button>
+                    </section>
+                </div>
+            </div>
+            <div class="w-[50%] relative">
+                <div class="" *ngIf="mapLoad">
+                    <app-map-variation [cardsData]="propertiesThumbnail" [checkScreen]="'Desktop'" [cardHover]="hoverData"  [mapReset]="mapDataSet" [filterClearBtn]="mapInputReset" (mapValue)="getMapValue($event)" [condition]="'motors'" [LocalData]="address"></app-map-variation>
+                </div>
+                <section>
+                    <div class="flex justify-center items-center border-2 border-[#0989B8] bg-[#FFFFFF] px-2 py-2 rounded-md cursor-pointer absolute bottom-10 right-4 w-[110px]" (click)="mapView('listVariation')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 21 17.25">
+                            <path id="Path_1797" data-name="Path 1797" d="M5-12.969a.625.625,0,0,0,.625.625h13.75A.625.625,0,0,0,20-12.969v-1.562a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-14.531Zm.625,6.875h13.75A.625.625,0,0,0,20-6.719V-8.281a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-8.281v1.563A.625.625,0,0,0,5.625-6.094Zm0,6.25h13.75A.625.625,0,0,0,20-.469V-2.031a.625.625,0,0,0-.625-.625H5.625A.625.625,0,0,0,5-2.031V-.469A.625.625,0,0,0,5.625.156Zm-5-12.031h2.5A.625.625,0,0,0,3.75-12.5V-15a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-15v2.5A.625.625,0,0,0,.625-11.875Zm0,6.25h2.5A.625.625,0,0,0,3.75-6.25v-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-8.75v2.5A.625.625,0,0,0,.625-5.625Zm0,6.25h2.5A.625.625,0,0,0,3.75,0V-2.5a.625.625,0,0,0-.625-.625H.625A.625.625,0,0,0,0-2.5V0A.625.625,0,0,0,.625.625Z" transform="translate(0.5 16.125)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                        </svg>
+                        <p class="text-[10px] text-[#0989B8] font-Inter font-bold pl-3">
+                            {{'newFilterKey.ListView' | translate}}
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </section>
+         <!-- map variaton component UI -->
+
+        <section class="flex justify-center items-center my-10" *ngIf="!showMapView">
+            <button
+            class="bg-gk-red flex items-center text-white px-4 rounded py-2 disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed {{propertiesThumbnail.length < pagesize?'hidden':''}}"
+                (click)="LoadMore()" [disabled]='disableButton'>
+                <svg *ngIf="loadMoreLoader" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                    </circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+                {{'PropertyFilterPage.loadMore' | translate}}
+            </button>
+        </section>
+    </div>
+</section>
+<!-- desktop screen end -->
+
+<app-comparison-selected *ngIf="openSelectComaprePopup" [componentName]="'motors'" [SelectedCardData]="slectedCompareData" (closePopup)="closeComprePopup($event)" ></app-comparison-selected>
+<app-vendor-contact-popup *ngIf="vendorContactPopup" [cardData]="contactData" [componentName]="'motors'"  (ClosedPopup)="contactPopupClosed($event)"></app-vendor-contact-popup>
+<app-call-popup *ngIf="callPopup" (ClosedPopup)="callPopupClosed($event)" [AllData]="callNowtData" [condition]="'motors'"></app-call-popup>

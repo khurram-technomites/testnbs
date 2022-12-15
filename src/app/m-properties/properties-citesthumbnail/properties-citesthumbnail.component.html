@@ -1,0 +1,34 @@
+<section class="w-[80%] mx-auto pt-10 xl:w-[70%] flex" *ngIf="!contentLoaded">
+    <div class="w-[30%] {{!isLast? 'mr-2': ''}}" *ngFor='let in of counterForLoading(4) ;let isLast = last'>
+        <div>
+            <ngx-skeleton-loader [theme]="{ height: '150px'}"></ngx-skeleton-loader>
+        </div>
+        <div class="w-[60%]">
+            <ngx-skeleton-loader [theme]="{ height: '20px'}">
+            </ngx-skeleton-loader>
+        </div>
+        <ngx-skeleton-loader [theme]="{ height: '20px'}">
+        </ngx-skeleton-loader>
+    </div>
+</section>
+
+<section class="px-5 pt-10 md:px-10" *ngIf="contentLoaded">
+    <div class="font-Inter text-xs text-center">
+        <h1 class="font-bold text-xl text-center mb-2 2xl:text-4xl">{{'PropertyPage.ExploreCities.MainHeading' |
+            translate}}</h1>
+        <p class="mb-10 2xl:text-base text-[#989898]">{{'PropertyPage.ExploreCities.Explore1' | translate}}</p>
+    </div>
+</section>
+
+<section class="xl:px-40 pb-10" *ngIf="contentLoaded">
+    <div class="flex justify-center flex-wrap items-center ">
+        <div class=" text-white font-semibold cursor-pointer bg-cover text-center w-[45%] my-2 mx-2 md:w-[30%] lg:w-[20%]"
+            *ngFor="let city of cities" [ngStyle]="{'background-image': 'url(' + city.thumbnail + ')'}">
+            <a (click)="onCLickRoute(city)">
+                <h1 class="text-base font-bold pt-44">{{city.name}}</h1>
+                <p *ngIf="componentName == 'propertyHome'" class="pb-5 xl:text-xs">{{city.propertyCount.rent + city.propertyCount.sale}} {{'PropertyPage.ExploreCities.Property' | translate}}</p>
+                <p *ngIf="componentName == 'VehicleHome'" class="pb-5 xl:text-xs">{{city.vehicleCount}} {{'PropertyPage.ExploreCities.cityCar' | translate}}</p>
+            </a>
+        </div>
+    </div>
+</section>

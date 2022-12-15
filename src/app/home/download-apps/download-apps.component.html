@@ -1,0 +1,17 @@
+<div class="bg-download-app-bg bg-cover xl:bg-contain bg-no-repeat">
+    <div class="px-5 sm:flex md:flex md:flex-row-reverse md:w-[80%] md:relative">
+        <div class="flex justify-center md:w-[40%] md:absolute md:right-[-0.5rem] md:top-[-1.5rem] lg:top-[-2rem] xl:top-[-3.5rem] 2xl:right-[2.2rem]">
+            <app-images [imagePath]="'./assets/images/two-phone.png'" [customClass]="'xl:w-[85%]'"></app-images>
+        </div>
+        <div class="font-Inter text-xs md:mx-auto my-5 lg:my-10 flex flex-col items-center justify-center md:w-[60%] md:items-center ">
+            <div class="bg-white py-[2rem] rounded-xl gk-shadow md:pl-10 mb-5 md:mb-0 shadowClass">
+                <app-text-component [inputText]="'Footer.Download'" [customClass]="'font-bold text-xl text-center md:text-left 2xl:text-4xl'" [condition]="'heading'"></app-text-component>
+                <app-text-component [inputText]="'Footer.NewDownload'" [customClass]="'my-2 md:w-[60%] text-center md:text-left 2xl:text-base text-[#191919]'" [condition]="'paragraph'"></app-text-component>
+                <div class="flex justify-center md:justify-start mt-5">
+                    <img src="./assets/images/google.png" alt="google app store" class="w-[30%] mr-4 cursor-pointer" (click)="OpenPlayStore()">
+                    <img src="./assets/images/apple.png" alt="apple app store" class="w-[30%] cursor-pointer" (click)="OpenAppleApp()">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

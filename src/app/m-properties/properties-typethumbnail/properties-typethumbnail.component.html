@@ -1,0 +1,39 @@
+<section class="w-[80%] mx-auto pt-10 xl:w-[70%] flex" *ngIf="!contentLoaded">
+    <div class="w-[30%] {{!isLast? 'mr-2' : ''}}" *ngFor='let in of counterForLoading(4) ;let isLast = last'>
+        <div>
+            <ngx-skeleton-loader [theme]="{ height: '150px'}"></ngx-skeleton-loader>
+        </div>
+        <div class="w-[60%]">
+            <ngx-skeleton-loader [theme]="{ height: '20px'}">
+            </ngx-skeleton-loader>
+        </div>
+        <ngx-skeleton-loader [theme]="{ height: '20px'}">
+        </ngx-skeleton-loader>
+    </div>
+</section>
+
+<section class="px-5 md:px-10" *ngIf="contentLoaded">
+    <div class="font-Inter text-xs text-center mt-10">
+        <h1 class="font-bold text-xl text-center mb-2 2xl:text-4xl">
+            {{(componentName == 'propertyHome'?'PropertyPage.ExploreProperties.MainHeading' : 'VehicleHomePage.ExploreVehicles.MainHeading' ) | translate}}</h1>
+        <p class="mb-10 2xl:text-base text-[#989898]">
+            {{(componentName == 'propertyHome'?'PropertyPage.ExploreProperties.SubHeading1' : 'VehicleHomePage.ExploreVehicles.SubHeading1') | translate}}
+        </p>
+    </div>
+</section>
+
+<div class="w-[70%] mx-auto" *ngIf="contentLoaded">
+    <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide *ngFor="let property of exploreCategorData">
+            <div [ngStyle]="{'background-image': 'url(' + property.image + ')'}"
+                class=" flex flex-col justify-center items-center w-[18rem] h-[20rem] mx-auto sm:w-[16rem] sm:h-[18rem] xl:w-[12rem] xl:h-[14rem] bg-cover">
+                <a (click)="onClickRoute(property)" class="flex justify-center items-center cursor-pointer"><img
+                        src="{{property.icon}}" alt=""
+                        onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" class="xl:w-13"
+                        id="propertyIcons">
+                    <h1 class="text-white font-bold text-sm absolute bottom-4 text-center">{{property.name}}</h1>
+                </a>
+            </div>
+        </ng-template>
+    </owl-carousel-o>
+</div>

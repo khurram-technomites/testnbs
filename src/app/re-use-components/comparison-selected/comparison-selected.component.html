@@ -1,0 +1,27 @@
+
+<section>
+    <div class="fixed left-[12%] bottom-14 md:left-[24%] xl:bottom-8 xl:left-[35%] ind rounded-md bg-[#FFFFFF] w-[75%] md:w-[55%] xl:w-[30%] shades2 border border-[#CECECE]">
+        <div class="flex {{Language == 'ar'? 'flex-row-reverse' : ''}}">
+            <div class="w-[25%]">
+                <img src="{{SelectedCardData.images[0]}}" alt="" class="w-[100%] h-[95px] rounded-md object-cover">
+            </div>
+            <div class="w-[75%] pl-4 flex flex-col justify-center">
+                <div class="flex {{Language == 'ar'? '' : 'justify-end'}}  pr-3">
+                    <svg (click)="close()" xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09">
+                        <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#191919" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                    </svg>
+                </div>
+                <div class="flex items-center {{Language == 'ar'? 'justify-end pr-4' : ''}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 20" class="w-3">
+                        <path id="Path_1793" data-name="Path 1793" d="M-2.5-4.375h0c0-.632.052-.341-3.322-7.09A1.854,1.854,0,0,0-7.5-12.5a1.852,1.852,0,0,0-1.677,1.035c-3.4,6.807-3.322,6.478-3.322,7.09h0c0,1.726,2.239,3.125,5,3.125S-2.5-2.649-2.5-4.375ZM-9.248-7.143c.445-.885,1.016-2.019,1.737-3.48H-7.5v0C-6.725-9.078-6.131-7.9-5.675-7c.441.874.77,1.528,1,2h-5.642C-10.077-5.5-9.724-6.2-9.248-7.143ZM8.125.625H.938V-11.409A3.118,3.118,0,0,0,3.062-13.75H8.125a.625.625,0,0,0,.625-.625V-15a.625.625,0,0,0-.625-.625H2.861A3.123,3.123,0,0,0,0-17.5a3.123,3.123,0,0,0-2.861,1.875H-8.125A.625.625,0,0,0-8.75-15v.625a.625.625,0,0,0,.625.625h5.063A3.118,3.118,0,0,0-.937-11.409V.625H-8.125a.625.625,0,0,0-.625.625v.625a.625.625,0,0,0,.625.625H8.125a.625.625,0,0,0,.625-.625V1.25A.625.625,0,0,0,8.125.625ZM0-13.125a1.252,1.252,0,0,1-1.25-1.25A1.252,1.252,0,0,1,0-15.625a1.252,1.252,0,0,1,1.25,1.25A1.252,1.252,0,0,1,0-13.125Zm12.5,8.75c0-.632.052-.341-3.322-7.09A1.854,1.854,0,0,0,7.5-12.5a1.852,1.852,0,0,0-1.677,1.035C2.42-4.658,2.5-4.987,2.5-4.375h0c0,1.726,2.239,3.125,5,3.125s5-1.4,5-3.125ZM4.681-5c.242-.5.595-1.2,1.07-2.143.445-.885,1.016-2.019,1.737-3.48H7.5v0C8.274-9.078,8.868-7.9,9.324-7c.441.874.77,1.528,1,2Z" transform="translate(12.5 17.5)" fill="#0989b8"/>
+                    </svg>
+                    <p class="text-gk-red font-Inter font-bold text-[10px] pl-1">
+                        {{(componentName == 'motors' ? 'comparison.Motor' : 'comparison.Property') | translate}}   
+                    </p>
+                </div>
+                <p (click)="openDetailPage(SelectedCardData.slug)" class="font-Inter cursor-pointer font-semibold text-[#191919] text-[13px] pt-1 line-clamp-1 {{Language == 'ar'? 'text-right pr-4' : ''}}">{{SelectedCardData.title}}</p>
+                <p (click)="openDetailPage(SelectedCardData.slug)" class="cursor-pointer text-[11px] font-Inter font-medium text-[#191919]/80 line-clamp-1 {{Language == 'ar'? 'text-right pr-4' : ''}}">{{SelectedCardData.address}}</p>
+            </div>
+        </div>   
+    </div>
+</section>

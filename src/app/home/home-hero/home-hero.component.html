@@ -1,0 +1,60 @@
+<section class="xl:hidden" *ngIf="load && headerData.contentType == 'Image'">
+    <div class="font-Inter text-xs">
+        <div class="font-Inter bg-left-hero bg-cover py-10 text-white flex flex-col items-center ">
+            <p class="text-xs">{{'HomePage.Assist' | translate}}</p>
+            <h1 class="text-xl FivoSans font-extrabold my-2">{{'HomePage.Properties' | translate}}</h1>
+            <button class="bg-gk-red px-4 text-white py-2 rounded font-Inter font-medium text-xs" routerLink="/Properties">
+                {{'HomePage.GoToProp' | translate}}
+            </button>
+        </div>
+        <div class="font-Inter bg-right-hero bg-cover py-10 text-white flex flex-col items-center ">
+            <p class="text-xs">{{'HomePage.Help' | translate}}</p>
+            <h1 class="text-xl FivoSans font-extrabold my-2">{{'HomePage.Car' | translate}}</h1>
+            <button class="bg-gk-red px-4 text-white py-2 rounded font-Inter font-medium text-xs" routerLink="/Vehicle">
+                {{'HomePage.GoToCar' | translate}}
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="hidden xl:block z-0 max-w-screen-2xl 2xl:mx-auto" *ngIf="load && headerData.contentType == 'Image'">
+    <div class="font-Inter text-white flex flex-row h-[28rem] bg-hero-bg bg-cover bg-center">
+        <div class="flex flex-col justify-center items-center w-[50%]">
+            <p class="text-xs 2xl:text-base text-white/80">{{'HomePage.Assist' | translate}}</p>
+            <h1 class="text-xl font-FivoSans my-2 2xl:text-4xl">{{'HomePage.Properties' | translate}}</h1>
+            <button class="bg-gk-red px-4 text-white py-2 rounded font-Inter font-medium text-xs" routerLink="/Properties">
+                {{'HomePage.GoToProp' | translate}}
+            </button>
+        </div>
+        <div class="flex flex-col justify-center items-center w-[50%]">
+            <p class="text-xs 2xl:text-base text-white/80">{{'HomePage.Help' | translate}}</p>
+            <h1 class="text-xl font-FivoSans my-2 2xl:text-4xl">{{'HomePage.Car' | translate}}</h1>
+            <button class="bg-gk-red px-4 text-white py-2 rounded font-Inter font-medium text-xs" routerLink="/Vehicle">
+                {{'HomePage.GoToCar' | translate}}
+            </button>
+        </div>
+    </div>
+</section>
+
+<div class="h-[70vh] video-wrapper relative" *ngIf="load && headerData.contentType == 'Video'">
+    <div class="bg-transparent absolute flex flex-col lg:flex-row w-full h-full zClass">
+        <div class="w-[100%] lg:w-[50%] flex flex-col justify-center items-center h-full">
+            <p class="text-xs 2xl:text-base text-white shadowClass">{{'HomePage.Assist' | translate}}</p>
+            <h1 class="text-xl font-FivoSans my-2 2xl:text-4xl text-white shadowClass">{{'HomePage.Properties' | translate}}</h1>
+            <button class="bg-gk-red px-4 text-white py-2 rounded font-Inter font-medium text-xs" routerLink="/Properties">
+                {{'HomePage.GoToProp' | translate}}
+            </button>
+        </div>
+        <div class="w-[100%] lg:w-[50%] flex flex-col justify-center items-center h-full">
+            <p class="text-xs 2xl:text-base text-white shadowClass">{{'HomePage.Help' | translate}}</p>
+            <h1 class="text-xl font-FivoSans my-2 2xl:text-4xl text-white shadowClass">{{'HomePage.Car' | translate}}</h1>
+            <button class="bg-gk-red px-4 text-white py-2 rounded font-Inter font-medium text-xs" routerLink="/Vehicle">
+                {{'HomePage.GoToCar' | translate}}
+            </button>
+        </div>
+    </div>
+    <video #myVideo id="myVideo" class="w-full h-full object-cover" autoplay loop [muted]="'muted'">
+        <source src="{{img}}" type="video/mp4">
+    </video>
+    <div class="top-0 bottom-0 absolute w-full bg-color2"></div>
+</div>

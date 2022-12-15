@@ -1,0 +1,52 @@
+<!-- skeleton loading start -->
+<section class="w-[80%] mx-auto pt-10 flex" *ngIf="!contentLoaded">
+  <div class="w-[40%] {{!isLast? 'mr-4':''}}" *ngFor='let in of counterForLoading(4);let isLast = last'>
+    <app-skeleton-loader [loaderName]="'gridCard'"></app-skeleton-loader>
+  </div>
+</section>
+<!-- skeleton loading end -->
+
+<section *ngIf="(mode == 'listing' && propertiesThumbnail.length > 0) && contentLoaded">
+  <div class="font-Inter text-xs text-center px-5 mb-10 pt-10">
+    <h1 class="font-bold text-xl my-2 2xl:text-4xl">{{MainHeading | translate}}</h1>
+    <p class="2xl:text-base text-[#989898]">{{SubHeading | translate}}</p>
+  </div>
+  <div class="w-[80%] mx-auto"
+  [ngClass]="(propertiesThumbnail.length === 1) ? 'w-[80%] xl:w-[25%]': (propertiesThumbnail.length === 2) ? 'w-[80%] xl:w-[40%]': (propertiesThumbnail.length === 3) ? 'w-[80%] xl:w-[60%]': 'w-[80%] xl:w-[80%]'" id="gk-property">
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide *ngFor="let propertyThumbnail of propertiesThumbnail">
+        <div class="font-Inter text text-xs border border-[#707070]/20 bg-white/20 hover:shadow-md rounded-lg">
+          <!-- new property card UI -->
+          <app-product-card [productData]="propertyThumbnail" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)"></app-product-card>
+          <!-- new property card UI -->
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
+</section>
+
+<!--only for wishlist page -->
+<section *ngIf="(mode == 'wishlist')">
+  <div class="font-Inter text-xs text-center px-5 my-10">
+    <h1 class="font-bold text-xl my-2">{{'PropertyPage.Featured.MainHeadingWishlistProp' | translate}}</h1>
+    <p>{{'PropertyPage.Featured.SubHeadingWishlistProp' | translate}}</p>
+  </div>
+  <div class="mx-auto" *ngIf="contentLoaded && prosThumbnail.length>0"
+    [ngClass]="(prosThumbnail.length === 1) ? 'w-[80%] xl:w-[25%]': (prosThumbnail.length === 2) ? 'w-[80%] xl:w-[40%]': (prosThumbnail.length === 3) ? 'w-[80%] xl:w-[60%]': 'w-[80%] xl:w-[80%]'" id="gk-wishList">
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide *ngFor="let proThumbnail of prosThumbnail">
+        <div class="font-Inter text text-xs border border-[#707070]/20">
+          <!-- wishlist new card UI  -->
+          <app-product-card [productData]="proThumbnail" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)"></app-product-card>
+          <!-- wishlist new card UI  -->
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
+</section>
+
+<section class="flex justify-center items-center mb-10 mt-10" *ngIf="(mode == 'wishlist' && contentLoaded && prosThumbnail.length == 0)">
+  <div class="bg-white w-[80%] px-4 py-4 text-center font-semibold">
+    {{"PropertyPage.Featured.NoDataFoundProperty" | translate}}
+  </div>
+</section>

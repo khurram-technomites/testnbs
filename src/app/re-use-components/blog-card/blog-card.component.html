@@ -1,0 +1,18 @@
+<div [ngStyle]="{'background-image': 'url(' + newsfeed.bannerImage + ')'}" class="{{customClass}}">
+    <div class="bg-color rounded-xl h-[100%] flex flex-col justify-end">
+      <div class="pl-4 pb-4">
+        <div class="flex">
+          <app-text-component [inputText]="newsfeed.badge" [customClass]="'bg-[#191919]/50 text-[#FFFFFF] text-center uppercase text-[9px] font-semibold rounded py-1 px-2'" [condition]="'paragraph'"></app-text-component>
+        </div>
+        <app-text-component [inputText]="newsfeed.title" [customClass]="'font-bold text-[#FFFFFF] pt-2 pr-3 line-clamp-2 cursor-pointer'" [condition]="'paragraph'" [routerLink]="['/blog', newsfeed.slug]"></app-text-component>
+        <div class="flex items-center pt-2">
+          <div class="w-[50%]">
+            <p class="text-[10px] text-[#FFFFFF]/80 font-Inter">{{newsfeed.createdOn | date:'longDate'}}</p>
+          </div>
+          <div class="w-[50%] flex justify-center">
+            <button [routerLink]="['/blog', newsfeed.slug]" class="bg-gk-red rounded text-white text-[10px] py-1 font-medium px-2">{{'Blog.READARTICLE' | translate}}</button>
+          </div>
+        </div> 
+      </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="md:flex md:flex-wrap md:justify-between xl:justify-start gap-[1.6rem] 2xl:gap-[1.9rem]" id="gk-vendor" >
+    <div class="font-Inter text-xs flex flex-col border border-[#707070]/20 my-5 xl:my-0 xl:mt-[1.25rem] md:w-[48%] xl:w-[23%] bg-white/20 hover:shadow-md rounded-lg" *ngFor="let ProductsCard of ProductsCards">
+        <!-- new property and vehicle card UI -->
+        <app-product-card [productData]="ProductsCard" [ConditionName]="CarsOrProperty == 'car'? 'vehicle': ''" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)"></app-product-card>
+        <!-- new property and vehicle card UI -->
+    </div>    
+</div>

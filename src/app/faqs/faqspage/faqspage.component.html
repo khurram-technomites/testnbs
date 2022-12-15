@@ -1,0 +1,24 @@
+<app-hero-section [heroSectionData]="faqHeroData" [customClass]="'bg-contactus-hero-mbg sm:bg-contactus-hero-bg bg-cover font-Inter text-xs text-white py-20 flex flex-col justify-center items-center xl:py-32'" [customClass2]="'font-Inter font-bold text-lg capitalize text-center md:text-4xl'"></app-hero-section>
+
+<section class="bg-gk-blue">
+    <div class="py-4 w-[80%] mx-auto md:py-10">
+        <h1 class="font-Inter font-bold text-lg capitalize text-center">{{"FaqPage.AskQuestion" | translate}}</h1>
+    </div>
+    <div class="w-[80%] mx-auto pb-4 lg:w-[60%]">
+        <div class=" bg-white/20 rounded gk-shadow mb-2"
+            *ngFor="let data of [0,1,2,3,4,5]; let index = index" #abc>
+            <div class="flex items-center justify-between rounded gk-shadow px-2 py-2 {{Language == 'ar'? 'flex-row-reverse':''}}"
+                (click)="showSubItem(index); test(abc);">
+                <h1 class="font-Inter text-xs  font-semibold">{{"FaqPage.Q"+(index+1) | translate}}</h1>
+                <svg viewBox="0 0 448 512" class="w-3 fill-current text-black">
+                    <path fill=""
+                        d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
+                        class=""></path>
+                </svg>
+            </div>
+            <div>
+                <p class="font-Inter text-xs px-2 py-2 {{Language == 'ar'? 'text-right': 'text-justify'}}" *ngIf="visibleIndex === index" [innerHTML]="'FaqPage.Ans'+(index+1) | translate"></p>
+            </div>
+        </div>
+    </div>
+</section>

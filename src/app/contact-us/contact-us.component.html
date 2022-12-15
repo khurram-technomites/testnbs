@@ -1,0 +1,96 @@
+<app-hero-section [heroSectionData]="contactHeroData" [customClass]="'bg-contactus-hero-mbg sm:bg-contactus-hero-bg bg-cover font-Inter text-xs text-white py-20 flex flex-col justify-center items-center xl:py-32'" [customClass2]="'text-xl font-extrabold'"></app-hero-section>
+
+<section class="px-5 md:px-10 xl:px-20">
+    <div class="font-Inter text-xs my-5 text-center xl:pt-10">
+        <h1 class="font-bold text-xl">{{"ContactUsPage.ContactUsPageForm.Eager" | translate}}</h1>
+        <p class="mt-2">{{"ContactUsPage.ContactUsPageBanner.SubHeading" | translate}}</p>
+    </div>
+    <div class="md:flex md:justify-between lg:justify-center">
+        <div
+            class="font-Inter text-xs flex flex-col justify-center items-center mt-4 mb-8 md:items-start md:w-[30%] lg:flex-row ">
+            <div class="lg:mr-4">
+                <img src="./assets/images/contact-location.png" alt="contact-location" class="w-12 ">
+            </div>
+            <div>
+                <h1 class="font-bold text-xl my-2 text-center md:m-0 md:text-left md:text-base">
+                    {{"ContactUsPage.ContactUsPageForm.Address" | translate}}</h1>
+                <p class="px-12 text-center md:p-0 md:text-left">{{contactDetails.address}}</p>
+            </div>
+        </div>
+        <div
+            class="font-Inter text-xs flex flex-col justify-center items-center mt-4 mb-8 md:items-start md:w-[30%] lg:flex-row ">
+            <div class="lg:mr-4">
+                <img src="./assets/images/phone-icon.png" alt="contact-location" class="w-12 ">
+            </div>
+            <div>
+                <h1 class="font-bold text-xl my-2 text-center md:m-0 md:text-left md:text-base">
+                    {{"ContactUsPage.ContactUsPageForm.Contact" | translate}}</h1>
+                <p class="px-12 text-center md:p-0 md:text-left">{{contactDetails.contactNo}} <br />
+                    {{contactDetails.email}}</p>
+            </div>
+        </div>
+        <div
+            class="font-Inter text-xs flex flex-col justify-center items-center mt-4 mb-8 md:items-start md:w-[30%] lg:flex-row ">
+            <div class="lg:mr-4">
+                <img src="./assets/images/phone-icon.png" alt="contact-location" class="w-12 ">
+            </div>
+            <div>
+                <h1 class="font-bold text-xl my-2 text-center md:m-0 md:text-left md:text-base">
+                    {{"ContactUsPage.ContactUsPageForm.Hour" | translate}}</h1>
+                <p class="px-12 text-center md:p-0 md:text-left">{{hoursOfOperation.days}}</p>
+            </div>
+        </div>
+    </div>
+    <hr class="h-[1px] w-[80%] mx-auto bg-[#DBDCDD]" />
+    <div>
+        <div class="font-Inter text-xs my-5 text-center ">
+            <h1 class="font-bold text-xl">{{"ContactUsPage.ContactUsPageForm.Email" | translate}}</h1>
+            <p class="mt-2">{{"ContactUsPage.ContactUsPageForm.SubHeading" | translate}}</p>
+        </div>
+        <div class="font-Inter text-xs mb-10 xl:bg-white xl:w-[80%] xl:mx-auto">
+            <form class="lg:p-10 text-center" #ContactUsForm="ngForm"
+                (ngSubmit)="SubmitContactUsData(ContactUsForm.value)" id="ContactUsForm">
+                <div class="lg:flex">
+                    <input type="text" placeholder='{{"ContactUsPage.ContactUsPageForm.Subject" | translate}}'
+                        class="w-full {{lang === 'ar' ? 'text-right' : ''}} my-2 text-xs border-0 border-b border-[#191919]/20 text-[#989898]" ngModel name="Subject" required
+                        #SubjectField="ngModel">
+                </div>
+                <div class="lg:flex">
+                    <input type="text" placeholder='{{"ContactUsPage.ContactUsPageForm.Name" | translate}}'
+                        class="w-full {{lang === 'ar' ? 'text-right' : ''}} my-2 text-xs border-0 border-b border-[#191919]/20 text-[#989898] lg:mr-8" ngModel name="Name"
+                        required #NameField="ngModel">
+                    <div class="font-Inter text-xs font-semibold flex flex-col w-full lg:mr-8">
+                        <input type="text" class="w-full {{lang === 'ar' ? 'text-right' : ''}} my-2 text-xs border-0 border-b border-[#191919]/20 text-[#989898] lg:mr-8"
+                            placeholder='{{"LoginPage.Email/Phone" | translate}}' ngModel
+                            name="Email" required email #EmailField="ngModel">   
+                    </div>
+                    <div class="group flex w-full">
+                        <span class="prefix text-xs text-[#989898] my-auto">+971</span>
+                        <input type="text" placeholder=''
+                        class="w-full has-prefix my-2 text-xs border-0 border-b border-[#191919]/20 text-[#989898]" ngModel name="Contact" required
+                        #ContactField="ngModel" [textMask]="{mask: mask}">
+                    </div>
+                </div>
+                <small class="text-gk-red" *ngIf="!EmailField.valid && EmailField.touched">
+                    {{"LoginPage.ValidEmail" | translate}}
+                </small>
+                <textarea ngModel name="Message" required #MessageField="ngModel" cols="30" rows="10"
+                    placeholder='{{"ContactUsPage.ContactUsPageForm.MessagePlaceholder" | translate}}'
+                    class="w-full {{lang === 'ar' ? 'text-right' : ''}} my-2 text-xs border-0 border-b border-[#191919]/20 text-[#989898]"></textarea>
+
+                <button [disabled]="!ContactUsForm.valid || (ContactField.value?.length!==9)"
+                    class="bg-gk-red justify-center inline-flex px-4 py-4 my-4 font-semibold w-full rounded-lg text-white transition ease-in-out duration-150 cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed">
+                    <svg *ngIf="ContactUsStatus==false" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                    {{"ContactUsPage.ContactUsPageForm.Send" | translate}}
+                </button>
+            </form>
+        </div>
+    </div>
+</section>

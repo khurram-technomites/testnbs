@@ -1,0 +1,18 @@
+
+<div class="{{checkScreen == 'mobile' ? '' : 'pt-5'}} ">
+    <div class="my-2 absolute {{checkScreen == 'mobile' ? '' : 'top-10'}}  left-0 right-0 mx-auto w-[85%] zIndexClass">
+        <input type="text" name="" id="" placeholder="Location" ngx-google-places-autocomplete
+            (onAddressChange)="handleAddressChange($event)" (keyup)="searchAgents($event)"
+            class="border border-gk-red text-[#989898] placeholder:text-[#989898] backPosition text-xs px-2 w-full bg-location-icon-bg bg-no-repeat bg-right cursor-pointer rounded-md" #LocationField>
+    </div>
+    <div id="wScroll" class="bg-white max-h-48 md:max-h-52 xl:max-h-36 absolute z-10 overflow-scroll w-[73%] md:w-[76%] lg:w-[77%] xl:w-[38%]" *ngIf="suggest.length > 0">
+        <ul>
+            <li *ngFor="let suggest of suggest" class="cursor-pointer pl-1 py-1 text-xs hover:bg-[#F5F5F5] border-b-2 border-[#707070]/20" (click)="LocationSearchFromMap(suggest.formatted_address, suggest.geometry.location.lat, suggest.geometry.location.lng)">
+                {{suggest.formatted_address}}
+            </li>
+        </ul>
+    </div>
+    <div id="map" class="h-[65vh] lg:h-[50vh] xl:h-[65vh] w-full">
+    </div>
+</div>
+

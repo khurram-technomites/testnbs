@@ -1,0 +1,348 @@
+<section class="bg-[#F6F8F9]">
+    <div class="flex items-center justify-center pt-10">
+        <fa-icon [icon]="faCircle" class="text-gray-400"></fa-icon>
+        <div class="bg-gray-400 w-2 h-1">
+        </div>
+        <fa-icon [icon]="faCircle" class="text-gray-400"></fa-icon>
+        <div class="bg-gray-400 w-2 h-1">
+        </div>
+        <fa-icon [icon]="faCircle" class="text-gk-red"></fa-icon>
+    </div>
+    <div class="flex flex-col items-center">
+        <h1 class="font-Inter bg-transparent font-bold text-xl my-4">{{ "PlaceYourAddPage.TellUs" | translate}}</h1>
+        <p class="font-Inter bg-transparent text-xs ">{{ "PlaceYourAddPage.Details" | translate}}</p>
+    </div>
+</section>
+
+<!-- ProPerties Form -->
+<section *ngIf="PropertyType!='Car'">
+    <form class="font-Inter text-xs" #AddForm="ngForm" (ngSubmit)="SubmitPropertyAddData(AddForm.value)" id="AddForm">
+        <div class="bg-white w-[90%] mx-auto mt-10 lg:w-[70%] xl:w-[50%]">
+            <div class="p-4 xl:p-8">
+                <div class="flex flex-col mb-4">
+                    <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                        "PlaceYourAddPage.Title" | translate}}</label>
+                    <input type="text" placeholder="{{ 'PlaceYourAddPage.InputTitle' | translate}}" ngModel name="Title"
+                        required #TitleField="ngModel"
+                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0">
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                        "PlaceYourAddPage.Description" | translate}}</label>
+                    <input type="text" ngModel name="Description" required #DescriptionField="ngModel"
+                        placeholder="{{ 'PlaceYourAddPage.InputDescription' | translate}}"
+                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0">
+                </div>
+                <div class="sm:flex sm:justify-between">
+                    <div class="sm:w-[69%]">
+                        <div class="sm:flex sm:justify-between">
+                            <div class="flex flex-col mb-4 sm:w-[48%]">
+                                <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                                    "PlaceYourAddPage.Size" | translate}} <span class="text-[#989898]">{{
+                                        "PlaceYourAddPage.SqFt" | translate}}</span>
+                                </label>
+                                <input type="text" ngModel name="Size" required #SizeField="ngModel"
+                                    placeholder="{{ 'PlaceYourAddPage.InputSize' | translate}}"
+                                    class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[rgb(152,152,152)] text-xs px-0"
+                                    (keypress)='restrictAlphabets($event)'>
+                            </div>
+                            <div class="flex flex-col mb-4 sm:w-[48%]">
+                                <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                                    "PlaceYourAddPage.Rooms" | translate}}</label>
+                                <input type="number" min="1" ngModel name="Rooms" required #RoomsField="ngModel"
+                                    placeholder="{{ 'PlaceYourAddPage.InputRooms' | translate}}"
+                                    class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                                    (keypress)='restrictAlphabets($event)'>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex flex-col mb-4 xl:mb-0">
+                                <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                                    "PlaceYourAddPage.Location" | translate}}</label>
+                                <input type="text" ngModel name="Location" #LocationField="ngModel" [value]="address"
+                                    placeholder="{{ 'PlaceYourAddPage.InputLocation' | translate}}"
+                                    class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[rgb(152,152,152)] text-xs px-0 bg-location-icon-bg bg-no-repeat bg-right cursor-pointer"
+                                    (click)="PropertyMap=true;" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sm:w-[29%]">
+                        <div>
+                            <div class="flex flex-col mb-4">
+                                <label for="" class="{{Language == 'ar'? 'text-right': ''}} font-semibold">{{
+                                    "PlaceYourAddPage.Baths" | translate}}</label>
+                                <input type="number" min="1" ngModel name="Baths" required #BathsField="ngModel"
+                                    placeholder="{{ 'PlaceYourAddPage.InputBaths' | translate}}"
+                                    class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                                    (keypress)='restrictAlphabets($event)'>
+                            </div>
+                        </div>
+                        <div class="{{Language == 'ar'? 'text-right': ''}}">
+                            <label for="" class="font-semibold">{{ "PlaceYourAddPage.PriceRange" | translate}}</label>
+                            <div class="flex justify-between">
+                                <div class="flex flex-col mb-4 w-[48%] xl:mb-0">
+                                    <input type="number" min="1" ngModel name="PriceMin" required
+                                        #PriceMinField="ngModel" placeholder="{{ 'PlaceYourAddPage.Min' | translate}}"
+                                        class="{{Language == 'ar'? 'text-right pr-3': ''}} border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                                        (keypress)='restrictAlphabets($event)' (keypress)='restrictAlphabets($event)'>
+                                </div>
+                                <div class="flex flex-col mb-4 w-[48%] xl:mb-0">
+                                    <input type="number" min="1" ngModel name="PriceMax" required
+                                        [disabled]="PriceMinField.value ==''" min="{{PriceMinField.value}}" value=""
+                                        #PriceMaxField="ngModel" placeholder="{{ 'PlaceYourAddPage.Max' | translate}}"
+                                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0 disabled:cursor-not-allowed"
+                                        (keypress)='restrictAlphabets($event)'>
+                                </div>
+                            </div>
+                            <small class="text-gk-red {{Language == 'ar'? 'text-right': ''}}"
+                                *ngIf="PriceMaxField.value < PriceMinField.value && PriceMaxField.touched && !PriceMaxField.valid">
+                                {{ "PlaceYourAddPage.MaxValue" | translate}}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="w-1/2 mx-auto mt-10 sm:w-[30%] lg:w-[20%]">
+            <button [disabled]="!AddForm.valid || address ==''"
+                class="font-Inter font-semibold justify-center inline-flex transition ease-in-out duration-150 px-4 py-3 text-white bg-gk-red w-full rounded-lg h-10 text-xs cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed">
+                <svg *ngIf="signInStatus==false" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                    </circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+                {{"PlaceYourAddPage.Finalizes" | translate}}
+            </button>
+        </div>
+    </form>
+</section>
+
+
+<!-- Map PopUP -->
+
+<section [style.display]="PropertyMap?  'block':'none'">
+    <div class="bg-black/50 fixed inset-0 flex justify-center items-center z-50">
+        <div class=" bg-white w-[80%] rounded-lg p-4 sm:h-[70%] lg:h-[60%] xl:w-[40%] xl:h-[50%] 2xl:h-[45%]">
+            <div class="flex justify-between items-center ">
+                <h1 class="font-Inter font-semibold text-xs">Enter Location</h1>
+                <fa-icon [icon]="faTimes" class="text-xs cursor-pointer" (click)="PropertyMap=false"></fa-icon>
+            </div>
+            <div class="w-full my-2">
+                <input type="text" name="" id="" placeholder="Address" ngx-google-places-autocomplete
+                    (onAddressChange)="handleAddressChange($event)"
+                    class="border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0 w-full bg-location-icon-bg bg-no-repeat bg-right cursor-pointer">
+            </div>
+            <div id="wScroll"
+                class="bg-white max-h-48 md:max-h-52 xl:max-h-36 absolute z-10 overflow-scroll w-[73%] md:w-[76%] lg:w-[77%] xl:w-[38%]"
+                *ngIf="suggest.length>0">
+                <ul>
+                    <li *ngFor="let suggest of suggest"
+                        class="cursor-pointer pl-1 py-1 text-xs hover:bg-[#F5F5F5] border-b-2 border-[#707070]/20"
+                        (click)="LocationSearchFromMap(suggest.formatted_address, suggest.geometry.location.lat, suggest.geometry.location.lng)">
+                        {{suggest.formatted_address}}</li>
+                </ul>
+            </div>
+            <div class="w-full mb-4 md:h-[82%] lg:h-[76%] xl:h-[60%]">
+                <div id="map" class="h-96 w-full sm:h-[8.5rem] md:h-full">
+
+                </div>
+            </div>
+            <div class="w-full">
+                <button
+                    class="font-Inter font-semibold text-white bg-gk-red w-full rounded-lg h-10 lg:h-14 xl:h-10 text-xs uppercase"
+                    (click)="PropertyMap=false;">CONFIRM
+                    LOCATION</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Motors Form -->
+<section *ngIf="PropertyType=='Car'">
+    <form class="font-Inter text-xs" #AddForm="ngForm" (ngSubmit)="SubmitVehicleAddData(AddForm.value)" id="AddForm">
+        <div class="bg-white w-[90%] mx-auto mt-10 lg:w-[70%] xl:w-[50%]">
+            <div class="p-4 xl:p-8">
+                <div class="flex flex-col mb-4">
+                    <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                        "PlaceYourAddPage.Title" | translate}}</label>
+                    <input type="text" ngModel name="Title" required #TitleField="ngModel"
+                        placeholder="{{ 'PlaceYourAddPage.InputTitle' | translate}}"
+                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0">
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                        "PlaceYourAddPage.Description" | translate}}</label>
+                    <input type="text" ngModel name="Description" required #DescriptionField="ngModel"
+                        placeholder="{{ 'PlaceYourAddPage.InputDescription' | translate}}"
+                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0">
+                </div>
+                <div class="sm:flex sm:flex-wrap sm:justify-between">
+                    <!-- Make -->
+                    <div class="flex flex-col mb-4 sm:w-[28%]">
+                        <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                            "PlaceYourAddPage.Make" | translate}}</label>
+                        <select
+                            class="{{Language == 'ar'? 'text-right pr-3': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0"
+                            id="Make" (change)="FetchMakeByModel(MakeField.value)" ngModel name="Make" required
+                            #MakeField="ngModel">
+                            <option value="" hidden>{{'PlaceYourAddPage.SelectMake' | translate}}</option>
+                            <option *ngFor="let Make of Make" value="{{Make.id}}" name="Make">{{Make.name}}</option>
+                        </select>
+                    </div>
+                    <!-- Model -->
+                    <div class="flex flex-col mb-4 sm:w-[28%]" *ngIf="Model.length>0">
+                        <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                            "PlaceYourAddPage.Model" | translate}}</label>
+                        <select id="Model" [required]="Model.length>0"
+                            class="{{Language == 'ar'? 'text-right pr-3': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0"
+                            ngModel name="Model" #ModelField="ngModel">
+                            <option value="" hidden>{{'PlaceYourAddPage.SelectModel' | translate}}</option>
+                            <option *ngFor="let Model of Model" value="{{Model.id}}" name="Model">{{Model.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <!-- Color -->
+                    <div class="flex flex-col mb-4 sm:w-[28%]">
+                        <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                            "PlaceYourAddPage.Color" | translate}}</label>
+                        <input type="text" ngModel name="Color" required #ColorField="ngModel"
+                            placeholder="{{ 'PlaceYourAddPage.InputColor' | translate}}"
+                            class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0">
+                    </div>
+                    <!-- Doors -->
+                    <div class="flex flex-col mb-4 sm:w-[28%]">
+                        <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                            "PlaceYourAddPage.Doors" | translate}}</label>
+                        <input type="number" min="1" ngModel name="Doors" required #DoorsField="ngModel"
+                            placeholder="{{ 'PlaceYourAddPage.InputDoors' | translate}}"
+                            class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                            (keypress)='restrictAlphabets($event)'                                                                                                                                               >
+                    </div>
+                    <!-- Cylinders -->
+                    <div class="flex flex-col mb-4 sm:w-[28%]">
+                        <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                            "PlaceYourAddPage.Cylinder" | translate}}</label>
+                        <input type="number" min="1" placeholder="{{ 'PlaceYourAddPage.InputCylinder' | translate}}"
+                            ngModel name="Cylinder" #CylinderField="ngModel"
+                            class="{{Language == 'ar'? 'text-right': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0"
+                            (keypress)='restrictAlphabets($event)'>
+                    </div>
+                    <div class="flex flex-col mb-4 sm:w-[28%]">
+                        <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                            "PlaceYourAddPage.Transmission" | translate}}</label>
+                        <select id="Transmission"
+                            class="{{Language == 'ar'? 'text-right pr-3': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0"
+                            ngModel name="Transmission" required #TransmissionField="ngModel">
+                            <option value="" hidden>{{'PlaceYourAddPage.SelectTransmission' | translate}}</option>
+                            <option *ngFor="let transmissions of transmission" value="{{transmissions.name}}"
+                                name="Transmission">
+                                {{transmissions.name}}</option>
+                        </select>
+                    </div>
+                    <div class="mb-4 sm:w-[28%] {{Language == 'ar'? 'text-right': ''}}">
+                        <label for="" class="font-semibold">{{ "PlaceYourAddPage.Year" | translate}}</label>
+                        <div class="flex justify-between">
+                            <div class="w-[48%]">
+                                <select id="YearMin" name="YearMin"
+                                    class="{{Language == 'ar'? 'text-right pr-3': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0"
+                                    ngModel required #YearMinField="ngModel" (change)="getMinYear($event)">
+                                    <option value="" hidden>{{ "PlaceYourAddPage.Min" | translate}}</option>
+                                    <option *ngFor="let Years of Years" value="{{Years.value}}">
+                                        {{Years.value}}</option>
+                                </select>
+                            </div>
+                            <div class="w-[48%]">
+                                <select [disabled]="YearMinField.value ==''" id="YearMax" name="YearMax"
+                                    class="{{Language == 'ar'? 'text-right pr-3': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0 disabled:cursor-not-allowed"
+                                    ngModel name="YearMax" required #YearMaxField="ngModel">
+                                    <option value="" hidden>{{ "PlaceYourAddPage.Max" | translate}}</option>
+                                    <option *ngFor="let YearsMax of YearsMax" value="{{YearsMax.value}}" name="YearMax">
+                                        {{YearsMax.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4 sm:w-[28%] {{Language == 'ar'? 'text-right': ''}}">
+                        <label for="" class="font-semibold">{{ "PlaceYourAddPage.PriceRange" | translate}}</label>
+                        <div class="flex justify-between">
+                            <div class="w-[48%]">
+                                <input type="number" placeholder="{{ 'PlaceYourAddPage.Min' | translate}}" min="1"
+                                    id="PriceMin" name="PriceMin"
+                                    class="{{Language == 'ar'? 'text-right': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0"
+                                    ngModel name="PriceMin" required #PriceMinField="ngModel" (keypress)='restrictAlphabets($event)'/>
+                            </div>
+                            <div class="w-[48%]">
+                                <input type="number" placeholder="{{ 'PlaceYourAddPage.Max' | translate}}"
+                                    [disabled]="PriceMinField.value ==''" min="{{PriceMinField.value}}" value=""
+                                    id="PriceMax" name="PriceMax"
+                                    class="{{Language == 'ar'? 'text-right': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0 disabled:cursor-not-allowed"
+                                    ngModel name="PriceMax" required #PriceMaxField="ngModel" (keypress)='restrictAlphabets($event)'/>
+                            </div>
+                        </div>
+                        <small class="text-gk-red {{Language == 'ar'? 'text-right': ''}}"
+                            *ngIf="PriceMaxField.value < PriceMinField.value && PriceMaxField.touched && !PriceMaxField.valid">
+                            {{ "PlaceYourAddPage.MaxValue" | translate}}
+                        </small>
+                    </div>
+                    <div class="mb-4 sm:w-[28%] {{Language == 'ar'? 'text-right': ''}}">
+                        <label for="" class="font-semibold">{{ "PlaceYourAddPage.Kilometers" | translate}}</label>
+                        <div class="flex justify-between">
+                            <div class="w-[48%]">
+                                <input type="number" placeholder="{{ 'PlaceYourAddPage.Min' | translate}}" min="1"
+                                    id="KmMin"
+                                    class="{{Language == 'ar'? 'text-right': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0"
+                                    ngModel name="KmMin" required #KmMinField="ngModel" (keypress)='restrictAlphabets($event)'/>
+                            </div>
+                            <div class="w-[48%]">
+                                <input type="number" placeholder="{{ 'PlaceYourAddPage.Max' | translate}}" min="1"
+                                    id="KmMax" [disabled]="KmMinField.value ==''" min="{{KmMinField.value}}" value=""
+                                    class="{{Language == 'ar'? 'text-right': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0 disabled:cursor-not-allowed"
+                                    ngModel name="KmMax" required #KmMaxField="ngModel" (keypress)='restrictAlphabets($event)'/>
+                            </div>
+                        </div>
+                        <small class="text-gk-red {{Language == 'ar'? 'text-right': ''}}"
+                            *ngIf="KmMaxField.value < KmMinField.value && KmMaxField.touched && !KmMaxField.valid">
+                            {{ "PlaceYourAddPage.MaxValue" | translate}}
+                        </small>
+                    </div>
+                    <div class="flex flex-col mb-4 sm:w-[28%]">
+                        <label for="" class="font-semibold {{Language == 'ar'? 'text-right': ''}}">{{
+                            "PlaceYourAddPage.RegionSpec" | translate}}</label>
+                        <select id="region" name="region" ngModel name="region" required #regionField="ngModel"
+                            class="{{Language == 'ar'? 'text-right pr-3': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0">
+                            <option value="" class="">{{ "PlaceYourAddPage.InputRegion" | translate}}</option>
+                            <option *ngFor="let region of region" value="{{region.name}}">
+                                {{region.name}}</option>
+                        </select>
+                    </div>
+                    <div class="flex sm:w-[68%] items-center">
+                        <input type="checkbox" name="warrenty" id="warrenty" ngModel #warrentyField="ngModel"
+                            class="{{Language == 'ar'? 'text-right': ''}} mr-2 focus:ring-0 focus:shadow-none rounded border-2 ">
+                        <label for="" class="text-[#989898]">{{ "PlaceYourAddPage.Warranty" | translate}}</label>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="w-1/2 mx-auto mt-10 sm:w-[30%] lg:w-[20%]">
+            <button [disabled]="!AddForm.valid"
+                class="font-Inter font-semibold justify-center inline-flex transition ease-in-out duration-150 px-4 py-3 text-white bg-gk-red w-full rounded-lg h-10 text-xs cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed">
+                <svg *ngIf="signInStatus==false" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                    </circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+                {{ "PlaceYourAddPage.Finalizes" | translate}}
+            </button>
+        </div>
+    </form>
+</section>

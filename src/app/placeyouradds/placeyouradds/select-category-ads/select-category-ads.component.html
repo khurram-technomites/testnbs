@@ -1,0 +1,31 @@
+<section class="bg-[#F6F8F9]">
+    <div class="flex items-center justify-center pt-10">
+        <fa-icon [icon]="faCircle" class="text-gray-400"></fa-icon>
+        <div class="bg-gray-400 w-2 h-1">
+        </div>
+        <fa-icon [icon]="faCircle" class="text-gk-red"></fa-icon>
+        <div class="bg-gray-400 w-2 h-1">
+        </div>
+        <fa-icon [icon]="faCircle" class="text-gray-400"></fa-icon>
+    </div>
+    <div class="flex flex-col items-center w-[90%] mx-auto">
+        <h1 class="font-Inter font-bold text-xl my-4 text-center">{{ "PlaceYourAddPage.Selectcat" | translate}}</h1>
+        <p class="font-Inter text-xs ">{{ "PlaceYourAddPage.Selectopt" | translate}}</p>
+    </div>
+    <div>
+        <div class="w-[90%] mx-auto pt-4 md:w-[60%] xl:w-[50%]" >
+            <div class="sm:flex sm:flex-wrap sm:justify-between" >
+                <a routerLink="/filladsdetails" class="bg-[#E5E5E5] w-[100%] h-10 flex justify-center items-center rounded my-2 sm:w-[49%]" [queryParams]="{PropertyType:PropertyType,Category:categoryData.id}" *ngFor="let categoryData of categoriesData">
+                    <p class="font-Inter text-xs">{{categoryData.name}}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-center py-10 cursor-pointer">
+        <div class="bg-white w-10 h-10 flex justify-center items-center rounded-full drop-shadow-xl"
+            routerLink="/placeyouradd">
+            <fa-icon [icon]="faChevronLeft" class=""></fa-icon>
+        </div>
+    </div>
+</section>

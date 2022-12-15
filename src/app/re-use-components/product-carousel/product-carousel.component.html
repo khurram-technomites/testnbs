@@ -1,0 +1,23 @@
+<div *ngIf="premiumData != undefined && premiumData.length > 0">
+    <div class="{{Language=='ar'? 'text-right pr-4' : ''}}">
+        <app-text-component [inputText]="ConditionName == 'vehicle'? 'newFilterKey.PremiumVehicles' : 'newFilterKey.PremiumProperty'" [customClass]="'text-[#191919] font-bold text-[24px] pb-3 pt-1'" [condition]="'heading'"></app-text-component>
+    </div>
+    <div id="gk-variation" class="hidden md:block" >
+        <owl-carousel-o [options]="customOptions2">
+            <ng-template carouselSlide *ngFor="let premiumCategory of premiumData">
+                <div>
+                    <app-product-card-variation [condition]="'carousel'" [ConditionName]="ComponentName" [cardData]="premiumCategory" (callPopupCondition)="'openCarousel'" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)" (contactData)="OpenContactPopup($event)" (callNowData)="OpenCallPopup($event)" (SelectedCompareData)="compareData($event)"></app-product-card-variation>
+                </div> 
+            </ng-template>
+        </owl-carousel-o>
+    </div>
+    <div class="md:hidden">
+        <owl-carousel-o [options]="customOptions2">
+            <ng-template carouselSlide *ngFor="let premiumCategory of premiumData">
+                <div>
+                    <app-product-card-variation [condition]="'carousel'" [ConditionName]="ComponentName" [cardData]="premiumCategory" (callPopupCondition)="'openCarousel'" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)" (contactData)="OpenContactPopup($event)" (callNowData)="OpenCallPopup($event)"  (SelectedCompareData)="compareData($event)"></app-product-card-variation>
+                </div>
+            </ng-template>
+        </owl-carousel-o>
+    </div>
+</div>

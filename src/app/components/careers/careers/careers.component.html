@@ -1,0 +1,71 @@
+<app-hero-section [heroSectionData]="careerHeroData" [customClass]="'bg-career-hero-bg bg-cover font-Inter text-xs text-white py-20 flex flex-col justify-center items-center xl:py-32'" [customClass2]="'text-xl font-extrabold'"></app-hero-section>
+
+<section class="bg-gk-blue">
+    <div class="font-Inter text-xs my-5 text-center xl:pt-10">
+        <h1 class="font-bold text-xl">{{"CareersPage.FormMainHeading" | translate}}</h1>
+    </div>
+    <div class="w-[80%] mx-auto py-4 lg:w-[70%] xl:bg-white xl:p-10">
+        <form class="md:flex md:flex-wrap md:justify-between" #CareersForm="ngForm"
+            (ngSubmit)="SubmitCareersData(CareersForm.value)" id="CareersForm">
+            <div class="flex flex-col my-2 md:w-[49%]">
+                <label for="" class="font-Inter text-xs font-semibold {{Language == 'ar'? 'text-right':''}}">{{"LoginPage.Name" | translate}}</label>
+                <input type="text" placeholder='{{"CareersPage.EnterFullName" | translate}}'
+                    class="{{Language == 'ar'? 'text-right':''}} px-0 font-Inter text-xs border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898]" ngModel name="UserName" required
+                    #UserNameField="ngModel">
+            </div>
+            <div class="flex flex-col my-2 md:w-[49%]">
+                <label for="" class="font-Inter text-xs font-semibold {{Language == 'ar'? 'text-right':''}}">{{"CareersPage.Gender" | translate}}</label>
+                <select name="" id="" class="{{Language == 'ar'? 'text-right':'px-0'}}  bg-transparent text-xs capitalize border-0 border-b border-[#191919]/20 text-[#989898]"
+                    ngModel name="Gender" required #GenderField="ngModel">
+                    <option value="" class="" selected hidden>{{"CareersPage.SelectGender" | translate}}</option>
+                    <option value="Male">{{"CareersPage.Male" | translate}}</option>
+                    <option value="Female">{{"CareersPage.Female" | translate}}</option>
+                    <option value="RatherNotSay">{{"CareersPage.RatherNotSay" | translate}}</option>
+                </select>
+            </div>
+            <div class="flex flex-col my-2 md:w-[49%]">
+                <label for="" class="font-Inter text-xs font-semibold capitalize {{Language == 'ar'? 'text-right':''}}">{{"CareersPage.DOB" |
+                    translate}}</label>
+                <input type="date" placeholder='{{"CareersPage.DOB" | translate}}'
+                    class="{{Language == 'ar'? 'text-right':''}} px-0 font-Inter text-xs bg-transparent w-full border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898]"
+                    ngModel name="DateOfBirth" required #DOBField="ngModel" max="{{this.dateFormat()}}">
+            </div>
+            <div class="flex flex-col my-2 md:w-[49%]">
+                <label for="" class="font-Inter text-xs font-semibold {{Language == 'ar'? 'text-right':''}}">{{"CareersPage.Education" | translate}}</label>
+                <input type="text" placeholder='{{"CareersPage.EnterEducation" | translate}}'
+                    class="{{Language == 'ar'? 'text-right':''}} px-0 font-Inter text-xs border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898]" ngModel name="education" required
+                    #educationField="ngModel">
+            </div>
+            <div class="flex flex-col my-2 md:w-[49%]">
+                <label for="" class="font-Inter text-xs font-semibold {{Language == 'ar'? 'text-right':''}}">{{"CareersPage.Position" | translate}}</label>
+                <input type="text" placeholder='{{"CareersPage.EnterPosition" | translate}}'
+                    class="{{Language == 'ar'? 'text-right':''}} px-0 font-Inter text-xs border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898]" ngModel name="position" required
+                    #positionField="ngModel">
+            </div>
+            <div class="flex flex-col my-2 md:w-[49%]">
+                <label for="" class="font-Inter text-xs font-semibold {{Language == 'ar'? 'text-right':''}}">{{"CareersPage.Experience" | translate}}</label>
+                <input type="text" placeholder='{{"CareersPage.EnterExperience" | translate}}'
+                    class="{{Language == 'ar'? 'text-right':''}} px-0 font-Inter text-xs border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898]" ngModel name="experience" required
+                    #experienceField="ngModel">
+            </div>
+            <div class="flex flex-col my-2 w-full">
+                <label for="" class="font-Inter text-xs font-semibold {{Language == 'ar'? 'text-right':''}}">{{"CareersPage.Resume" | translate}}</label>
+                <input type="file" class="{{Language == 'ar'? 'text-right':''}} px-0 font-Inter text-xs bg-transparent border-0 border-b border-[#191919]/20 text-[#989898] placeholder:text-[#989898] p-2"
+                    name="cv" required #cvField (change)="handleFileInput(cvField)" dir="{{Language == 'ar'? 'rtl':''}}">
+            </div>
+
+            <button [disabled]="!CareersForm.valid || fileToUpload==null"
+                class="bg-gk-red justify-center inline-flex py-3 my-3 font-semibold w-full rounded-lg text-white transition md:w-[50%] md:mx-auto md:m-5 ease-in-out duration-150 cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed">
+                <svg *ngIf="CareersStatus==false" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                    </circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+                {{"PlaceYourAddPage.Finalize" | translate}}
+            </button>
+        </form>
+    </div>
+</section>

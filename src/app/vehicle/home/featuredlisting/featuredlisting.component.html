@@ -1,0 +1,50 @@
+<!-- skeleton loading start -->
+<section class="w-[80%] flex mx-auto pt-10 bg-white" *ngIf="!contentLoaded">
+  <div class="w-[40%] {{!isLast? 'mr-4':''}}" *ngFor='let in of counterForLoading(4) ;let isLast = last'>
+    <app-skeleton-loader [loaderName]="'gridCard'"></app-skeleton-loader>
+  </div>
+</section>
+<!-- skeleton loading end -->
+
+<section *ngIf="(mode == 'listing' && propertiesThumbnail.length > 0) && contentLoaded" class="pb-10">
+  <div class="font-Inter text-xs text-center px-5 mb-10 pt-10">
+    <h1 class="font-FivoSans text-xl my-2 2xl:text-4xl">{{MainHeading | translate}}</h1>
+    <p class="text-[#989898] 2xl:text-base">{{SubHeading | translate}}</p>
+  </div>
+  <div class="w-[80%] mx-auto" [ngClass]="(propertiesThumbnail.length === 1) ? 'w-[80%] xl:w-[25%]': (propertiesThumbnail.length === 2) ? condition: (propertiesThumbnail.length === 3) ? 'w-[80%] xl:w-[60%]': 'w-[80%] xl:w-[80%]'" id="gk-vehicle">
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide *ngFor="let propertyThumbnail of propertiesThumbnail">
+        <div class="font-Inter text text-xs border border-[#707070]/20 bg-white/20 hover:shadow-md rounded-lg">
+          <!-- new vehicle card UI -->
+          <app-product-card [productData]="propertyThumbnail" [ConditionName]="'vehicle'" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)"></app-product-card>
+          <!-- new vehicle card UI -->
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
+</section>
+
+<!--only for wishlist page -->
+<section *ngIf="(mode == 'wishlist')">
+  <div class="font-Inter text-xs text-center px-5 my-10">
+    <h1 class="font-bold text-xl my-2">{{'PropertyPage.Featured.MainHeadingWishlist' | translate}}</h1>
+    <p>{{'PropertyPage.Featured.SubHeadingWishlist' | translate}}</p>
+  </div>
+  <div class="mx-auto" *ngIf="contentLoaded && (carsThumbnail.lenght>0 || !(carsThumbnail === undefined))" 
+    [ngClass]="(carsThumbnail.length === 1) ? 'w-[80%] xl:w-[20%]': (carsThumbnail.length === 2) ? 'w-[80%] xl:w-[40%]': (carsThumbnail.length === 3) ? 'w-[80%] xl:w-[60%]': 'w-[80%] xl:w-[80%]'" id="gk-vehicle-wishlist">
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide *ngFor="let carThumbnail of carsThumbnail">
+        <div class="font-Inter text text-xs border border-[#707070]/20">
+          <!-- wishlist new card UI -->
+          <app-product-card [productData]="carThumbnail" [ConditionName]="'vehicle'" (WishListAdd)="AddToWishlist($event)" (WishListDelete)="DeleteToWishlist($event)"></app-product-card>
+          <!-- wishlist new card UI -->
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
+</section>
+<section class="flex justify-center items-center mb-10 mt-10" *ngIf="(mode == 'wishlist' && contentLoaded && carsThumbnail.length== 0)">
+  <div class="bg-white w-[80%] px-4 py-4 text-center font-semibold">
+    {{"PropertyPage.Featured.NoDataFoundVehicle" | translate}}
+  </div>
+</section>

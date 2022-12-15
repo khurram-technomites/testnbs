@@ -1,0 +1,10 @@
+.prefix {
+    position: relative;
+    /* right: -3px; */
+    /* color: #989898; */
+}
+  
+input.has-prefix {
+    padding-left: 31px;
+    margin-left: -29px;
+}

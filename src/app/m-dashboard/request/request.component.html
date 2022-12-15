@@ -1,0 +1,243 @@
+<section class="xl:mt-24">
+    <div class="w-[90%] mx-auto flex justify-evenly mt-4 bg-white rounded-md p-4 xl:w-[70%] xl:justify-between xl:p-0">
+        <div class="flex flex-col justify-start items-center xl:flex-row xl:w-[30%] xl:justify-center xl:py-2 xl:hover:border-b-2 hover:border-gk-red cursor-pointer"
+            [ngClass]="{'border-b-2 border-gk-red': ActiveCheck == 'motors'}" (click)="showData('motors')">
+            <img src="./assets/images/motor-for-rent-icon.png" alt="" class="w-[40%] xl:w-[20%] xl:mr-2">
+            <p class="font-Inter text-xs font-semibold uppercase text-center xl:text-[12px]">{{"Header.Motors" |
+                translate}}</p>
+        </div>
+        <div class="flex flex-col justify-start items-center xl:flex-row xl:w-[30%] xl:justify-center xl:py-2 xl:hover:border-b-2 hover:border-gk-red cursor-pointer"
+            [ngClass]="{'border-b-2 border-gk-red': ActiveCheck == 'propertyRent'}" (click)="showData('propertyRent')">
+            <img src="./assets/images/property-for-rent.png" alt="" class="w-[40%] xl:w-[20%] xl:mr-2">
+            <p class="font-Inter text-xs font-semibold uppercase text-center xl:text-[12px]">{{"Header.Property" |
+                translate}}</p>
+        </div>
+        <div class="flex flex-col justify-start items-center xl:flex-row xl:w-[30%] xl:justify-center xl:py-2 xl:hover:border-b-2 hover:border-gk-red cursor-pointer"
+            [ngClass]="{'border-b-2 border-gk-red': ActiveCheck == 'propertySale'}" (click)="showData('propertySale')">
+            <img src="./assets/images/property-for-sale.png" alt="" class="w-[40%] xl:w-[20%] xl:mr-2">
+            <p class="font-Inter text-xs font-semibold uppercase text-center xl:text-[12px]">{{"Header.PropertySale" |
+                translate}}</p>
+        </div>
+    </div>
+</section>
+
+<div *ngIf="!contentLoaded" class="flex justify-between w-[90%] mx-auto mt-4">
+    <div class="w-[48%]">
+        <ngx-skeleton-loader [theme]="{ height: '150px'}"></ngx-skeleton-loader>
+    </div>
+    <div class="w-[48%]">
+        <ngx-skeleton-loader [theme]="{ height: '150px'}"></ngx-skeleton-loader>
+    </div>
+</div>
+
+<section class="lg:flex lg:flex-wrap lg:justify-between lg:w-[90%] lg:mx-auto">
+    <div class="w-[90%] mx-auto bg-white p-4 my-4 rounded-md lg:w-[48%]" *ngFor="let data of AllData">
+        <div class=" font-Inter ">
+            <h1 class="text-sm font-bold">{{data.title}}</h1>
+            <p class="text-xs font-medium line-clamp-2 my-2">{{data.description}}</p>
+            <p class="text-xs text-[#989898]">{{data.creationDate}}</p>
+        </div>
+        <div class="font-Inter xl:flex xl:justify-between xl:items-center">
+            <div class="flex justify-between xl:w-[60%] xl:mt-4">
+                <button
+                    class="bg-gk-red text-white text-sm rounded-md py-3 w-[48%] xl:h-8 xl:text-[10px] flex justify-center items-center font-semibold"
+                    (click)="PopUpShowHide = true; GetDataForPopup(data.id)">{{"RequestPage.ViewDetails" |
+                    translate}}</button>
+                <button
+                    class="bg-[#E5E5E5] text-[#989898] inline-flex py-3 px-3 rounded-md w-[48%] xl:h-8 xl:text-[10px] justify-center items-center transition ease-in-out duration-150 font-semibold cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed {{data.isFulFilled == true ? 'hidden' : ''}}"
+                    (click)="CloseRequest(data.id)">
+                    <svg *ngIf="CloseRequestStatus==false" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                    {{"RequestPage.CloseRequest" | translate}}
+                </button>
+            </div>
+            <div class="flex justify-end flex-col items-end mt-4 xl:w-[40%]">
+                <p class="text-[#989898] uppercase text-[10px]">{{"RequestPage.STATUS" | translate}}</p>
+                <h1
+                    class="text-base text-gk-red uppercase font-bold {{data.isFulFilled == true ? 'text-[#989898]' : ''}}">
+                    {{data.isFulFilled == true ? ('RequestPage.CLOSED' | translate) : ('RequestPage.OPEN' | translate)}}
+                </h1>
+            </div>
+        </div>
+    </div>
+    <section class="flex justify-center w-full items-center mt-3" *ngIf="contentLoaded && AllData.length == 0">
+        <div class="bg-white w-full px-4 py-4 text-center font-semibold">
+            No Data Found
+        </div>
+    </section>
+</section>
+
+<section *ngIf="PopUpShowHide">
+    <div class="bg-black/50 fixed inset-0 flex justify-center items-center z-50">
+        <div class=" bg-[#F6F8F9] w-[80%] rounded-lg sm:w-[80%] md:w-[70%] lg:w-[50%] xl:w-[40%]">
+            <div class="w-[90%] mx-auto py-4" *ngIf="!contentLoaded">
+                <div class="flex justify-between">
+                    <div class="flex ">
+                        <div class="w-[50%] mr-4">
+                            <ngx-skeleton-loader [theme]="{ width: '50px', height: '30px' }">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class="w-[50%]">
+                            <ngx-skeleton-loader [theme]="{ width: '50px', height: '30px' }">
+                            </ngx-skeleton-loader>
+                        </div>
+                    </div>
+                    <div>
+                        <ngx-skeleton-loader appearance="circle"
+                            [theme]="{ width: '30px', height: '30px' }"></ngx-skeleton-loader>
+                    </div>
+                </div>
+                <div>
+                    <ngx-skeleton-loader [theme]="{ width: '100px', height: '30px' }">
+                    </ngx-skeleton-loader>
+                    <div class="w-full">
+                        <ngx-skeleton-loader [theme]="{ height: '10px' }"></ngx-skeleton-loader>
+                        <ngx-skeleton-loader [theme]="{ height: '10px' }"></ngx-skeleton-loader>
+                        <ngx-skeleton-loader [theme]="{ height: '10px' }"></ngx-skeleton-loader>
+                        <ngx-skeleton-loader [theme]="{ height: '10px' }"></ngx-skeleton-loader>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="w-[70%]">
+                        <ngx-skeleton-loader [theme]="{ height: '50px' }"></ngx-skeleton-loader>
+                    </div>
+                    <div class="w-[20%] ">
+                        <ngx-skeleton-loader [theme]="{ height: '10px' }"></ngx-skeleton-loader>
+                        <ngx-skeleton-loader [theme]="{ height: '30px' }"></ngx-skeleton-loader>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[90%] mx-auto py-4" *ngIf="contentLoaded">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <h1 class="font-Inter font-semibold text-base mr-2">{{popupData.title}}</h1>
+                        <p class="text-[10px] bg-gk-red text-white px-2 py-1 rounded-md" *ngIf="popupData.status">
+                            {{popupData.status}}</p>
+                    </div>
+                    <div>
+                        <svg class="h-4 w-4 cursor-pointer" viewBox="0 0 20 20" fill="" (click)="PopUpShowHide = false">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="mt-4 pb-6 border-b-2 border-[#707070]/20">
+                    <h1 class="font-Inter text-sm font-semibold my-2">{{"RequestPage.Description" | translate}}</h1>
+                    <p class="font-Inter text-xs text-[#989898] text-justify">{{popupData.description}}</p>
+                </div>
+                <div class="mt-2 flex flex-wrap justify-center">
+                    <div class="w-[50%] text-center my-2 sm:w-[30%]">
+                        <h1 class="font-Inter text-sm font-semibold">
+                            {{mode == 'cars' ? ('RequestPage.Make' | translate) : ('RequestPage.Rooms' |
+                            translate)}} </h1>
+                        <p class="font-Inter text-xs text-[#989898]">
+                            {{mode == 'cars' ? popupData.make.name : popupData.noOfRooms}}</p>
+                    </div>
+                    <div class="w-[50%] text-center my-2 sm:w-[30%]">
+                        <h1 class="font-Inter text-sm font-semibold">
+                            {{mode == 'cars' ? ('RequestPage.Model' | translate) : ('RequestPage.Size' |
+                            translate)}}</h1>
+                        <p class="font-Inter text-xs text-[#989898]">
+                            {{mode == 'cars' ? popupData.model.name : popupData.size}} {{mode == 'cars' ? '': 'Sq ft'}}</p>
+                    </div>
+                    <div class="w-[50%] text-center my-2 sm:w-[30%]">
+                        <h1 class="font-Inter text-sm font-semibold">
+                            {{mode == 'cars' ? ('RequestPage.Color' | translate) : ('RequestPage.BathRoom' | translate)}}
+                        </h1>
+                        <p class="font-Inter text-xs text-[#989898]">
+                            {{mode == 'cars' ? popupData.color : popupData.noOfBathRooms}}</p>
+                    </div>
+                    <div class="w-[50%] text-center my-2 sm:w-[30%]" *ngIf="mode == 'cars'">
+                        <h1 class="font-Inter text-sm font-semibold">
+                            {{'RequestPage.Doors' | translate}}</h1>
+                        <p class="font-Inter text-xs text-[#989898]">
+                            {{popupData.doors}}</p>
+                    </div>
+                    <div class="w-[50%] text-center my-2 sm:w-[30%]" *ngIf="mode == 'cars'  && popupData.cylinders != ''
+                    ">
+                        <h1 class="font-Inter text-sm font-semibold">{{"RequestPage.Cylinders" | translate}}</h1>
+                        <p class="font-Inter text-xs text-[#989898]">{{popupData.cylinders}}</p>
+                    </div>
+                    <div class="w-[50%] text-center my-2 sm:w-[30%]" *ngIf="mode == 'cars'">
+                        <h1 class="font-Inter text-sm font-semibold">{{"RequestPage.Transmission" | translate}}</h1>
+                        <p class="font-Inter text-xs text-[#989898]">{{popupData.transmission}}</p>
+                    </div>
+                    <div class="w-[50%] text-center my-2 sm:w-[30%]" *ngIf="mode == 'cars'">
+                        <h1 class="font-Inter text-sm font-semibold">{{"RequestPage.Year" | translate}}</h1>
+                        <p class="font-Inter text-xs text-[#989898]">{{popupData.minYear}} - {{popupData.maxYear}}</p>
+                    </div>
+                    <div class="w-[50%] text-center my-2 sm:w-[30%]" *ngIf="mode == 'cars'">
+                        <h1 class="font-Inter text-sm font-semibold">{{"RequestPage.Kilometers" | translate}}</h1>
+                        <p class="font-Inter text-xs text-[#989898]">{{popupData.minKilometers}} KM - {{popupData.maxKilometers}} KM</p>
+                    </div>
+                    <div class="w-[50%] text-center my-2 sm:w-[30%]">
+                        <h1 class="font-Inter text-sm font-semibold">{{"RequestPage.Price" | translate}}</h1>
+                        <p class="font-Inter text-xs text-[#989898]">AED {{popupData.minPrice}} - AED {{popupData.maxPrice}}</p>
+                    </div>
+
+                    <div class="w-[50%] text-center my-2 sm:w-[30%]" *ngIf="mode == 'cars'">
+                        <h1 class="font-Inter text-sm font-semibold">
+                            {{'RequestPage.RegionalSpec' | translate}}
+                        </h1>
+                        <p class="font-Inter text-xs text-[#989898]">
+                            {{popupData.regionalSpecification}}</p>
+                    </div>
+                    
+                    <div class="w-[50%] text-center my-2 sm:w-[30%]" *ngIf="mode == 'cars'">
+                        <h1 class="font-Inter text-sm font-semibold">
+                            {{('RequestPage.Warranty' | translate)}}
+                        </h1>
+                        <p class="font-Inter text-xs text-[#989898]">
+                            {{(popupData.warranty == true ? ('RequestPage.Yes' | translate) : ('RequestPage.No' | translate))}}</p>
+                    </div>
+                    <div class="w-[50%] text-center my-2 sm:w-[30%]" *ngIf="mode == 'cars'">
+                        <h1 class="font-Inter text-sm font-semibold"></h1>
+                        <p class="font-Inter text-xs text-[#989898]"></p>
+                    </div>
+                </div>
+                <div class="mt-5 flex flex-wrap justify-center text-center xl:text-left xl:justify-start xl:flex-nowrap border-t-2 border-[#707070]/20" *ngIf="mode != 'cars'">
+                    <h1 class="font-Inter text-sm font-semibold my-2">{{"RequestPage.Location" | translate}}</h1>
+                    <p class="font-Inter text-xs my-2 sm:my-3 pl-2 text-[#989898] text-center">{{popupData.address}}</p>
+                </div>
+                <div class="w-[100%] mx-auto" *ngIf="mode != 'cars'">
+                    <div id="map" class="h-56">
+
+                    </div>
+                </div>
+                <div class="sm:flex sm:items-center md:mt-4">
+                    <div class="sm:w-[90%] lg:w-[80%]">
+                        <button
+                            class="bg-[#E5E5E5] text-[#989898] justify-center inline-flex px-4 py-2 my-4 w-full rounded-lg transition ease-in-out duration-150 cursor-pointer disabled:opacity-75 disabled:bg-[#4C8EC7]/80 disabled:cursor-not-allowed {{popupData.isFulFilled == true ? 'hidden' : ''}}"
+                            (click)="CloseRequest(popupData.id)">
+                            <svg *ngIf="CloseRequestStatus==false" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4">
+                                </circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                            {{"RequestPage.CloseRequest" | translate}}
+                        </button>
+                    </div>
+                    <div class="flex justify-end flex-col items-end mt-4 sm:w-[10%] sm:mt-0 lg:w-[20%]">
+                        <p class="text-[#989898] uppercase text-[10px]">{{"RequestPage.STATUS" | translate}}</p>
+                        <h1 class="text-base text-gk-red uppercase font-bold {{popupData.isFulFilled == true ? 'text-[#989898]' : ''}}">
+                            {{popupData.isFulFilled == true ? ('RequestPage.CLOSED' | translate) : ('RequestPage.OPEN' |
+                            translate)}}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

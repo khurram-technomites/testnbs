@@ -1,0 +1,15 @@
+<!-- Remove this class bg-most-popular-home-banner for dynamically changing the background -->
+<section class=" bg-cover py-32 mt-10 " [ngStyle]="{'background-image': 'url(' + banner + ')'}">
+    <div class="font-Inter text-xs px-5 text-white flex flex-col items-center justify-center md:px-10">
+        <p class="uppercase font-semibold text-center">
+            {{(componentName == 'propertyHome' ? 'PropertyPage.ExplorePropertiesBanner.TRENDS' : 'PropertyPage.ExploreVehicleBanner.TRENDS') | translate}}
+        </p>
+        <h1 class="font-bold text-xl text-center my-4 xl:w-[40%]">
+            {{(componentName == 'propertyHome' ? 'PropertyPage.ExplorePropertiesBanner.MainHeading' : 'VehicleHomePage.Explore.MainHeading') | translate}}
+            {{bannerDesc}}
+        </h1>
+        <button class="bg-gk-red px-4 text-white py-2 rounded font-Inter font-medium text-xs" (click)="GoToFilter()">
+            {{'PropertyPage.ExplorePropertiesBanner.Explore' | translate}}
+        </button>
+    </div>
+</section>

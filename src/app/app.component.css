@@ -1,0 +1,80 @@
+.fixed{
+    position: fixed;
+    width: 100%;
+    transition: 0.2s linear;
+    top: 0%;
+}
+
+.nofixed{
+    position: static;
+    transition: 0.2s linear;
+    top: -50px;
+}
+
+.modal {
+    /* display: none;  */
+    position: fixed; /* Stay in place */
+    z-index: 9999; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+input.ng-invalid.ng-touched
+{
+    border-bottom: 1px solid red;
+    /* box-shadow: 0 0 13px inset rgba(225,0,0,0.09); */
+}
+
+.whatsapp-link {
+    position: fixed;
+    right: 5px;
+    bottom: 5px;
+    background: #0989B8;
+    border-radius: 5px 5px 0px 5px;
+    color: #ffffff;
+    font-size: 15px;
+    padding: 6px 15px 8px 20px;
+    font-weight: normal;
+    z-index: 1;
+}
+
+.whatsapp-link i {
+    color: #ffffff;
+    font-size: 22px;
+    position: absolute;
+    left: 10px;
+    top: 7px;
+}
+
+.img-fluid {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #FFFFFF;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999999;
+    background-color: #FFFFFF;
+}
+
+
+
+
+

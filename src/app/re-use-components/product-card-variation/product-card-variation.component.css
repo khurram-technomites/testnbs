@@ -1,0 +1,33 @@
+
+::ng-deep #gk-variationCard .owl-theme .owl-dots .owl-dot.active span {
+    background: #FFFFFF;
+    width: 8px ;
+    height: 8px;
+}
+
+::ng-deep #gk-variationCard .owl-theme .owl-dots .owl-dot:hover span{
+    background: #FFFFFF !important;
+    width: 8px;
+    height: 8px;
+}
+
+::ng-deep #gk-variationCard .owl-theme .owl-dots .owl-dot.active{
+    width: 15px;
+}
+
+::ng-deep #gk-variationCard .owl-theme .owl-dots .owl-dot{
+    width: 15px;
+}
+
+::ng-deep #gk-variationCard .owl-theme .owl-dots .owl-dot span {
+
+    border: none;
+    background: rgba(255, 255, 255, 0.8);
+    width: 8px;
+    height: 8px;
+
+}
+
+.fontbold{
+    font-weight: 700;
+}

@@ -1,0 +1,23 @@
+{
+    "Header":{
+        "Home": "Heim",
+        "About": "Über",
+        "Contact": "Kontakt",
+        "Projects": "Projekte"
+    },
+
+    "Home":{
+        "Title": "Übersetzungsdemo Deutschland",
+        "WelcomeMessage": "Willkommen bei der internationalen Demoanwendung"
+    },
+
+    "Products":{
+        "BrandName": "Markenname",
+        "ProductTitle": "Der Fänger im Roggen",
+        "ProductReviews": "4 Bewertungen",
+        "ProductDescriptions": "Fam Locavore Kickstarter-Brennerei. Mixtape Chillwave Kurkuma Sriracha Taximy Chia Mikrodosierung Tilde DIY. XOXO fam indxgo Juicramps Cornhole Raw Denim Futter brooklyn. Tragen Sie täglich +1 Seitan Poutine Kurkuma. Gastropub Blue Bottle Austin Listicle Pour-Over, Neutra Jeans Shorts Keytar Banjo tätowierte Umami Strickjacke.",
+        "ProductColor": "Farbe",
+        "ProductSize": "Größe",
+        "ProductPrices": "£58.00"
+    }
+}

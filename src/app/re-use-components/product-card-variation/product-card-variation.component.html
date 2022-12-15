@@ -1,0 +1,301 @@
+
+<!-- desktop card UI -->
+<div class="border border-[#E5E5E5] xl:mr-5 rounded-lg bg-white hover:shadow-md hidden md:flex">
+    <div class="{{condition == 'carousel'? 'w-[24%]': 'w-[23%]'}}" id="gk-variationCard">
+        <owl-carousel-o [options]="customOptions">
+            <ng-template carouselSlide *ngIf="cardData.images.length == 0">
+                <img src='../../../assets/images/broken-img.jpg' alt="" class="rounded-lg object-cover h-[190px]">
+            </ng-template>
+            <ng-template carouselSlide *ngFor="let imgData of cardData.images">
+                <div class="rounded-lg">
+                    <img src="{{imgData}}" alt=""
+                    onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" class="rounded-lg object-cover h-[190px]" (load)="onImageLoad($event)">
+                    <div class="absolute top-0 w-full h-full" *ngIf="isLoading">
+                        <img src="../../../assets/images/load-img.jpg" class="rounded-lg xl:h-[190px] object-cover" >
+                    </div>
+                    <div class="bg-black/30 absolute top-0 w-full h-full rounded-lg" *ngIf="!isLoading">
+                    </div>     
+                </div>
+            </ng-template>
+        </owl-carousel-o>
+    </div>
+    <div class="{{condition == 'carousel'? 'w-[75%]': 'w-[77%]'}}">
+        <div class="flex flex-col pl-4">
+            <div class="flex justify-between">
+                <div class="pt-3">
+                    <div>     
+                        <p *ngIf="cardData.oldPrice!==0"
+                            class="{{Language=='ar'?'text-right pr-3':'pl-3'}} line-through text-gray-400 text-[12px] cursor-pointer">
+                            {{"General.AED" | translate}} {{cardData.oldPrice |
+                            number}}{{(cardData.status=="For Rent" && Language =='ar')?
+                            '/سنوي':(cardData.status=="For Rent" && Language =='en'?'/\yearly':'')}}
+                        </p>
+                        <h1 (click)="openDetailPage(cardData.slug)" class="cursor-pointer font-Inter fontbold text-base text-[17px]">{{"General.AED" |
+                            translate}} {{cardData.price | number}}{{(cardData.status=="For Rent" &&
+                            Language =='ar')? '/سنوي': (cardData.status=="For Rent" && Language
+                            =='en'?'/\yearly':'')}}</h1>
+                    </div>
+                    <h1 class="cursor-pointer uppercase font-Inter fontbold text-[#191919] text-[14px] line-clamp-1" (click)="openDetailPage(cardData.slug)" (mouseenter)="cardHover('start',cardData)" (mouseleave)="cardHover('end',cardData)">
+                        {{cardData.title}}
+                    </h1>
+                    <p class="text-[12px] cursor-pointer font-Inter line-clamp-1 text-[#191919]/80" (click)="openDetailPage(cardData.slug)">
+                        {{cardData.address}}
+                    </p>
+                </div>
+                <div class="pt-3 pr-3">
+                    <app-images *ngIf="cardData.isVerified" [imagePath]="'../../../assets/images/verify-img.png'" [customClass]="'w-[107px]'"></app-images>
+                </div>
+            </div>
+            <div class="flex pt-3">
+                <div class="flex items-center">
+                    <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                        <svg *ngIf="ConditionName !== 'componentVehicle'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.25 9.75" class="w-3">
+                            <path id="Path_1795" data-name="Path 1795" d="M-3.859-3.656A2.237,2.237,0,0,0-1.625-5.891,2.237,2.237,0,0,0-3.859-8.125,2.237,2.237,0,0,0-6.094-5.891,2.237,2.237,0,0,0-3.859-3.656Zm0-3.25A1.017,1.017,0,0,1-2.844-5.891,1.017,1.017,0,0,1-3.859-4.875,1.017,1.017,0,0,1-4.875-5.891,1.017,1.017,0,0,1-3.859-6.906ZM5.281-8.125H-.406a.406.406,0,0,0-.406.406v4.875H-6.906v-6.5a.406.406,0,0,0-.406-.406h-.406a.406.406,0,0,0-.406.406V-.406A.406.406,0,0,0-7.719,0h.406a.406.406,0,0,0,.406-.406V-1.625H6.906V-.406A.406.406,0,0,0,7.313,0h.406a.406.406,0,0,0,.406-.406V-5.281A2.844,2.844,0,0,0,5.281-8.125ZM6.906-2.844H.406V-6.906H5.281A1.627,1.627,0,0,1,6.906-5.281Z" transform="translate(8.125 9.75)" fill="#fff"/>
+                        </svg>
+
+                        <svg viewBox="0 0 15.961 16.469" class="w-3" *ngIf="ConditionName == 'componentVehicle'">
+                            <path id="auto"
+                                d="M6.525-7.006l1.057-.61a.8.8,0,0,0,.371-.9,8.22,8.22,0,0,0-2.127-3.679.8.8,0,0,0-.962-.127l-1.055.61a7.845,7.845,0,0,0-1.092-.632v-1.22a.841.841,0,0,0-.592-.771,8.287,8.287,0,0,0-4.248,0,.8.8,0,0,0-.592.771v1.22a7.845,7.845,0,0,0-1.092.632l-1.055-.61a.8.8,0,0,0-.962.127A8.22,8.22,0,0,0-7.953-8.514a.8.8,0,0,0,.371.9l1.057.61c-.017.174-.03.456-.03.631s.014.457.03.631l-1.057.61a.8.8,0,0,0-.371.9A8.22,8.22,0,0,0-5.826-.557a.8.8,0,0,0,.962.127l1.055-.61a7.845,7.845,0,0,0,1.092.632V.812a.841.841,0,0,0,.592.771,8.287,8.287,0,0,0,4.248,0A.8.8,0,0,0,2.716.812V-.408A7.845,7.845,0,0,0,3.809-1.04l1.055.61a.8.8,0,0,0,.962-.127A8.22,8.22,0,0,0,7.953-4.236a.8.8,0,0,0-.371-.9l-1.057-.61A6.561,6.561,0,0,0,6.525-7.006ZM4.776-4.913l1.455.84A7.95,7.95,0,0,1,5.107-2.13l-1.455-.84A5.656,5.656,0,0,1,1.123-1.509V.171A8.04,8.04,0,0,1,0,.266a8.04,8.04,0,0,1-1.123-.1v-1.68A5.657,5.657,0,0,1-3.652-2.971l-1.455.84A7.951,7.951,0,0,1-6.231-4.074l1.455-.84a5.715,5.715,0,0,1,0-2.923l-1.455-.84A6.647,6.647,0,0,1-5.107-10.62l1.455.84a5.656,5.656,0,0,1,2.529-1.462v-1.68A8.04,8.04,0,0,1,0-13.016a8.04,8.04,0,0,1,1.123.1v1.68A5.657,5.657,0,0,1,3.652-9.779l1.455-.84A7.949,7.949,0,0,1,6.231-8.676l-1.455.84A5.714,5.714,0,0,1,4.776-4.913ZM0-9.562A3.191,3.191,0,0,0-3.187-6.375,3.191,3.191,0,0,0,0-3.187,3.191,3.191,0,0,0,3.188-6.375,3.191,3.191,0,0,0,0-9.562ZM0-4.781A1.6,1.6,0,0,1-1.594-6.375,1.6,1.6,0,0,1,0-7.969,1.6,1.6,0,0,1,1.594-6.375,1.6,1.6,0,0,1,0-4.781Z"
+                                transform="translate(7.981 14.609)" fill="#fff" />
+                        </svg>
+                    </div>
+                    <div class="pl-1" >
+                        <app-text-component [inputText]="roomsNumber == undefined? cardData.transmission : (roomsNumber == '0' ? '-': roomsNumber)" [customClass]="'font-bold text-[#191919] text-[13px]'" [condition]="'paragraph'"></app-text-component>
+                        <p class="font-inter text-[#191919]/70 text-[10px] line-clamp-1 pt-[-5px]" *ngIf="ConditionName == 'componentVehicle'">
+                            {{"VehicleDetailPage.Gears" | translate}}
+                        </p>
+                        <p class="font-inter text-[#191919]/70 text-[10px] line-clamp-1 pt-[-5px]" *ngIf="ConditionName != 'componentVehicle'">
+                            {{roomsName}}
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center ml-4">
+                    <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                        <svg *ngIf="ConditionName !== 'componentVehicle'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 14" class="w-3">
+                            <path id="Path_1793" data-name="Path 1793" d="M7.625-6H-5.5v-4.5a1,1,0,0,1,1-1,1,1,0,0,1,.844.465A2.124,2.124,0,0,0-3.442-8.44a.375.375,0,0,0,.015.513l.354.354a.375.375,0,0,0,.53,0l2.97-2.97a.375.375,0,0,0,0-.53l-.354-.354a.375.375,0,0,0-.513-.015,2.12,2.12,0,0,0-2.006-.48A2.5,2.5,0,0,0-4.5-13,2.5,2.5,0,0,0-7-10.5V-6h-.625A.375.375,0,0,0-8-5.625v.75a.375.375,0,0,0,.375.375H-7V-3A3,3,0,0,0-5.75-.563V.625A.375.375,0,0,0-5.375,1h.75A.375.375,0,0,0-4.25.625V-.01C-4.168,0-4.084,0-4,0H4c.084,0,.168,0,.25-.01V.625A.375.375,0,0,0,4.625,1h.75A.375.375,0,0,0,5.75.625V-.563A3,3,0,0,0,7-3V-4.5h.625A.375.375,0,0,0,8-4.875v-.75A.375.375,0,0,0,7.625-6ZM-2.494-10.494a.875.875,0,0,1,1.167-.063l-1.23,1.23A.875.875,0,0,1-2.494-10.494ZM5.5-3A1.5,1.5,0,0,1,4-1.5H-4A1.5,1.5,0,0,1-5.5-3V-4.5h11Z" transform="translate(8 13)" fill="#fff"/>
+                        </svg>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.75 13.125" class="w-3" *ngIf="ConditionName == 'componentVehicle'">
+                            <path id="Path_1793" data-name="Path 1793" d="M6.563-7.5H6.094L2.907-11.484a2.121,2.121,0,0,0-1.464-.7H-4.824a1.875,1.875,0,0,0-1.741,1.179L-7.969-7.5v.066A1.871,1.871,0,0,0-9.375-5.625v3.281a.469.469,0,0,0,.469.469H-7.5A2.812,2.812,0,0,0-4.687.938,2.812,2.812,0,0,0-1.875-1.875h3.75A2.812,2.812,0,0,0,4.688.938,2.812,2.812,0,0,0,7.5-1.875H8.906a.469.469,0,0,0,.469-.469V-4.687A2.812,2.812,0,0,0,6.563-7.5Zm-7.734-3.281H1.443a.466.466,0,0,1,.366.176L4.293-7.5H-1.172Zm-4.088.295a.467.467,0,0,1,.435-.295h2.246V-7.5H-6.454ZM-4.687-.469A1.406,1.406,0,0,1-6.094-1.875,1.406,1.406,0,0,1-4.687-3.281,1.406,1.406,0,0,1-3.281-1.875,1.406,1.406,0,0,1-4.687-.469Zm9.375,0A1.406,1.406,0,0,1,3.281-1.875,1.406,1.406,0,0,1,4.688-3.281,1.406,1.406,0,0,1,6.094-1.875,1.406,1.406,0,0,1,4.688-.469ZM7.969-3.281H7.11A2.8,2.8,0,0,0,4.688-4.687,2.8,2.8,0,0,0,2.265-3.281h-4.53A2.8,2.8,0,0,0-4.687-4.687,2.8,2.8,0,0,0-7.11-3.281h-.859V-5.625A.469.469,0,0,1-7.5-6.094H6.563A1.408,1.408,0,0,1,7.969-4.687Z" transform="translate(9.375 12.188)" fill="#fff"/>
+                        </svg>                          
+                        
+                    </div>
+                    <div class="pl-1">
+                        <app-text-component [inputText]="bathNumber == undefined ? doorNumber : (bathNumber == '0'? '-': bathNumber)" [customClass]="'font-bold text-[#191919] text-[13px]'" [condition]="'paragraph'"></app-text-component>
+                        <app-text-component [inputText]="bathName == undefined ? doorName : bathName" [customClass]="'font-inter text-[#191919]/70 text-[10px]'" [condition]="'paragraph'"></app-text-component>
+                    </div>
+                </div>
+                <div class="flex items-center ml-4">
+                    <div class="w-[25px] h-[25px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                        <svg *ngIf="ConditionName !== 'componentVehicle'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" class="w-3">
+                            <path id="Path_1794" data-name="Path 1794" d="M7.2-11.12-5.745,1.822a1.007,1.007,0,0,1-.72.3A1.028,1.028,0,0,1-7.5,1.095V-11.847a1.028,1.028,0,0,1,1.028-1.028H6.47A1.028,1.028,0,0,1,7.2-11.12Zm-13.291-.349V.182l1.848-1.848L-4.577-2a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331,1.326-1.326-.331-.331a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331L.395-6.306.063-6.637a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331L2.715-8.626l-.331-.331a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331,1.848-1.848ZM-3.75-9.125H-.1L-3.75-5.476Z" transform="translate(7.5 2.125) rotate(180)" fill="#fff"/>
+                        </svg>    
+
+                        <!-- Generator: Adobe Illustrator 24.1.2, SVG Export Plug-In  -->
+                        <svg *ngIf="ConditionName == 'componentVehicle'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.41 36.09" class="w-[13px]"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M46.41,23.2a23.08,23.08,0,0,1-3.15,11.67,2.55,2.55,0,0,1-2.21,1.22H5.36a2.55,2.55,0,0,1-2.21-1.22A23.2,23.2,0,1,1,46.41,23.2Zm-3.87,0a19.34,19.34,0,1,0-36.44,9H40.3A19.29,19.29,0,0,0,42.54,23.2ZM30.2,10.92l-3.66,11a5.11,5.11,0,0,1,1.82,3.9,5,5,0,0,1-.72,2.58H18.76a5.11,5.11,0,0,1,4.11-7.7l3.65-11a1.94,1.94,0,0,1,3.68,1.22Z"/></g></g></svg>
+                    </div>
+                    <div class="pl-1">
+                        <p class="font-bold text-[#191919] text-[13px]" *ngIf="ConditionName == 'componentVehicle'">
+                            {{cardData.mileage == null  ? '0' : cardData.mileage | number}} km
+                        </p>
+                        <p class="font-bold text-[#191919] text-[13px]" *ngIf="ConditionName != 'componentVehicle'">
+                            {{sizeNumber | number}}
+                        </p>
+                        <p class="font-inter text-[#191919] text-[10px]" *ngIf="ConditionName == 'componentVehicle'">
+                            {{"VehicleDetailPage.Mileage" | translate}}
+                        </p>
+                        <p class="font-inter text-[#191919] text-[10px]" *ngIf="ConditionName != 'componentVehicle'">
+                            {{sizeName}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex pt-3 pb-3 items-center justify-between">
+                <div class="flex">
+                    <button class="bg-gk-red text-white py-2 rounded font-Inter font-medium text-[9px] px-6" (click)="OpenContactPopup(cardData)">
+                        {{"PropertyDetailPage.Contact" | translate}}
+                    </button>
+                    <button class="bg-[#191919] text-[#FFFFFF] py-2 rounded font-Inter uppercase font-medium text-[9px] px-8 ml-3" (click)="OpenCallPopup(cardData)">
+                        {{"PropertyDetailPage.CallNow" | translate}}
+                    </button>
+                    <button (click)="compare(cardData)" *ngIf="!cardData.check" class="ml-3 bg-[#FFFFFF] flex items-center border-2 border-[#0989B8] text-[#0989B8] py-2 rounded font-Inter font-medium text-[9px] px-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 20" class="w-4">
+                            <path id="Path_1793" data-name="Path 1793" d="M-2.5-4.375h0c0-.632.052-.341-3.322-7.09A1.854,1.854,0,0,0-7.5-12.5a1.852,1.852,0,0,0-1.677,1.035c-3.4,6.807-3.322,6.478-3.322,7.09h0c0,1.726,2.239,3.125,5,3.125S-2.5-2.649-2.5-4.375ZM-9.248-7.143c.445-.885,1.016-2.019,1.737-3.48H-7.5v0C-6.725-9.078-6.131-7.9-5.675-7c.441.874.77,1.528,1,2h-5.642C-10.077-5.5-9.724-6.2-9.248-7.143ZM8.125.625H.938V-11.409A3.118,3.118,0,0,0,3.062-13.75H8.125a.625.625,0,0,0,.625-.625V-15a.625.625,0,0,0-.625-.625H2.861A3.123,3.123,0,0,0,0-17.5a3.123,3.123,0,0,0-2.861,1.875H-8.125A.625.625,0,0,0-8.75-15v.625a.625.625,0,0,0,.625.625h5.063A3.118,3.118,0,0,0-.937-11.409V.625H-8.125a.625.625,0,0,0-.625.625v.625a.625.625,0,0,0,.625.625H8.125a.625.625,0,0,0,.625-.625V1.25A.625.625,0,0,0,8.125.625ZM0-13.125a1.252,1.252,0,0,1-1.25-1.25A1.252,1.252,0,0,1,0-15.625a1.252,1.252,0,0,1,1.25,1.25A1.252,1.252,0,0,1,0-13.125Zm12.5,8.75c0-.632.052-.341-3.322-7.09A1.854,1.854,0,0,0,7.5-12.5a1.852,1.852,0,0,0-1.677,1.035C2.42-4.658,2.5-4.987,2.5-4.375h0c0,1.726,2.239,3.125,5,3.125s5-1.4,5-3.125ZM4.681-5c.242-.5.595-1.2,1.07-2.143.445-.885,1.016-2.019,1.737-3.48H7.5v0C8.274-9.078,8.868-7.9,9.324-7c.441.874.77,1.528,1,2Z" transform="translate(12.5 17.5)" fill="#0989b8"/>
+                            </svg>
+                            
+                        <span class="pl-1">
+                            {{"PropertyDetailPage.COMPARE" | translate}}
+                        </span> 
+                    </button>
+                    <button *ngIf="cardData.check" class="ml-3 bg-[#FFFFFF] flex items-center border border-[#989898] text-[#989898] py-2 rounded font-Inter font-medium text-[10px] px-6 cursor-not-allowed">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 20" class="w-4">
+                            <path id="Path_1793" data-name="Path 1793" d="M-2.5-4.375h0c0-.632.052-.341-3.322-7.09A1.854,1.854,0,0,0-7.5-12.5a1.852,1.852,0,0,0-1.677,1.035c-3.4,6.807-3.322,6.478-3.322,7.09h0c0,1.726,2.239,3.125,5,3.125S-2.5-2.649-2.5-4.375ZM-9.248-7.143c.445-.885,1.016-2.019,1.737-3.48H-7.5v0C-6.725-9.078-6.131-7.9-5.675-7c.441.874.77,1.528,1,2h-5.642C-10.077-5.5-9.724-6.2-9.248-7.143ZM8.125.625H.938V-11.409A3.118,3.118,0,0,0,3.062-13.75H8.125a.625.625,0,0,0,.625-.625V-15a.625.625,0,0,0-.625-.625H2.861A3.123,3.123,0,0,0,0-17.5a3.123,3.123,0,0,0-2.861,1.875H-8.125A.625.625,0,0,0-8.75-15v.625a.625.625,0,0,0,.625.625h5.063A3.118,3.118,0,0,0-.937-11.409V.625H-8.125a.625.625,0,0,0-.625.625v.625a.625.625,0,0,0,.625.625H8.125a.625.625,0,0,0,.625-.625V1.25A.625.625,0,0,0,8.125.625ZM0-13.125a1.252,1.252,0,0,1-1.25-1.25A1.252,1.252,0,0,1,0-15.625a1.252,1.252,0,0,1,1.25,1.25A1.252,1.252,0,0,1,0-13.125Zm12.5,8.75c0-.632.052-.341-3.322-7.09A1.854,1.854,0,0,0,7.5-12.5a1.852,1.852,0,0,0-1.677,1.035C2.42-4.658,2.5-4.987,2.5-4.375h0c0,1.726,2.239,3.125,5,3.125s5-1.4,5-3.125ZM4.681-5c.242-.5.595-1.2,1.07-2.143.445-.885,1.016-2.019,1.737-3.48H7.5v0C8.274-9.078,8.868-7.9,9.324-7c.441.874.77,1.528,1,2Z" transform="translate(12.5 17.5)" fill="#989898"/>
+                            </svg>
+                        <span class="pl-1">
+                            {{"PropertyDetailPage.SELECTED" | translate}}
+                        </span> 
+                    </button>
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" *ngIf="cardData.wishlistId > 0" (click)="DeleteToWishlist(cardData)" class="w-6 cursor-pointer ml-3" viewBox="0 0 44.002 38.501">
+                            <path id="Path_721" data-name="Path 721" d="M17.729-33.12C13.02-37.134,6.016-36.412,1.693-31.952L0-30.207l-1.693-1.745c-4.314-4.46-11.327-5.182-16.036-1.169a12.34,12.34,0,0,0-.851,17.866L-1.951,1.916a2.694,2.694,0,0,0,3.893,0l16.629-17.17A12.332,12.332,0,0,0,17.729-33.12Z" transform="translate(22.002 35.753)" fill="#0989b8"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" *ngIf="cardData.wishlistId == 0" (click)="AddToWishlist(cardData)" class="w-6 cursor-pointer ml-3" viewBox="0 0 44 38.511">
+                            <path id="Path_722" data-name="Path 722" d="M17.394-32.974C12.427-37.151,4.752-36.523,0-31.685c-4.752-4.838-12.427-5.474-17.394-1.289A13,13,0,0,0-18.3-13.965L-3.231,1.392A4.506,4.506,0,0,0,0,2.759,4.483,4.483,0,0,0,3.231,1.4L18.3-13.956A13.012,13.012,0,0,0,17.394-32.974ZM15.366-16.861.292-1.5a.353.353,0,0,1-.584,0L-15.366-16.861a8.862,8.862,0,0,1,.627-12.951,8.713,8.713,0,0,1,11.73.9L0-25.841l3.008-3.068a8.707,8.707,0,0,1,11.73-.911A8.9,8.9,0,0,1,15.366-16.861Z" transform="translate(22 35.752)" fill="#0989b8"/>
+                        </svg>
+                    </div>
+                    
+                </div>
+                <div class="pr-3">
+                    <img src="{{cardData.vendorThumbnail}}" alt="person-01.png"
+                    onerror="this.onerror=null; this.src='../../../assets/images/broken-img.jpg'"
+                    class=" w-11 h-11 rounded-full bg-white p-[2px] object-cover shadow-md" id="gk-imagesCard">
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- desktop card UI -->
+   
+<!-- mobile card UI -->
+<section class="flex flex-col md:hidden border border-[#E5E5E5] rounded-lg bg-white">
+    <div class="flex">
+        <div class="w-[30%]">
+            <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide *ngFor="let imgData of cardData.images">
+                    <div class="rounded-lg">
+                        <img src="{{imgData}}" alt=""
+                        onerror="this.onerror=null; this.src='./assets/images/broken-img.jpg'" class="rounded-lg object-cover h-[110px]">
+                        <div class="bg-color absolute top-0 w-full h-full rounded-lg">
+                        </div> 
+                        <div class="absolute top-0 pt-2 px-1">
+                            <app-images *ngIf="cardData.isVerified" [imagePath]="'../../../assets/images/verify-img.png'" [customClass]="'w-[45px]'"></app-images>
+                        </div>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+        <div class="w-[70%] self-center">
+            <div class="flex justify-between">
+                <div class="flex flex-col pl-3">
+                    <div>     
+                        <p *ngIf="cardData.oldPrice!==0"
+                            class="{{Language=='ar'?'text-right pr-3':'pl-3'}} line-through text-gray-400 text-[12px]">
+                            {{"General.AED" | translate}} {{cardData.oldPrice |
+                            number}}{{(cardData.status=="For Rent" && Language =='ar')?
+                            '/سنوي':(cardData.status=="For Rent" && Language =='en'?'/\yearly':'')}}
+                        </p>
+                        <h1 class="font-Inter fontbold text-base text-[18px]">{{"General.AED" |
+                            translate}} {{cardData.price | number}}{{(cardData.status=="For Rent" &&
+                            Language =='ar')? '/سنوي': (cardData.status=="For Rent" && Language
+                            =='en'?'/\yearly':'')}}</h1>
+                    </div>
+                    <h1 class="uppercase font-Inter fontbold text-[#191919] text-[15px] line-clamp-1" (click)="openDetailPage(cardData.slug)">
+                        {{cardData.title}}
+                    </h1>
+                    <p class="text-[13px] font-Inter line-clamp-1 text-[#191919]/80" (click)="openDetailPage(cardData.slug)">
+                        {{cardData.address}}
+                    </p>
+                </div>
+                <div class="flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" *ngIf="cardData.wishlistId > 0" (click)="DeleteToWishlist(cardData)" class="w-6 cursor-pointer mr-2" viewBox="0 0 44.002 38.501">
+                        <path id="Path_721" data-name="Path 721" d="M17.729-33.12C13.02-37.134,6.016-36.412,1.693-31.952L0-30.207l-1.693-1.745c-4.314-4.46-11.327-5.182-16.036-1.169a12.34,12.34,0,0,0-.851,17.866L-1.951,1.916a2.694,2.694,0,0,0,3.893,0l16.629-17.17A12.332,12.332,0,0,0,17.729-33.12Z" transform="translate(22.002 35.753)" fill="#0989b8"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" *ngIf="cardData.wishlistId == 0" (click)="AddToWishlist(cardData)" class="w-6 cursor-pointer mr-2" viewBox="0 0 44 38.511">
+                        <path id="Path_722" data-name="Path 722" d="M17.394-32.974C12.427-37.151,4.752-36.523,0-31.685c-4.752-4.838-12.427-5.474-17.394-1.289A13,13,0,0,0-18.3-13.965L-3.231,1.392A4.506,4.506,0,0,0,0,2.759,4.483,4.483,0,0,0,3.231,1.4L18.3-13.956A13.012,13.012,0,0,0,17.394-32.974ZM15.366-16.861.292-1.5a.353.353,0,0,1-.584,0L-15.366-16.861a8.862,8.862,0,0,1,.627-12.951,8.713,8.713,0,0,1,11.73.9L0-25.841l3.008-3.068a8.707,8.707,0,0,1,11.73-.911A8.9,8.9,0,0,1,15.366-16.861Z" transform="translate(22 35.752)" fill="#0989b8"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex pt-3 w-[80%] mx-auto justify-between">
+        <div class="flex items-center">
+            <div class="w-[30px] h-[30px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                <svg *ngIf="ConditionName !== 'componentVehicle'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.25 9.75" class="w-5">
+                    <path id="Path_1795" data-name="Path 1795" d="M-3.859-3.656A2.237,2.237,0,0,0-1.625-5.891,2.237,2.237,0,0,0-3.859-8.125,2.237,2.237,0,0,0-6.094-5.891,2.237,2.237,0,0,0-3.859-3.656Zm0-3.25A1.017,1.017,0,0,1-2.844-5.891,1.017,1.017,0,0,1-3.859-4.875,1.017,1.017,0,0,1-4.875-5.891,1.017,1.017,0,0,1-3.859-6.906ZM5.281-8.125H-.406a.406.406,0,0,0-.406.406v4.875H-6.906v-6.5a.406.406,0,0,0-.406-.406h-.406a.406.406,0,0,0-.406.406V-.406A.406.406,0,0,0-7.719,0h.406a.406.406,0,0,0,.406-.406V-1.625H6.906V-.406A.406.406,0,0,0,7.313,0h.406a.406.406,0,0,0,.406-.406V-5.281A2.844,2.844,0,0,0,5.281-8.125ZM6.906-2.844H.406V-6.906H5.281A1.627,1.627,0,0,1,6.906-5.281Z" transform="translate(8.125 9.75)" fill="#fff"/>
+                </svg>
+
+                <svg viewBox="0 0 15.961 16.469" class="w-5" *ngIf="ConditionName == 'componentVehicle'">
+                    <path id="auto"
+                        d="M6.525-7.006l1.057-.61a.8.8,0,0,0,.371-.9,8.22,8.22,0,0,0-2.127-3.679.8.8,0,0,0-.962-.127l-1.055.61a7.845,7.845,0,0,0-1.092-.632v-1.22a.841.841,0,0,0-.592-.771,8.287,8.287,0,0,0-4.248,0,.8.8,0,0,0-.592.771v1.22a7.845,7.845,0,0,0-1.092.632l-1.055-.61a.8.8,0,0,0-.962.127A8.22,8.22,0,0,0-7.953-8.514a.8.8,0,0,0,.371.9l1.057.61c-.017.174-.03.456-.03.631s.014.457.03.631l-1.057.61a.8.8,0,0,0-.371.9A8.22,8.22,0,0,0-5.826-.557a.8.8,0,0,0,.962.127l1.055-.61a7.845,7.845,0,0,0,1.092.632V.812a.841.841,0,0,0,.592.771,8.287,8.287,0,0,0,4.248,0A.8.8,0,0,0,2.716.812V-.408A7.845,7.845,0,0,0,3.809-1.04l1.055.61a.8.8,0,0,0,.962-.127A8.22,8.22,0,0,0,7.953-4.236a.8.8,0,0,0-.371-.9l-1.057-.61A6.561,6.561,0,0,0,6.525-7.006ZM4.776-4.913l1.455.84A7.95,7.95,0,0,1,5.107-2.13l-1.455-.84A5.656,5.656,0,0,1,1.123-1.509V.171A8.04,8.04,0,0,1,0,.266a8.04,8.04,0,0,1-1.123-.1v-1.68A5.657,5.657,0,0,1-3.652-2.971l-1.455.84A7.951,7.951,0,0,1-6.231-4.074l1.455-.84a5.715,5.715,0,0,1,0-2.923l-1.455-.84A6.647,6.647,0,0,1-5.107-10.62l1.455.84a5.656,5.656,0,0,1,2.529-1.462v-1.68A8.04,8.04,0,0,1,0-13.016a8.04,8.04,0,0,1,1.123.1v1.68A5.657,5.657,0,0,1,3.652-9.779l1.455-.84A7.949,7.949,0,0,1,6.231-8.676l-1.455.84A5.714,5.714,0,0,1,4.776-4.913ZM0-9.562A3.191,3.191,0,0,0-3.187-6.375,3.191,3.191,0,0,0,0-3.187,3.191,3.191,0,0,0,3.188-6.375,3.191,3.191,0,0,0,0-9.562ZM0-4.781A1.6,1.6,0,0,1-1.594-6.375,1.6,1.6,0,0,1,0-7.969,1.6,1.6,0,0,1,1.594-6.375,1.6,1.6,0,0,1,0-4.781Z"
+                        transform="translate(7.981 14.609)" fill="#fff" />
+                </svg>
+            </div>
+            <div class="pl-2" >
+                <app-text-component [inputText]="roomsNumber == undefined? cardData.transmission : (roomsNumber == '0'? '-': roomsNumber)" [customClass]="'font-bold text-[#191919] text-[15px]'" [condition]="'paragraph'"></app-text-component>
+                <p class="font-inter text-[#191919]/70 text-[12px] pt-[-5px]" *ngIf="ConditionName == 'componentVehicle'">
+                    {{"VehicleDetailPage.Gears" | translate}}
+                </p>
+                <p class="font-inter text-[#191919]/70 text-[12px] pt-[-5px]" *ngIf="ConditionName != 'componentVehicle'">
+                    {{roomsName}}
+                </p>
+            </div>
+        </div>
+        <div class="flex items-center ml-4">
+            <div class="w-[30px] h-[30px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                <svg *ngIf="ConditionName !== 'componentVehicle'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 14" class="w-5">
+                    <path id="Path_1793" data-name="Path 1793" d="M7.625-6H-5.5v-4.5a1,1,0,0,1,1-1,1,1,0,0,1,.844.465A2.124,2.124,0,0,0-3.442-8.44a.375.375,0,0,0,.015.513l.354.354a.375.375,0,0,0,.53,0l2.97-2.97a.375.375,0,0,0,0-.53l-.354-.354a.375.375,0,0,0-.513-.015,2.12,2.12,0,0,0-2.006-.48A2.5,2.5,0,0,0-4.5-13,2.5,2.5,0,0,0-7-10.5V-6h-.625A.375.375,0,0,0-8-5.625v.75a.375.375,0,0,0,.375.375H-7V-3A3,3,0,0,0-5.75-.563V.625A.375.375,0,0,0-5.375,1h.75A.375.375,0,0,0-4.25.625V-.01C-4.168,0-4.084,0-4,0H4c.084,0,.168,0,.25-.01V.625A.375.375,0,0,0,4.625,1h.75A.375.375,0,0,0,5.75.625V-.563A3,3,0,0,0,7-3V-4.5h.625A.375.375,0,0,0,8-4.875v-.75A.375.375,0,0,0,7.625-6ZM-2.494-10.494a.875.875,0,0,1,1.167-.063l-1.23,1.23A.875.875,0,0,1-2.494-10.494ZM5.5-3A1.5,1.5,0,0,1,4-1.5H-4A1.5,1.5,0,0,1-5.5-3V-4.5h11Z" transform="translate(8 13)" fill="#fff"/>
+                </svg>
+
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.75 13.125" class="w-5" *ngIf="ConditionName == 'componentVehicle'">
+                    <path id="Path_1793" data-name="Path 1793" d="M6.563-7.5H6.094L2.907-11.484a2.121,2.121,0,0,0-1.464-.7H-4.824a1.875,1.875,0,0,0-1.741,1.179L-7.969-7.5v.066A1.871,1.871,0,0,0-9.375-5.625v3.281a.469.469,0,0,0,.469.469H-7.5A2.812,2.812,0,0,0-4.687.938,2.812,2.812,0,0,0-1.875-1.875h3.75A2.812,2.812,0,0,0,4.688.938,2.812,2.812,0,0,0,7.5-1.875H8.906a.469.469,0,0,0,.469-.469V-4.687A2.812,2.812,0,0,0,6.563-7.5Zm-7.734-3.281H1.443a.466.466,0,0,1,.366.176L4.293-7.5H-1.172Zm-4.088.295a.467.467,0,0,1,.435-.295h2.246V-7.5H-6.454ZM-4.687-.469A1.406,1.406,0,0,1-6.094-1.875,1.406,1.406,0,0,1-4.687-3.281,1.406,1.406,0,0,1-3.281-1.875,1.406,1.406,0,0,1-4.687-.469Zm9.375,0A1.406,1.406,0,0,1,3.281-1.875,1.406,1.406,0,0,1,4.688-3.281,1.406,1.406,0,0,1,6.094-1.875,1.406,1.406,0,0,1,4.688-.469ZM7.969-3.281H7.11A2.8,2.8,0,0,0,4.688-4.687,2.8,2.8,0,0,0,2.265-3.281h-4.53A2.8,2.8,0,0,0-4.687-4.687,2.8,2.8,0,0,0-7.11-3.281h-.859V-5.625A.469.469,0,0,1-7.5-6.094H6.563A1.408,1.408,0,0,1,7.969-4.687Z" transform="translate(9.375 12.188)" fill="#fff"/>
+                </svg>                          
+                
+            </div>
+            <div class="pl-1">
+                <app-text-component [inputText]="bathNumber == undefined ? doorNumber : (bathNumber == '0'? '-' : bathNumber)" [customClass]="'font-bold text-[#191919] text-[15px]'" [condition]="'paragraph'"></app-text-component>
+                <app-text-component [inputText]="bathName == undefined ? doorName : bathName" [customClass]="'font-inter text-[#191919]/70 text-[12px]'" [condition]="'paragraph'"></app-text-component>
+            </div>
+        </div>
+        <div class="flex items-center ml-4">
+            <div class="w-[30px] h-[30px] flex flex-col justify-center items-center bg-[#0989B8] rounded-full">
+                <svg *ngIf="ConditionName !== 'componentVehicle'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" class="w-5">
+                    <path id="Path_1794" data-name="Path 1794" d="M7.2-11.12-5.745,1.822a1.007,1.007,0,0,1-.72.3A1.028,1.028,0,0,1-7.5,1.095V-11.847a1.028,1.028,0,0,1,1.028-1.028H6.47A1.028,1.028,0,0,1,7.2-11.12Zm-13.291-.349V.182l1.848-1.848L-4.577-2a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331,1.326-1.326-.331-.331a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331L.395-6.306.063-6.637a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331L2.715-8.626l-.331-.331a.469.469,0,0,1,0-.663l.331-.331a.469.469,0,0,1,.663,0l.331.331,1.848-1.848ZM-3.75-9.125H-.1L-3.75-5.476Z" transform="translate(7.5 2.125) rotate(180)" fill="#fff"/>
+                </svg>    
+                
+                <svg *ngIf="ConditionName == 'componentVehicle'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.41 36.09" class="w-5"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M46.41,23.2a23.08,23.08,0,0,1-3.15,11.67,2.55,2.55,0,0,1-2.21,1.22H5.36a2.55,2.55,0,0,1-2.21-1.22A23.2,23.2,0,1,1,46.41,23.2Zm-3.87,0a19.34,19.34,0,1,0-36.44,9H40.3A19.29,19.29,0,0,0,42.54,23.2ZM30.2,10.92l-3.66,11a5.11,5.11,0,0,1,1.82,3.9,5,5,0,0,1-.72,2.58H18.76a5.11,5.11,0,0,1,4.11-7.7l3.65-11a1.94,1.94,0,0,1,3.68,1.22Z"/></g></g></svg>
+                
+            </div>
+            <div class="pl-1">
+                <p class="font-bold text-[#191919] text-[13px]" *ngIf="ConditionName == 'componentVehicle'">
+                    {{cardData.mileage == null  ? '-' : cardData.mileage | number}} km
+                </p>
+                <p class="font-bold text-[#191919] text-[13px]" *ngIf="ConditionName != 'componentVehicle'">
+                    {{sizeNumber | number}}
+                </p>
+                <p class="font-inter text-[#191919]/70 text-[12px]" *ngIf="ConditionName == 'componentVehicle'">
+                    {{"VehicleDetailPage.Mileage" | translate}}
+                </p>
+                <p class="font-inter text-[#191919]/70 text-[12px]" *ngIf="ConditionName != 'componentVehicle'">
+                    {{sizeName}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-between mt-2 px-1 pb-1">
+        <button class="bg-gk-red text-white py-2 rounded font-Inter font-medium text-[10px] px-6" (click)="OpenContactPopup(cardData)">
+            {{"PropertyDetailPage.Contact" | translate}}
+        </button>
+        <button class="bg-[#191919] text-[#FFFFFF] py-2 rounded font-Inter uppercase font-medium text-[10px] px-8" (click)="OpenCallPopup(cardData)">
+            {{"PropertyDetailPage.CallNow" | translate}}
+        </button>
+        <button (click)="compare(cardData)" *ngIf="!cardData.check" class="bg-[#FFFFFF] flex items-center border border-[#0989B8] text-[#0989B8] py-2 rounded font-Inter font-medium text-[10px] px-6">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 20" class="w-4">
+                <path id="Path_1793" data-name="Path 1793" d="M-2.5-4.375h0c0-.632.052-.341-3.322-7.09A1.854,1.854,0,0,0-7.5-12.5a1.852,1.852,0,0,0-1.677,1.035c-3.4,6.807-3.322,6.478-3.322,7.09h0c0,1.726,2.239,3.125,5,3.125S-2.5-2.649-2.5-4.375ZM-9.248-7.143c.445-.885,1.016-2.019,1.737-3.48H-7.5v0C-6.725-9.078-6.131-7.9-5.675-7c.441.874.77,1.528,1,2h-5.642C-10.077-5.5-9.724-6.2-9.248-7.143ZM8.125.625H.938V-11.409A3.118,3.118,0,0,0,3.062-13.75H8.125a.625.625,0,0,0,.625-.625V-15a.625.625,0,0,0-.625-.625H2.861A3.123,3.123,0,0,0,0-17.5a3.123,3.123,0,0,0-2.861,1.875H-8.125A.625.625,0,0,0-8.75-15v.625a.625.625,0,0,0,.625.625h5.063A3.118,3.118,0,0,0-.937-11.409V.625H-8.125a.625.625,0,0,0-.625.625v.625a.625.625,0,0,0,.625.625H8.125a.625.625,0,0,0,.625-.625V1.25A.625.625,0,0,0,8.125.625ZM0-13.125a1.252,1.252,0,0,1-1.25-1.25A1.252,1.252,0,0,1,0-15.625a1.252,1.252,0,0,1,1.25,1.25A1.252,1.252,0,0,1,0-13.125Zm12.5,8.75c0-.632.052-.341-3.322-7.09A1.854,1.854,0,0,0,7.5-12.5a1.852,1.852,0,0,0-1.677,1.035C2.42-4.658,2.5-4.987,2.5-4.375h0c0,1.726,2.239,3.125,5,3.125s5-1.4,5-3.125ZM4.681-5c.242-.5.595-1.2,1.07-2.143.445-.885,1.016-2.019,1.737-3.48H7.5v0C8.274-9.078,8.868-7.9,9.324-7c.441.874.77,1.528,1,2Z" transform="translate(12.5 17.5)" fill="#0989b8"/>
+              </svg>
+            <span class="pl-1">
+                {{"PropertyDetailPage.COMPARE" | translate}}
+            </span> 
+        </button>
+        <button *ngIf="cardData.check" class="bg-[#FFFFFF] flex items-center border border-[#989898] text-[#989898] py-2 rounded font-Inter font-medium text-[10px] px-6">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 20" class="w-4">
+                <path id="Path_1793" data-name="Path 1793" d="M-2.5-4.375h0c0-.632.052-.341-3.322-7.09A1.854,1.854,0,0,0-7.5-12.5a1.852,1.852,0,0,0-1.677,1.035c-3.4,6.807-3.322,6.478-3.322,7.09h0c0,1.726,2.239,3.125,5,3.125S-2.5-2.649-2.5-4.375ZM-9.248-7.143c.445-.885,1.016-2.019,1.737-3.48H-7.5v0C-6.725-9.078-6.131-7.9-5.675-7c.441.874.77,1.528,1,2h-5.642C-10.077-5.5-9.724-6.2-9.248-7.143ZM8.125.625H.938V-11.409A3.118,3.118,0,0,0,3.062-13.75H8.125a.625.625,0,0,0,.625-.625V-15a.625.625,0,0,0-.625-.625H2.861A3.123,3.123,0,0,0,0-17.5a3.123,3.123,0,0,0-2.861,1.875H-8.125A.625.625,0,0,0-8.75-15v.625a.625.625,0,0,0,.625.625h5.063A3.118,3.118,0,0,0-.937-11.409V.625H-8.125a.625.625,0,0,0-.625.625v.625a.625.625,0,0,0,.625.625H8.125a.625.625,0,0,0,.625-.625V1.25A.625.625,0,0,0,8.125.625ZM0-13.125a1.252,1.252,0,0,1-1.25-1.25A1.252,1.252,0,0,1,0-15.625a1.252,1.252,0,0,1,1.25,1.25A1.252,1.252,0,0,1,0-13.125Zm12.5,8.75c0-.632.052-.341-3.322-7.09A1.854,1.854,0,0,0,7.5-12.5a1.852,1.852,0,0,0-1.677,1.035C2.42-4.658,2.5-4.987,2.5-4.375h0c0,1.726,2.239,3.125,5,3.125s5-1.4,5-3.125ZM4.681-5c.242-.5.595-1.2,1.07-2.143.445-.885,1.016-2.019,1.737-3.48H7.5v0C8.274-9.078,8.868-7.9,9.324-7c.441.874.77,1.528,1,2Z" transform="translate(12.5 17.5)" fill="#989898"/>
+            </svg>
+            <span class="pl-1">
+                {{"PropertyDetailPage.SELECTED" | translate}}
+            </span> 
+        </button>
+    </div>
+</section>
+<!-- mobile card UI -->
+

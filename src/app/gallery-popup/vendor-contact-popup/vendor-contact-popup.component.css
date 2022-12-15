@@ -1,0 +1,16 @@
+input.ng-invalid.ng-touched
+{
+    border-bottom: 1px solid red;
+    /* box-shadow: 0 0 13px inset rgba(225,0,0,0.09); */
+}
+
+.prefix {
+    position: relative;
+    /* right: -3px; */
+    /* color: #989898; */
+}
+  
+input.has-prefix {
+    padding-left: 32px;
+    margin-left: -29px;
+}

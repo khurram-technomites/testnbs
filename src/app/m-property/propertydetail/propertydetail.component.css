@@ -1,0 +1,37 @@
+.gk-query
+{
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.gk-query h1
+{
+    letter-spacing: 2px;
+}
+
+.sidenav {
+  transition: 0.5s;
+  /* padding-top: 60px; */
+}
+
+input.ng-invalid.ng-touched
+{
+    border-bottom: 1px solid red;
+    /* box-shadow: 0 0 13px inset rgba(225,0,0,0.09); */
+}
+
+.prefix {
+    position: relative;
+    /* right: -3px; */
+    /* color: #989898; */
+}
+  
+input.has-prefix {
+    padding-left: 32px;
+    margin-left: -29px;
+}
+
+#leaderboardimage img{
+    max-width: none;
+    width: 3rem;
+}

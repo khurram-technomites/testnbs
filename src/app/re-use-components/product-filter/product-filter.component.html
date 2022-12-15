@@ -1,0 +1,1047 @@
+
+
+<!-- mobile screen start -->
+<div class="text-black xl:hidden w-[100%] lg:w-[60%] mx-auto" *ngIf="!checkMapVariation2">
+    <div class="flex flex-col">
+        <div class="flex flex-col items-center relative" >
+            <div class="w-full relative">
+                <input type="search" name="Location" #LocationFieldMobile id="search" placeholder="{{ 'PlaceYourAddPage.InputLocation' | translate}}"
+                class="inputsearch w-full border-2 rounded-md border-gray-300 py-2 pr-2 text-[13px]" autocomplete="off" [(ngModel)]="nameDisplaySearch" (keyup)="LocationSearchFilter($event)" (click)="toggle($event)" (blur)="hideList($event)">
+                <fa-icon [icon]="faSearch" class="text-[14px] absolute right-2 top-[26%]"></fa-icon>
+            </div>
+            <div class="absolute top-12 left-0 zClass rounded-md w-[100%] lg:w-[360px]" *ngIf="dropdownOpen">
+                <div class="gk-height-search bg-white shades rounded-md flex flex-col" *ngIf="showSuggestion">
+                    <p class="text-[#191919] text-sm font-semibold pl-4 pt-3">
+                        {{'newFilterKey.Results' | translate}}
+                    </p>
+                    <div class="pl-4 my-2 flex {{!last? 'border-b': ''}}" *ngFor="let addressSuggestion of addressSuggestion; let last = last">
+                        <div>
+                            <fa-icon [icon]="faSearch" class="text-[#191919] text-[13px]"></fa-icon>
+                        </div>
+                        <div class="pl-2 text-start cursor-pointer pb-1" (mousedown)="GetLatLong(addressSuggestion.place_id,addressSuggestion.terms[0],'mobile')">
+                            <p class="text-[#191919] font-bold text-[13px]">
+                                {{addressSuggestion.structured_formatting.main_text}}
+                            </p>
+                            <p class="text-[11px] text-[#989898] font-Inter">
+                                {{addressSuggestion.description}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col justify-center items-center pt-3">
+            <div class="w-full flex">
+                <div *ngFor="let data of slectedAddress; let i = index" class="max-w-[70%]">
+                    <div class="bg-[#0989B826] border border-[#0989B8] rounded-full flex justify-between items-center px-[6px]">
+                        <div>
+                            <p class="text-xs text-[#0989B8] font-medium py-1 pr-2 line-clamp-1">{{data.address}}</p>
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09" (click)="DeleteAddress(i,data.placeID)">
+                                <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="moreAddress.length > 0" class="w-[30%] relative ml-1 bg-[#0989B826] border border-[#0989B8] rounded-full flex justify-between items-center px-[6px]">
+                    <p class="text-xs text-[#0989B8] font-medium py-1 pr-2 cursor-pointer" (click)="showMoreDD = true">
+                        +{{moreAddress.length}} More
+                    </p>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09" (click)="deleteMoreAllData()">
+                        <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                    </svg>
+                    <div class="absolute translate-x-[-55%] top-[40px] bottom-0 zClass2">
+                        <div class="bg-white shades w-[350px] p-3 rounded-md" *ngIf="showMoreDD">
+                            <div class="flex justify-end pb-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09" (click)="showMoreDD = false">
+                                    <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-wrap gaps">
+                                <div *ngFor="let Moredata of moreAddress; let i = index" class="pt-2">
+                                    <div class="bg-[#0989B826] border border-[#0989B8] rounded-full flex justify-between items-center px-[6px]">
+                                        <div>
+                                            <p class="text-xs text-[#0989B8] font-medium py-1 pr-2">{{Moredata.address}}</p>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09" (click)="DeleteMoreAddress(i,Moredata.placeID)">
+                                                <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="xl:hidden">
+    <div class="flex items-center justify-end pt-2 font-Inter text-sm text-gk-red font-semibold"
+        (click)="ShowFilterWindow()">
+        <fa-icon [icon]="faSlidersH" class="mr-2 text-base"></fa-icon>
+        <p class="text-[16px] font-Inter">{{'PropertyFilterPage.ShowFilter' | translate}}</p>
+    </div>
+</div>
+<section class="fixed top-0 left-0 bg-white h-full w-full px-5 py-10 z-10 overflow-y-scroll" *ngIf="filterHidden">
+    <div class="mb-5">
+        <svg viewBox="0 0 512 512" class="w-6 h-6" (click)="HideFilterWindow()">
+            <path fill="#989898"
+                d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 464c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm94.8-285.3L281.5 256l69.3 69.3c4.7 4.7 4.7 12.3 0 17l-8.5 8.5c-4.7 4.7-12.3 4.7-17 0L256 281.5l-69.3 69.3c-4.7 4.7-12.3 4.7-17 0l-8.5-8.5c-4.7-4.7-4.7-12.3 0-17l69.3-69.3-69.3-69.3c-4.7-4.7-4.7-12.3 0-17l8.5-8.5c4.7-4.7 12.3-4.7 17 0l69.3 69.3 69.3-69.3c4.7-4.7 12.3-4.7 17 0l8.5 8.5c4.6 4.7 4.6 12.3 0 17z"
+                class=""></path>
+        </svg>
+    </div>
+    <div class="font-Inter text-xs xl:hidden">
+        <div class="flex flex-col pt-3 mb-5">
+            <label for="search" class="labelSearch font-Inter {{Language == 'ar'? 'text-right pr-3': 'pl-3'}} text-sm uppercase font-bold text-[#191919]">
+                {{"newFilterKey.Keywords" | translate}}
+            </label>
+            <div class="mt-[-2px]">
+                <input type="text" id="search" placeholder="{{'newFilterKey.relevantKeywords' |translate}}"
+                class="inputsearch w-full border-0 border-b border-[#191919]/20 pt-1 text-xs {{Language == 'ar'? 'text-right': ''}}"
+                #searchMobile (blur)="search($event)">
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between py-2 px-2 mb-5 {{Language == 'ar'? 'flex-row-reverse' : ''}}" (click)="showCategoryAccordian = !showCategoryAccordian">
+            <h1 class="font-bold text-[15px]">{{'newFilterKey.Categories' | translate}}</h1>
+            <fa-icon [icon]="faChevronDown" *ngIf="!showCategoryAccordian"></fa-icon>
+            <fa-icon [icon]="faChevronUp" *ngIf="showCategoryAccordian"></fa-icon>
+        </div>
+        <div *ngIf="showCategoryAccordian" class="mt-5 mb-5">
+            <div class="flex">
+                <div class="{{activeTabName == 'resident' ? 'border-b-2 border-gk-red' : 'border-b-2 border-gray-300'}} w-[50%] text-center" (click)="tabActive('resident')">
+                    <p class="text-[#191919] font-bold text-xs pb-2">{{'newFilterKey.Residential' | translate}}</p>
+                </div>
+                <div class="{{activeTabName == 'commercial' ? 'border-b-2 border-gk-red' : 'border-b-2 border-gray-300'}} w-[50%] text-center" (click)="tabActive('commercial')">
+                    <p class="text-[#191919] font-bold text-xs pb-2">{{'newFilterKey.Commercial' | translate}}</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap mt-2">
+                <div *ngFor="let categoryData of tabData" class="{{categoryData.isCheck? ActivatedClass : NonActivatedClass}} px-4 py-[10px] flex justify-center items-center rounded-[20px] mt-2 w-auto {{Language == 'ar'? 'mr-2': 'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                    <p name="FuelType" class="text-xs  font-Inter font-semibold" 
+                    (click)="categoryData.isCheck? unSelectCategoryID(categoryData.id,categoryData.isCheck) : SelectCategoryID(categoryData.id,categoryData.isCheck)">
+                        {{categoryData.name}}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="font-Inter text-xs">
+            <div class="flex items-center justify-between mb-5 py-2 px-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}" (click)="showFeatureAccordian = !showFeatureAccordian">
+                <h1 class="font-bold text-[15px] {{Language == 'ar'? 'text-right': ''}}">{{'PropertyFilterPage.Featured' | translate}}</h1>
+                <fa-icon [icon]="faChevronDown" *ngIf="!showFeatureAccordian"></fa-icon>
+                <fa-icon [icon]="faChevronUp" *ngIf="showFeatureAccordian"></fa-icon>
+            </div>
+            <div *ngIf="showFeatureAccordian" class="mt-5 border-b-2 border-gray-300 mb-5">
+                <div class="flex flex-col pl-1 py-2">
+                    <label for="search" class="labelSearch font-Inter {{Language == 'ar'? 'text-right pr-0': 'pl-0'}} text-sm uppercase font-bold text-[#191919]">
+                        {{'PropertyPage.Search.Search' | translate}}
+                    </label>
+                    <div class="w-full relative">
+                        <fa-icon *ngIf="Language == 'ar'" [icon]="faSearch" class="text-sm absolute {{Language == 'ar'? '': 'right-0'}}  top-[20%]"></fa-icon>
+                        <input type="text" id="search" #featureSearch placeholder="{{'newFilterKey.Typehere' |translate}}"
+                        class="inputsearch w-full pl-0 border-0 border-b border-[#191919]/20 pt-1 text-xs {{Language == 'ar'? 'text-right': ''}}" (keyup)="searchFeature($event)">
+                        <fa-icon *ngIf="Language !== 'ar'" [icon]="faSearch" class="text-sm absolute right-0 top-[20%]"></fa-icon>
+                    </div>
+                </div>
+                <div class="flex flex-wrap xl:max-h-40 xl:overflow-y-scroll" id="gk-featuredId">
+                    <div *ngFor="let FeatureData of FeaturesData" class="{{FeatureData.isCheck? ActivatedClass : NonActivatedClass}} px-4 py-[10px] flex justify-center items-center rounded-[20px] mt-2 w-auto {{Language == 'ar'? 'mr-2': 'ml-2'}} hover:bg-[#0989B8] hover:text-white cursor-pointer">
+                        <span name="FuelType" class="text-xs font-Inter font-semibold" (click)="FeatureData.isCheck? unSelectFeatureId(FeatureData.id) : selecteFeatureId(FeatureData.id)">
+                            {{FeatureData.name}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between mb-5 py-2 px-2 {{Language == 'ar'? 'flex-row-reverse' : ''}}" (click)="showAgentAccordian = !showAgentAccordian">
+            <h1 class="font-bold text-[15px] {{Language == 'ar'? 'text-right': ''}}">{{'newFilterKey.AgentAgency' | translate}}</h1>
+            <fa-icon [icon]="faChevronDown" *ngIf="!showAgentAccordian"></fa-icon>
+            <fa-icon [icon]="faChevronUp" *ngIf="showAgentAccordian"></fa-icon>
+        </div>
+        <div *ngIf="showAgentAccordian" class="mt-5 mb-5">
+            <div class="flex flex-col pl-1 py-2">
+                <label for="search" class="labelSearch font-Inter {{Language == 'ar'? 'text-right pr-0': 'pl-0'}} text-sm uppercase font-bold text-[#191919]">
+                    {{'PropertyPage.Search.Search' | translate}}
+                </label>
+                <div class="w-full relative">
+                    <input type="search" id="search" #agentsearch placeholder="{{'newFilterKey.Typehere' |translate}}"
+                    class="inputsearch w-full pl-0 border-0 border-b border-[#191919]/20 pt-1 text-xs" (keyup)="searchAgents($event)">
+                    <fa-icon *ngIf="Language !== 'ar'" [icon]="faSearch" class="text-sm absolute right-0 top-[20%]"></fa-icon>
+                </div>
+            </div>
+            <div class="xl:max-h-52 xl:overflow-y-scroll" id="gk-featuredId">
+                <div class="border {{selectedVendorId == data.id ? 'bg-[#0989B826] text-[#0989B8] border-[#0989B8]': 'border-[#19191933] text-[#191919]/40 bg-white'}} rounded-full mt-1 mr-2 hover:bg-[#0989B826] hover:text-[#0989B8]  hover:border-[#0989B8]" *ngFor="let data of vendorData">
+                    <div class="flex items-center" (click)="selectVendor(data)">
+                        <div>
+                            <img src="{{data.logo}}" alt="person-01.png"
+                            onerror="this.onerror=null; this.src='../../../assets/images/broken-img.jpg'"
+                            class="w-8 h-8 rounded-full p-[2px] object-cover shadow-md">
+                        </div>
+                        <div class="pl-3 pr-2">
+                            <p class=" text-[13px] font-Inter font-medium line-clamp-1">{{data.name}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="font-Inter text-xs mb-5 px-2">
+            <h1 class="font-bold text-[15px] {{Language == 'ar'? 'text-right': ''}} mt-10">{{'newFilterKey.Type' | translate}}</h1>
+            <div class="text-[#989898] flex font-bold py-3 gaps-col {{Language == 'ar'? 'justify-end' : ''}}">
+                <div class="flex">
+                    <input type="radio" class="mr-2" name="radioRents" #radioRent [checked]="(PropertyTypeParam=='?Type=Rent' || PropertyTypeParam=='false')?true:false" (change)="PropType($event)" value="false">
+                    <p>{{'PropertyFilterPage.Rent' | translate}}</p>
+                </div>
+                <div class="flex">
+                    <input type="radio" class="mr-2" name="radioRents" #radioRent [checked]="(PropertyTypeParam=='?Type=Sale' || PropertyTypeParam=='true')?true:false" (change)="PropType($event)" value="true">
+                    <p>{{'PropertyFilterPage.Sale' | translate}}</p>
+                </div>
+                <div class="flex">
+                    <input type="radio" class="mr-2" name="radioRents" [checked]="(PropertyTypeParam=='' || PropertyTypeParam==undefined)?true:false" #radioRent (change)="PropType($event)"
+                        value="">
+                    <p>{{'PropertyFilterPage.All' | translate}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 mb-5 px-2">
+            <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}} justify-between">
+                <p class="text-[15px] text-[#191919] font-Inter font-bold">{{'PropertyFilterPage.Furnished' |
+                    translate}}</p>
+                <label for="toogleD" class="flex items-center cursor-pointer pr-3">              
+                    <div class="relative">                
+                        <input id="toogleD" type="checkbox" class="sr-only" (change)="ExtraFilters($event)" #furnish/>                 
+                        <div class="w-7 h-4 bg-[#E5E5E5] rounded-full shadow-inner"></div>                 
+                        <div class="dot absolute w-5 h-5 bg-[#989898] rounded-full shadow -left-1 -top-[2px] transition">
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="mt-4 mb-5 px-2">
+            <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}} justify-between mb-2">
+                <p class="text-[15px] text-[#191919] font-Inter font-bold">{{'newFilterKey.Verified' |
+                    translate}}</p>
+                <label for="toogleC" class="flex items-center cursor-pointer pr-3">              
+                    <div class="relative">                
+                        <input id="toogleC" type="checkbox" class="sr-only" (change)="ExtraFilters($event)" #verify/>                 
+                        <div class="w-7 h-4 bg-[#E5E5E5] rounded-full shadow-inner"></div>                 
+                        <div class="dot absolute w-5 h-5 bg-[#989898] rounded-full shadow -left-1 -top-[2px] transition">
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="mt-4 mb-5 px-2">
+            <div class="mb-5 {{Language == 'ar'? 'text-right': ''}}">
+                <label for=""
+                    class="font-bold font-Inter text-[15px]">{{'PropertyFilterPage.PriceRange' |
+                    translate}}</label>
+                <div class="flex {{Language == 'ar'?'flex-row-reverse':''}}">
+                    <div class="w-[50%] {{Language == 'ar'?'pl-2':'pr-2'}}">
+                        <input type="number" min="1" ngModel name="min" id="PriceMin" required #priceMinMobile
+                            placeholder="{{'PropertyFilterPage.Min' | translate}}"
+                            class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b w-full border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                            (keypress)='restrictAlphabets($event)' (change)="ExtraFilters($event)">
+                    </div>
+                    <div class="w-[50%] {{Language == 'ar'?'pr-2':'pl-2'}}">
+                        <input type="number" min="1" ngModel name="max" id="PriceMax" required #priceMaxMobile
+                            placeholder="{{'PropertyFilterPage.Max' | translate}}"
+                            class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b w-full border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                            (keypress)='restrictAlphabets($event)' (change)="ExtraFilters($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="mb-5 {{Language == 'ar'? 'text-right': ''}}">
+                <label for=""
+                    class="font-bold font-Inter text-[15px]">{{'PropertyFilterPage.SizeRange' |
+                    translate}}</label>
+                <div class="flex {{Language == 'ar'?'flex-row-reverse':''}}">
+                    <div class="w-[50%] {{Language == 'ar'?'pl-2':'pr-2'}}">
+                        <input type="number" min="1" ngModel name="min" id="SizeMin" required #sizeMinMobile
+                            placeholder="{{'PropertyFilterPage.Min' | translate}}"
+                            class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b w-full border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                            (keypress)='restrictAlphabets($event)' (change)="ExtraFilters($event)">
+                    </div>
+                    <div class="w-[50%] {{Language == 'ar'?'pr-2':'pl-2'}}">
+                        <input type="number" min="1" ngModel name="max" id="SizeMax" required #sizeMaxMobile
+                            placeholder="{{'PropertyFilterPage.Max' | translate}}"
+                            class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b w-full border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                            (keypress)='restrictAlphabets($event)' (change)="ExtraFilters($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="mb-5 {{Language == 'ar'? 'text-right': ''}}">
+                <label for=""
+                    class="font-Inter text-[15px] font-bold">{{'PropertyFilterPage.BuildYear'
+                    | translate}}</label>
+                <select id="year" name="year" (change)="ExtraFilters($event)"
+                    class="{{Language == 'ar'? 'text-right pr-3': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0"
+                    ngModel required #buildYearMobile>
+                    <option value="" hidden>{{'PropertyFilterPage.Year' | translate}}</option>
+                    <option *ngFor="let Years of Years" value="{{Years.value}}">
+                        {{Years.value}}</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="mt-4 {{Language == 'ar'? 'text-right': ''}} px-2">
+            <p class="text-[15px] text-[#191919] font-Inter font-bold pb-2">{{'PropertyFilterPage.NoRooms' | translate}}</p>
+        </div>
+        <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}} px-2">
+            <div
+                class="{{NoRooms_sel=='1'? ActivatedClass : NonActivatedClass}} {{Language == 'ar'? 'ml-3': ''}} rounded-full flex items-center justify-center">
+                <p class="text-xs font-Inter font-semibold px-[13px] py-2" name="NoRooms_sel" data-value="1"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num1' | translate}}</p>
+            </div>
+            <div
+                class="{{NoRooms_sel=='2'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs font-Inter font-semibold px-[13px] py-2" name="NoRooms_sel" data-value="2"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num2' | translate}}</p>
+            </div>
+            <div
+                class="{{NoRooms_sel=='3'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs px-[13px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="3"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num3' | translate}}</p>
+            </div>
+            <div
+                class="{{NoRooms_sel=='4'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs px-[13px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="4"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num4' | translate}}</p>
+            </div>
+            <div
+                class="{{NoRooms_sel=='5'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs px-[13px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="5"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num55' | translate}}</p>
+            </div>
+        </div>
+        <div class="flex mt-2 px-2 {{Language == 'ar'? 'flex-row-reverse': ''}}">
+            <div
+                class="{{NoRooms_sel=='6'? ActivatedClass : NonActivatedClass}} {{Language == 'ar'? 'ml-3': ''}} rounded-full flex items-center justify-center">
+                <p class="text-xs font-Inter font-semibold px-[13px] py-2" name="NoRooms_sel" data-value="6"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num6' | translate}}</p>
+            </div>
+            <div
+                class="{{NoRooms_sel=='7'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs font-Inter font-semibold px-[13px] py-2" name="NoRooms_sel" data-value="7"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num7' | translate}}</p>
+            </div>
+            <div
+                class="{{NoRooms_sel=='8'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs px-[13px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="8"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num8' | translate}}</p>
+            </div>
+            <div
+                class="{{NoRooms_sel=='9'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs px-[13px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="9"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num9' | translate}}</p>
+            </div>
+            <div
+                class="{{NoRooms_sel=='10'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs px-[10px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="10"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num10' | translate}}</p>
+            </div>
+        </div>
+        <div class="flex mt-2 mb-5 px-2 {{Language == 'ar'? 'flex-row-reverse': ''}}">
+            <div
+                class="{{NoRooms_sel=='11'? ActivatedClass : NonActivatedClass}} {{Language == 'ar'? 'ml-3': ''}} rounded-full flex items-center justify-center">
+                <p class="text-xs font-Inter font-semibold px-[10px] py-2" name="NoRooms_sel" data-value="11"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num11' | translate}}</p>
+            </div>
+            <div
+                class="{{NoRooms_sel=='12+'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs px-[8px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="12+"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Nums12' | translate}}</p>
+            </div>
+        </div>
+        <!-- no of rooms -->
+
+        <!-- no of baths -->
+        <div class="flex mt-4 px-2 {{Language == 'ar'? 'flex-row-reverse': ''}}">
+            <p class="text-[15px] text-[#191919] font-Inter font-bold pb-2">{{'PropertyFilterPage.NoBaths' | translate}}</p>
+        </div>
+        <div class="flex mb-5 px-2 {{Language == 'ar'? 'flex-row-reverse': ''}}">
+            <div
+                class="{{NoBath_sel=='1'? ActivatedClass : NonActivatedClass}} {{Language == 'ar'? 'ml-3': ''}} rounded-full flex items-center justify-center">
+                <p class="text-xs font-Inter font-semibold px-[13px] py-2 " data-value="1" name="NoBath_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num1' | translate}}</p>
+            </div>
+            <div
+                class="{{NoBath_sel=='2'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs font-Inter font-semibold px-[13px] py-2 " data-value="2" name="NoBath_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num2' | translate}}</p>
+            </div>
+            <div
+                class="{{NoBath_sel=='3'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs px-[13px] py-2 font-Inter font-semibold " data-value="3" name="NoBath_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num3' | translate}}</p>
+            </div>
+            <div
+                class="{{NoBath_sel=='4'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs px-[13px] py-2 font-Inter font-semibold " data-value="4" name="NoBath_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num4' | translate}}</p>
+            </div>
+            <div
+                class="{{NoBath_sel=='5+'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center ml-3">
+                <p class="text-xs px-[9px] py-2 font-Inter font-semibold " data-value="5+" name="NoBath_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num5' | translate}}</p>
+            </div>
+        </div>
+        <!-- no of baths -->
+
+        <!-- no of dining -->
+        <div class="mt-4 px-2 {{Language == 'ar'? 'text-right': ''}}">
+            <p class="text-[15px] text-[#191919] font-Inter font-bold pb-2">{{'PropertyFilterPage.NoDining' | translate}}
+            </p>
+        </div>
+        <div class="flex mb-5 px-2 {{Language == 'ar'? 'flex-row-reverse': ''}}">
+            <div
+                class="{{NoDining_sel=='1'? ActivatedClass : NonActivatedClass}} {{Language == 'ar'? 'ml-3': ''}} rounded-full flex items-center justify-center ">
+                <p class="text-xs font-Inter font-semibold px-[13px] py-2" data-value="1" name="NoDining_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num1' | translate}}</p>
+            </div>
+            <div
+                class="{{NoDining_sel=='2'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  ml-3">
+                <p class="text-xs font-Inter font-semibold px-[13px] py-2" data-value="2" name="NoDining_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num2' | translate}}</p>
+            </div>
+            <div
+                class="{{NoDining_sel=='3'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  ml-3">
+                <p class="text-xs px-[13px] py-2 font-Inter font-semibold" data-value="3" name="NoDining_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num3' | translate}}</p>
+            </div>
+        </div>
+        <!-- no of dining -->
+
+        <!-- no of laundary -->
+        <div class="mt-4 px-2 {{Language == 'ar'? 'text-right': ''}}">
+            <p class="text-[15px] text-[#191919] font-Inter font-bold pb-2">{{'PropertyFilterPage.NoLaundry' | translate}}
+            </p>
+        </div>
+        <div class="flex mb-5 px-2 {{Language == 'ar'? 'flex-row-reverse': ''}}">
+            <div
+                class="{{NoLaundry_sel=='1'? ActivatedClass : NonActivatedClass}} {{Language == 'ar'? 'ml-3': ''}} rounded-full flex items-center justify-center ">
+                <p class="text-xs font-Inter font-semibold px-[13px] py-2" data-value="1" name="NoLaundry_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num1' | translate}}</p>
+            </div>
+            <div
+                class="{{NoLaundry_sel=='2'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  ml-3">
+                <p class="text-xs font-Inter font-semibold px-[13px] py-2" data-value="2" name="NoLaundry_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num2' | translate}}</p>
+            </div>
+            <div
+                class="{{NoLaundry_sel=='3'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  ml-3">
+                <p class="text-xs px-[13px] py-2 font-Inter font-semibold" data-value="3" name="NoLaundry_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num3' | translate}}</p>
+            </div>
+        </div>
+        <!-- no of laundary -->
+
+        <!-- no of garage -->
+        <div class="mt-4 px-2 {{Language == 'ar'? 'text-right': ''}}">
+            <p class="text-[15px] text-[#191919] font-Inter font-bold pb-2">{{'PropertyFilterPage.NoGarages' | translate}}
+            </p>
+        </div>
+        <div class="flex px-2 mb-5 {{Language == 'ar'? 'flex-row-reverse': ''}}">
+            <div class="{{NoGarages_sel=='1'? ActivatedClass : NonActivatedClass}} {{Language == 'ar'? 'ml-3': ''}} rounded-full flex items-center justify-center ">
+                <p class="text-xs font-Inter font-semibold px-[13px] py-2" data-value="1" name="NoGarages_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num1' | translate}}</p>
+            </div>
+            <div class="{{NoGarages_sel=='2'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  ml-3">
+                <p class="text-xs font-Inter font-semibold px-[13px] py-2" data-value="2" name="NoGarages_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num2' | translate}}</p>
+            </div>
+            <div class="{{NoGarages_sel=='3'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  ml-3">
+                <p class="text-xs px-[13px] py-2 font-Inter font-semibold" data-value="3" name="NoGarages_sel"
+                    (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num3' | translate}}</p>
+            </div>
+        </div>
+        <!-- no of garage -->
+
+        <div class="mt-5">
+            <button
+                class="bg-gk-red font-semibold text-sm w-full rounded-lg text-white py-4" (click)="HideFilterWindow()">
+                {{'newFilterKey.ApplyFilter' | translate}}
+            </button>
+            <button
+                class="font-semibold text-sm w-full rounded-lg text-gk-red py-4 mt-3" (click)="clearFilter('mobile')">
+                {{'newFilterKey.RESET' | translate}}
+            </button>
+        </div>
+    </div>
+</section>
+<!-- mobile screen end -->
+
+
+<!-- desktop screen start -->
+<div class="{{!checkMapVariation ? 'w-[75%] py-3' : 'w-[95%] py-2'}} hidden xl:flex {{Language == 'ar'? 'flex-row-reverse': ''}} bg-white mx-auto mt-10 rounded-md border border-[#E5E5E5]">
+    <div class="w-[30%]" *ngIf="!checkMapVariation">
+        <div class="flex flex-col">
+            <div class="flex flex-col px-3 items-center relative">
+                <div class="w-full relative">
+                    <input type="search" name="Location" #LocationField id="search" placeholder="{{ 'PlaceYourAddPage.InputLocation' | translate}}"
+                    class="inputsearch w-full border-2 rounded-md border-gray-300 py-[0.3rem] pr-2 text-[13px]" autocomplete="off" [(ngModel)]="nameDisplaySearch" (keyup)="LocationSearchFilter($event)" (click)="toggle($event)" (blur)="hideList($event)">
+                    <fa-icon [icon]="faSearch" class="text-[13px] absolute right-2 top-[25%]"></fa-icon>
+                </div>
+                <div class="absolute top-12 left-0 zClass rounded-md w-[100%] lg:w-[360px]" *ngIf="dropdownOpen">
+                    <div class="gk-height-search bg-white shades rounded-md flex flex-col" *ngIf="showSuggestion">
+                        <p class="text-[#191919] text-xs font-semibold pl-4 pt-3">
+                            {{'newFilterKey.Results' | translate}}
+                        </p>
+                        <div class="pl-4 my-2 flex {{!last? 'border-b': ''}}" *ngFor="let addressSuggestion of addressSuggestion; let last = last">
+                            <div>
+                                <fa-icon [icon]="faSearch" class="text-[13px] text-[#191919]"></fa-icon>
+                            </div>
+                            <div class="pl-2 text-start cursor-pointer pb-1" (mousedown)="GetLatLong(addressSuggestion.place_id,addressSuggestion.terms[0],'desktop')">
+                                <p class="text-[#191919] font-bold text-[13px]">
+                                    {{addressSuggestion.structured_formatting.main_text}}
+                                </p>
+                                <p class="text-[11px] text-[#989898] font-Inter">
+                                    {{addressSuggestion.description}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex px-3 justify-between items-center pt-4">
+                <div class="w-[35%]">
+                    <p class="text-xs text-[#989898] font-medium">{{'newFilterKey.Selectedlocations' |
+                        translate}}</p>
+                </div>
+                <div class="w-[75%] flex justify-end">
+                    <div *ngFor="let data of slectedAddress; let i = index" class="max-w-[65%]">
+                        <div class="bg-[#0989B826] border border-[#0989B8] rounded-full flex justify-between items-center px-[6px]">
+                            <div>
+                                <p class="text-[10px] text-[#0989B8] font-medium py-1 pr-2 line-clamp-1">{{data.address}}</p>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09" (click)="DeleteAddress(i,data.placeID)">
+                                    <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="moreAddress.length > 0" class="w-[35%] relative ml-1 bg-[#0989B826] border border-[#0989B8] rounded-full flex justify-between items-center px-[6px]">
+                        <p class="text-[10px] text-[#0989B8] font-medium py-1 pr-2 cursor-pointer" (click)="showMoreDD = true">
+                            +{{moreAddress.length}} More
+                        </p>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09" (click)="deleteMoreAllData()">
+                            <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                        </svg>
+                        <div class="absolute translate-x-[-75%] top-[40px] bottom-0 zClass2">
+                            <div class="bg-white shades w-[350px] p-3 rounded-md" *ngIf="showMoreDD">
+                                <div class="flex justify-end pb-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09" (click)="showMoreDD = false">
+                                        <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                                    </svg>
+                                </div>
+                                <div class="flex flex-wrap gaps">
+                                    <div *ngFor="let Moredata of moreAddress; let i = index" class="pt-2">
+                                        <div class="bg-[#0989B826] border border-[#0989B8] rounded-full flex justify-between items-center px-[6px]">
+                                            <div>
+                                                <p class="text-[10px] text-[#0989B8] font-medium py-1 pr-2">{{Moredata.address}}</p>
+                                            </div>
+                                            <div>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 cursor-pointer" viewBox="0 0 12.18 12.09" (click)="DeleteMoreAddress(i,Moredata.placeID)">
+                                                    <path id="Path_1799" data-name="Path 1799" d="M2.085-6,5.212-9.127a.983.983,0,0,0,0-1.39l-.7-.7a.983.983,0,0,0-1.39,0L0-8.085l-3.127-3.127a.983.983,0,0,0-1.39,0l-.7.7a.983.983,0,0,0,0,1.39L-2.085-6-5.212-2.873a.983.983,0,0,0,0,1.39l.7.7a.983.983,0,0,0,1.39,0L0-3.915,3.127-.788a.983.983,0,0,0,1.39,0l.7-.7a.983.983,0,0,0,0-1.39Z" transform="translate(6.09 12.09)" fill="#0989b8" stroke="rgba(0,0,0,0)" stroke-width="1"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="{{!checkMapVariation ? 'w-[50%] flex-col' : 'w-[75%] ml-3 my-2'}} flex {{Language == 'ar'? 'flex-row-reverse': ''}} ">
+        <div class="flex {{!checkMapVariation ? 'justify-between' : ''}} w-full">
+            <div class="w-[32%] {{(categoryCheckboxId.length == 1 && categoryCheckboxId[0] == '') || (categoryCheckboxId.length == 0) ? '':'bg-[#0989B8]/20'}} {{!checkMapVariation ? '' : 'mr-1'}} relative group flex border-2 border-gray-300 px-3 py-[6px] items-center rounded-md cursor-pointer">
+                <div class="flex items-center justify-between w-full {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                    <p class="text-[#191919] text-xs font-semibold">{{'newFilterKey.Categories' |
+                        translate}}</p>
+                    <fa-icon [icon]="faCaretDown" class=""></fa-icon>
+                </div>
+                <div class="absolute translate-x-[-20%] top-[40px] bottom-0 zClass">
+                    <div class="bg-white shades w-[250px] p-3 rounded-md hidden group-hover:block xl:h-auto xl:overflow-y-scroll" id="gk-featuredId">
+                        <div class="flex">
+                            <div class="{{activeTabName == 'resident' ? 'border-b-2 border-gk-red' : 'border-b-2 border-gray-300'}} w-[50%] text-center" (click)="tabActive('resident')">
+                                <p class="text-[#191919] font-bold text-xs pb-2">{{'newFilterKey.Residential' | translate}}</p>
+                            </div>
+                            <div class="{{activeTabName == 'commercial' ? 'border-b-2 border-gk-red' : 'border-b-2 border-gray-300'}} w-[50%] text-center" (click)="tabActive('commercial')">
+                                <p class="text-[#191919] font-bold text-xs pb-2">{{'newFilterKey.Commercial' | translate}}</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap">
+                            <div *ngFor="let categoryData of tabData" class="{{categoryData.isCheck? ActivatedClass : NonActivatedClass}} px-4 py-[10px] flex justify-center items-center rounded-[20px] mt-2 w-auto {{Language == 'ar'? 'mr-2': 'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                <!-- attr.data-value={{categoryData.id}}  -->
+                                <p name="FuelType" class="text-[10px] font-Inter font-semibold" 
+                                (click)="categoryData.isCheck? unSelectCategoryID(categoryData.id,categoryData.isCheck) : SelectCategoryID(categoryData.id,categoryData.isCheck)">
+                                    {{categoryData.name}}
+                                </p>
+                            </div>
+                        </div>
+                        <p class="text-[#0989B8] text-[13px] font-Inter text-center pt-3 cursor-pointer" 
+                        (click)="resetFilter('category')">
+                            {{'newFilterKey.RESET' | translate}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="w-[32%] {{NoBath_sel != '' || NoRooms_sel != '' || NoDining_sel != '' || NoLaundry_sel != '' || NoGarages_sel != '' ? 'bg-[#0989B8]/20' : ''}} relative group flex border-2 border-gray-300 px-3 py-[6px] items-center rounded-md cursor-pointer {{!checkMapVariation ? '' : 'ml-1 mr-1'}}">
+                <div class="flex items-center justify-between w-full {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                    <p class="text-[#191919] text-xs font-semibold">{{'PlaceYourAddPage.Rooms' |
+                        translate}}</p>
+                    <fa-icon [icon]="faCaretDown" class=""></fa-icon>
+                </div>
+                <div class="absolute translate-x-[-20%] top-[40px] bottom-0 zClass">
+                    <div class="bg-white shades w-[240px] h-auto p-3 rounded-md hidden group-hover:block xl:h-auto xl:overflow-y-scroll" id="gk-featuredId">
+                        <div>
+                            <p class="{{Language == 'ar'? 'text-right': ''}} text-xs text-[#191919] font-Inter font-semibold pb-2">
+                                {{'PropertyFilterPage.NoRooms' | translate}}
+                            </p>
+                            <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                                <div class="{{NoRooms_sel=='1'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[13px] py-2" name="NoRooms_sel" data-value="1"
+                                    (click)="ExtraFilters($event)">
+                                        {{'PropertyFilterPage.Num1' | translate}}
+                                    </p>
+                                </div>
+                                <div class="{{NoRooms_sel=='2'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language == 'ar'? 'mr-2': 'ml-2'}}  hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[13px] py-2" name="NoRooms_sel" data-value="2"
+                                    (click)="ExtraFilters($event)">
+                                        {{'PropertyFilterPage.Num2' | translate}}
+                                    </p>
+                                </div>
+                                <div class="{{NoRooms_sel=='3'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language == 'ar'? 'mr-2': 'ml-2'}}  hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[13px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="3"
+                                        (click)="ExtraFilters($event)">
+                                        {{'PropertyFilterPage.Num3' | translate}}
+                                    </p>
+                                </div>
+                                <div class="{{NoRooms_sel=='4'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language == 'ar'? 'mr-2': 'ml-2'}}  hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[13px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="4"
+                                        (click)="ExtraFilters($event)">
+                                        {{'PropertyFilterPage.Num4' | translate}}
+                                    </p>
+                                </div>
+                                <div class="{{NoRooms_sel=='5'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language == 'ar'? 'mr-2': 'ml-2'}}  hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[13px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="5"
+                                    (click)="ExtraFilters($event)">
+                                        {{'PropertyFilterPage.Num55' | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex mt-2 {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                                <div class="{{NoRooms_sel=='6'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[13px] py-2" name="NoRooms_sel" data-value="6"
+                                    (click)="ExtraFilters($event)">
+                                        {{'PropertyFilterPage.Num6' | translate}}
+                                    </p>
+                                </div>
+                                <div class="{{NoRooms_sel=='7'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language =='ar'?'mr-2':'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[13px] py-2" name="NoRooms_sel" data-value="7"
+                                        (click)="ExtraFilters($event)">
+                                        {{'PropertyFilterPage.Num7' | translate}}
+                                    </p>
+                                </div>
+                                <div class="{{NoRooms_sel=='8'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language =='ar'?'mr-2':'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[13px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="8"
+                                    (click)="ExtraFilters($event)">
+                                        {{'PropertyFilterPage.Num8' | translate}}
+                                    </p>
+                                </div>
+                                <div class="{{NoRooms_sel=='9'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language =='ar'?'mr-2':'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[13px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="9"
+                                    (click)="ExtraFilters($event)">
+                                        {{'PropertyFilterPage.Num9' | translate}}
+                                    </p>
+                                </div>
+                                <div class="{{NoRooms_sel=='10'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language =='ar'?'mr-2':'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[10px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="10" (click)="ExtraFilters($event)">
+                                        {{'PropertyFilterPage.Num10' | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex mt-2 {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                                <div
+                                    class="{{NoRooms_sel=='11'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[10px] py-2" name="NoRooms_sel" data-value="11"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num11' | translate}}</p>
+                                </div>
+                                <div
+                                    class="{{NoRooms_sel=='12+'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language =='ar'?'mr-2':'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[8px] py-2 font-Inter font-semibold" name="NoRooms_sel" data-value="12+"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Nums12' | translate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <p class="text-xs {{Language == 'ar'? 'text-right': ''}} text-[#191919] font-Inter font-semibold pb-2">
+                                {{'PropertyFilterPage.NoBaths' | translate}}
+                            </p>
+                            <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                                <div
+                                    class="{{NoBath_sel=='1'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[13px] py-2 " data-value="1" name="NoBath_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num1' | translate}}</p>
+                                </div>
+                                <div
+                                    class="{{NoBath_sel=='2'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language == 'ar'? 'mr-2': 'ml-2'}}  hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[13px] py-2 " data-value="2" name="NoBath_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num2' | translate}}</p>
+                                </div>
+                                <div
+                                    class="{{NoBath_sel=='3'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language == 'ar'? 'mr-2': 'ml-2'}}  hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[13px] py-2 font-Inter font-semibold " data-value="3" name="NoBath_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num3' | translate}}</p>
+                                </div>
+                                <div
+                                    class="{{NoBath_sel=='4'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language == 'ar'? 'mr-2': 'ml-2'}}  hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[13px] py-2 font-Inter font-semibold " data-value="4" name="NoBath_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num4' | translate}}</p>
+                                </div>
+                                <div
+                                    class="{{NoBath_sel=='5+'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language == 'ar'? 'mr-2': 'ml-2'}}  hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[9px] py-2 font-Inter font-semibold " data-value="5+" name="NoBath_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num5' | translate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <p class="{{Language == 'ar'? 'text-right': ''}} text-xs text-[#191919] font-Inter font-semibold pb-2">
+                                {{'PropertyFilterPage.NoDining' | translate}}
+                            </p>
+                            <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                                <div
+                                    class="{{NoDining_sel=='1'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[13px] py-2" data-value="1" name="NoDining_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num1' | translate}}</p>
+                                </div>
+                                <div
+                                    class="{{NoDining_sel=='2'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language == 'ar'? 'mr-2': 'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[13px] py-2" data-value="2" name="NoDining_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num2' | translate}}</p>
+                                </div>
+                                <div
+                                    class="{{NoDining_sel=='3'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center {{Language == 'ar'? 'mr-2': 'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[13px] py-2 font-Inter font-semibold" data-value="3" name="NoDining_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num3' | translate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <p class="{{Language == 'ar'? 'text-right': ''}} text-xs t-Inter font-semibold pb-2">
+                                {{'PropertyFilterPage.NoLaundry' | translate}}
+                            </p>
+                            <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                                <div
+                                    class="{{NoLaundry_sel=='1'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[13px] py-2" data-value="1" name="NoLaundry_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num1' | translate}}</p>
+                                </div>
+                                <div
+                                    class="{{NoLaundry_sel=='2'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  {{Language == 'ar'? 'mr-2': 'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[13px] py-2" data-value="2" name="NoLaundry_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num2' | translate}}</p>
+                                </div>
+                                <div
+                                    class="{{NoLaundry_sel=='3'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  {{Language == 'ar'? 'mr-2': 'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[13px] py-2 font-Inter font-semibold" data-value="3" name="NoLaundry_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num3' | translate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <p class="{{Language == 'ar'? 'text-right': ''}} text-xs t-Inter font-semibold pb-2">{{'PropertyFilterPage.NoGarages' |
+                                translate}}</p>
+                            <div class="flex {{Language == 'ar'? 'flex-row-reverse': ''}}">
+                                <div
+                                    class="{{NoGarages_sel=='1'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[13px] py-2" data-value="1" name="NoGarages_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num1' | translate}}</p>
+                                </div>
+                                <div
+                                    class="{{NoGarages_sel=='2'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  {{Language == 'ar'? 'mr-2': 'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs font-Inter font-semibold px-[13px] py-2" data-value="2" name="NoGarages_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num2' | translate}}</p>
+                                </div>
+                                <div
+                                    class="{{NoGarages_sel=='3'? ActivatedClass : NonActivatedClass}} rounded-full flex items-center justify-center  {{Language == 'ar'? 'mr-2': 'ml-2'}} hover:bg-[#0989B8]  hover:text-white cursor-pointer">
+                                    <p class="text-xs px-[13px] py-2 font-Inter font-semibold" data-value="3" name="NoGarages_sel"
+                                        (click)="ExtraFilters($event)">{{'PropertyFilterPage.Num3' | translate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-[#0989B8] text-[13px] font-Inter text-center pt-3 cursor-pointer" 
+                        (click)="resetFilter('rooms')">
+                            {{'newFilterKey.RESET' | translate}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="w-[32%] {{SizeMin != '' || SizeMax != '' || year_sel != '' ? 'bg-[#0989B8]/20' : ''}} relative group flex border-2 border-gray-300 px-3 py-[6px] items-center rounded-md cursor-pointer {{!checkMapVariation ? '' : 'mr-1 ml-1'}}">
+                <div class="flex items-center justify-between w-full {{Language == 'ar'? 'flex-row-reverse': ''}}">    
+                    <p class="text-[#191919] text-xs font-semibold">{{'PropertyDetailPage.Area' |
+                        translate}}</p>
+                    <fa-icon [icon]="faCaretDown" class=""></fa-icon>
+                </div>
+                <div class="absolute translate-x-[-30%] top-[40px] bottom-0 zClass">  
+                    <div class="bg-white shades w-[260px] p-3 rounded-md hidden group-hover:block"> 
+                        <h1 class="{{Language == 'ar'?'text-right':''}} font-bold text-xs px-2 pb-2">
+                            {{'PropertyDetailPage.Area' | translate}}
+                        </h1>
+                        <div class="{{Language == 'ar'? 'text-right': ''}} px-2">
+                            <label for=""
+                                class="font-semibold font-Inter text-xs">{{'PropertyFilterPage.SizeRange'
+                                | translate}}</label>
+                            <div class="flex {{Language == 'ar'?'flex-row-reverse':''}}" >
+                                <div class="xl:w-[50%] {{Language == 'ar'?'pl-1':'pr-1'}}">
+                                    <input type="number" min="1" ngModel name="min" id="SizeMin" required #sizeMin
+                                        placeholder="{{'PropertyFilterPage.Min' | translate}}"
+                                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b w-full border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                                        (keypress)='restrictAlphabets($event)' (change)="ExtraFilters($event)">
+                                </div>
+                                <div class="xl:w-[50%] {{Language == 'ar'?'pr-1':'pl-1'}}">
+                                    <input type="number" min="1" ngModel name="max" id="SizeMax" required #sizeMax
+                                        placeholder="{{'PropertyFilterPage.Max' | translate}}"
+                                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b w-full border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                                        (keypress)='restrictAlphabets($event)' (change)="ExtraFilters($event)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="{{Language == 'ar'? 'text-right':''}} px-2">
+                            <label for=""
+                                class="font-Inter text-xs font-semibold ">{{'PropertyFilterPage.BuildYear'
+                                | translate}}</label>
+                            <select id="year" name="year" (change)="ExtraFilters($event)" 
+                                class="{{Language == 'ar'? 'text-right pr-3': ''}} font-Inter text-xs w-full border-0 border-b border-[#191919]/20 text-[#989898] bg-dropdown-arrow bg-no-repeat bg-right bg-[length:8px_8px] appearance-none px-0"
+                                ngModel required #buildYear>
+                                <option value="" hidden>{{'PropertyFilterPage.Year' | translate}}</option>
+                                <option *ngFor="let Years of Years" value="{{Years.value}}">
+                                    {{Years.value}}</option>
+                            </select>
+                        </div>
+                        <p class="text-[#0989B8] text-[13px] font-Inter text-center pt-3 cursor-pointer" 
+                        (click)="resetFilter('area')">
+                            {{'newFilterKey.RESET' | translate}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex {{!checkMapVariation ? 'justify-between mt-2' : ''}} w-full">
+            <div class="w-[32%] {{!checkMapVariation ? '' : 'ml-1 mr-1'}} {{PriceMin != '' || PriceMax != '' ? 'bg-[#0989B8]/20' : ''}} relative group flex border-2 border-gray-300 px-3 py-[6px] items-center rounded-md cursor-pointer">
+                <div class="flex items-center justify-between w-full {{Language == 'ar'? 'flex-row-reverse': ''}}">  
+                    <p class="text-[#191919] text-xs font-semibold">{{'PlaceYourAddPage.Price' |
+                        translate}}</p>
+                    <fa-icon [icon]="faCaretDown"></fa-icon>
+                </div>
+                <div class="absolute translate-x-[-20%] top-[40px] bottom-0 zClass">    
+                    <div class="bg-white shades w-[250px] p-3 rounded-md hidden group-hover:block">
+                        <h1 class="{{Language == 'ar'?'text-right':''}} font-bold text-xs px-2 pb-2">
+                            {{'PlaceYourAddPage.Price' | translate}}
+                        </h1>
+                        <div class="px-2 {{Language == 'ar'? 'text-right': ''}}">
+                            <label for=""
+                                class="font-semibold font-Inter text-xs">{{'PropertyFilterPage.PriceRange'
+                                | translate}}</label>
+                            <div class="flex {{Language == 'ar'?'flex-row-reverse':''}}">
+                                <div class="xl:w-[50%] {{Language == 'ar'?'pl-1':'pr-1'}}">
+                                    <input type="number" min="1" ngModel name="min" id="PriceMin" required #priceMin
+                                        placeholder="{{'PropertyFilterPage.Min' | translate}}"
+                                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b w-full border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                                        (keypress)='restrictAlphabets($event)' (change)="ExtraFilters($event)">
+                                </div>
+                                <div class="xl:w-[50%] {{Language == 'ar'?'pr-1':'pl-1'}}">
+                                    <input type="number" min="1" ngModel name="max" id="PriceMax" required #priceMax
+                                        placeholder="{{'PropertyFilterPage.Max' | translate}}"
+                                        class="{{Language == 'ar'? 'text-right': ''}} border-0 border-b w-full border-[#191919]/20 text-[#989898] placeholder:text-[#989898] text-xs px-0"
+                                        (keypress)='restrictAlphabets($event)' (change)="ExtraFilters($event)">
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-[#0989B8] text-[13px] font-Inter text-center pt-3 cursor-pointer" 
+                        (click)="resetFilter('price')">
+                            {{'newFilterKey.RESET' | translate}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="w-[32%] {{!checkMapVariation ? '' : 'mr-1 ml-1'}} {{featureId.length > 0 ? 'bg-[#0989B8]/20':''}} relative group flex border-2 border-gray-300 px-3 py-[6px] items-center rounded-md cursor-pointer">
+                <div class="flex items-center justify-between w-full {{Language == 'ar'? 'flex-row-reverse': ''}}"> 
+                    <p class="text-[#191919] text-xs font-semibold">{{'PropertyDetailPage.Features' |
+                        translate}}</p>
+                    <fa-icon [icon]="faCaretDown" class="{{Language == 'ar'? 'pr-4': 'pl-4'}}"></fa-icon>
+                </div>
+                
+                <div class="absolute translate-x-[-20%] top-[40px] bottom-0 zClass">
+                    <div class="bg-white shades w-[250px] p-3 rounded-md hidden group-hover:block">
+                        <div class="flex flex-col pl-1 py-2">
+                            <label for="search" class="labelSearch font-Inter {{Language == 'ar'? 'text-right pr-0': 'pl-0'}} text-[10px] uppercase font-semibold text-[#191919]">
+                                {{'PropertyPage.Search.Search' | translate}}
+                            </label>
+                            <div class="w-full relative">
+                                <fa-icon *ngIf="Language == 'ar'" [icon]="faSearch" class="text-sm absolute {{Language == 'ar'? '': 'right-0'}}  top-[20%]"></fa-icon>
+                                <input type="text" id="search" #featureSearch placeholder="{{'newFilterKey.Typehere' |translate}}"
+                                class="inputsearch w-full pl-0 border-0 border-b border-[#191919]/20 pt-1 text-xs {{Language == 'ar'? 'text-right': ''}}" (keyup)="searchFeature($event)">
+                                <fa-icon *ngIf="Language !== 'ar'" [icon]="faSearch" class="text-sm absolute right-0 top-[20%]"></fa-icon>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap xl:max-h-40 xl:overflow-y-scroll" id="gk-featuredId">
+                            <div *ngFor="let FeatureData of FeaturesData" class="{{FeatureData.isCheck? ActivatedClass : NonActivatedClass}} px-4 py-[10px] flex justify-center items-center rounded-[20px] mt-2 w-auto {{Language == 'ar'? 'mr-2': 'ml-2'}} hover:bg-[#0989B8] hover:text-white cursor-pointer">
+                                <span name="FuelType" class="text-[10px]  font-Inter font-semibold" (click)="FeatureData.isCheck? unSelectFeatureId(FeatureData.id) : selecteFeatureId(FeatureData.id)">
+                                    {{FeatureData.name}}
+                                </span>
+                            </div>
+                        </div>
+                        <p class="text-[#0989B8] text-[13px] font-Inter text-center pt-3 cursor-pointer" 
+                        (click)="resetFilter('feature')">
+                            {{'newFilterKey.RESET' | translate}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="w-[32%] {{!checkMapVariation ? '' : 'ml-1 mr-1'}} {{Furnished != '' || IsVerified != '' || InputSearchValue != '' || checkPropertyType == true? 'bg-[#0989B8]/20':''}} relative group flex border-2 border-gray-300 px-3 py-[6px] items-center rounded-md cursor-pointer">
+                <div class="flex items-center justify-between w-full {{Language == 'ar'? 'flex-row-reverse': ''}}"> 
+                    <p class="text-[#191919] text-xs font-semibold">{{'newFilterKey.MoreFilters' |
+                        translate}}</p>
+                    <fa-icon [icon]="faCaretDown"></fa-icon>
+                </div>
+                <div class="absolute translate-x-[-30%] top-[40px] bottom-0 zClass">
+                    
+                    <div class="bg-white shades w-[250px] p-3 rounded-md hidden group-hover:block">
+                        <div class="flex flex-col pt-3">
+                            <label for="search" class="labelSearch font-Inter {{Language == 'ar'? 'text-right pr-3': 'pl-3'}} text-[10px] uppercase font-semibold text-[#191919]">
+                                {{"newFilterKey.Keywords" | translate}}
+                            </label>
+                            <div class="mt-[-2px]">
+                                <input type="text" id="search" placeholder="{{'newFilterKey.relevantKeywords' |translate}}"
+                                class="inputsearch w-full border-0 border-b border-[#191919]/20 pt-1 text-xs {{Language == 'ar'? 'text-right': ''}}"
+                                #searchDesktop (blur)="search($event)">
+                            </div>
+                        </div>
+                        <h1 class="{{Language == 'ar'?'text-right':''}} font-bold text-xs px-2 py-2">
+                            {{'newFilterKey.Type' | translate}}
+                        </h1>
+                        <div class="font-Inter text-[10px] {{Language == 'ar'? '': 'xl:pr-4'}} px-2">
+                            <div class="{{Language == 'ar'?'flex-row-reverse':''}} text-[#989898] flex font-semibold justify-between pt-1 pb-3">
+                                <div class="flex">
+                                    <input type="radio" class="mr-2" name="radioRent" #radioRent
+                                        [checked]="(PropertyTypeParam=='?Type=Rent' || PropertyTypeParam=='false')?true:false"
+                                        (change)="PropType($event)" value="false">
+                                    <p>{{'PropertyFilterPage.Rent' | translate}}</p>
+                                </div>
+                                <div class="flex">
+                                    <input type="radio" class="mr-2" name="radioRent"
+                                        [checked]="(PropertyTypeParam=='?Type=Sale' || PropertyTypeParam=='true')?true:false"
+                                        #radioRent (change)="PropType($event)" value="true">
+                                    <p>{{'PropertyFilterPage.Sale' | translate}}</p>
+                                </div>
+                                <div class="flex">
+                                    
+                                    <input type="radio" class="mr-2" name="radioRent"
+                                        [checked]="(PropertyTypeParam=='' || PropertyTypeParam==undefined)?true:false"
+                                        #radioRent (change)="PropType($event)" value="">
+                                    <p>{{'PropertyFilterPage.All' | translate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="px-2 pt-4 flex {{Language == 'ar'? 'flex-row-reverse': ''}} justify-between">
+                            <p class="text-xs text-[#191919] font-Inter font-semibold">{{'PropertyFilterPage.Furnished' |
+                                translate}}</p>
+                            <label for="toogleA" class="flex items-center cursor-pointer pr-3">
+                                <div class="relative">                      
+                                    <input id="toogleA" type="checkbox" class="sr-only" (change)="ExtraFilters($event)" #furnish/>                            
+                                    <div class="w-7 h-4 bg-[#E5E5E5] rounded-full shadow-inner"></div>                           
+                                    <div
+                                        class="dot2 absolute w-5 h-5 bg-[#989898] rounded-full shadow -left-1 -top-[2px] transition">
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="px-2 py-4 flex {{Language == 'ar'? 'flex-row-reverse': ''}} justify-between">
+                            <p class="text-xs text-[#191919] font-Inter font-semibold">{{'newFilterKey.Verified' |
+                                translate}}</p>
+                            <label for="toogleB" class="flex items-center cursor-pointer pr-3">
+                                <div class="relative">
+                                    <input id="toogleB" type="checkbox" class="sr-only" (change)="ExtraFilters($event)" #verify/>                            
+                                    <div class="w-7 h-4 bg-[#E5E5E5] rounded-full shadow-inner"></div>                           
+                                    <div
+                                        class="dot3 absolute w-5 h-5 bg-[#989898] rounded-full shadow -left-1 -top-[2px] transition">
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <p class="text-[#0989B8] text-[13px] font-Inter text-center pt-3 cursor-pointer" 
+                        (click)="resetFilter('advance')">
+                            {{'newFilterKey.RESET' | translate}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="{{!checkMapVariation ? 'w-[20%] px-3' : 'w-[25%] flex my-1'}} {{Language == 'ar' && checkMapVariation? 'flex-row-reverse': ''}}">
+        <div class="{{selectedVendorId != '' ? 'bg-[#0989B8]/20' : ''}} {{!checkMapVariation ? '' : 'my-1 mr-1 ml-1'}} relative group flex border-2 border-gray-300 px-3 py-[6px] items-center rounded-md cursor-pointer w-full">
+            <div class="flex items-center justify-between w-full {{Language == 'ar'? 'flex-row-reverse': ''}}"> 
+                <p class="text-[#191919] text-xs font-semibold">{{'newFilterKey.AgentAgency' |
+                    translate}}</p>
+                <fa-icon [icon]="faCaretDown"></fa-icon>
+            </div>
+            <div class="absolute translate-x-[-13%] top-[40px] bottom-0 zClass"> 
+                    
+                <div class="bg-white shades w-[250px] p-3 rounded-md hidden group-hover:block">
+                    <div class="flex flex-col pl-1 py-2">
+                        <label for="search" class="labelSearch font-Inter {{Language == 'ar'? 'text-right pr-0': 'pl-0'}} text-[10px] uppercase font-semibold text-[#191919]">
+                            {{'PropertyPage.Search.Search' | translate}}
+                        </label>
+                        <div class="w-full relative">
+                            <input type="search" id="search" #agentsearch placeholder="{{'newFilterKey.Typehere' |translate}}"
+                            class="inputsearch w-full pl-0 border-0 border-b border-[#191919]/20 pt-1 text-xs" (keyup)="searchAgents($event)">
+                            <fa-icon *ngIf="Language !== 'ar'" [icon]="faSearch" class="text-sm absolute right-0 top-[20%]"></fa-icon>
+                        </div>
+                    </div>
+                    <div class="xl:max-h-52 xl:overflow-y-scroll" id="gk-featuredId">
+                        <div class="border {{selectedVendorId == data.id ? 'bg-[#0989B826] text-[#0989B8] border-[#0989B8]': 'border-[#19191933] text-[#191919]/40 bg-white'}} rounded-full mt-1 mr-2 hover:bg-[#0989B826] hover:text-[#0989B8]  hover:border-[#0989B8]" *ngFor="let data of vendorData">
+                            <div class="flex items-center" (click)="selectVendor(data)">
+                                <div>
+                                    <img src="{{data.logo}}" alt="person-01.png"
+                                    onerror="this.onerror=null; this.src='../../../assets/images/broken-img.jpg'"
+                                    class="w-8 h-8 rounded-full p-[2px] object-cover shadow-md">
+                                </div>
+                                <div class="pl-3 pr-2">
+                                    <p class=" text-[13px] font-Inter font-medium line-clamp-1">{{data.name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[#0989B8] text-xs font-Inter text-center pt-3 cursor-pointer" 
+                        (click)="resetFilter('agency')">
+                            {{'newFilterKey.RESET' | translate}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="flex bg-gk-red {{!checkMapVariation ? 'mt-2' : 'my-1 ml-1'}} px-3 py-3 items-center rounded-md cursor-pointer w-full" (click)="clearFilter('')">
+            <div class="flex items-center justify-center w-full"> 
+                <p class="text-white text-xs font-Inter font-medium">
+                    {{'newFilterKey.RESET' | translate}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- desktop screen end -->
+
